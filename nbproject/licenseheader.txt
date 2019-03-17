@@ -1,0 +1,11 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}IPC - Entrega 1
+${licensePrefix}Ingeniería Informática, UPV 2019
+${licensePrefix}Por:
+${licensePrefix} Daniel Galán Pascual
+${licensePrefix} Alberto Baixauli Herráez
+<#if licenseLast??>
+${licenseLast}
+</#if>
