@@ -6,9 +6,12 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioMenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -16,43 +19,65 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestorcitas.controllers.MainWindowViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="550.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestorcitas.controllers.MainWindowController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="Inicio">
+          <Menu text="Clínica">
             <items>
-              <MenuItem mnemonicParsing="false" text="Cerrar" />
+              <MenuItem onAction="#onChangeName" text="Cambiar nombre..." />
+                  <Menu text="Idioma">
+                     <items>
+                        <RadioMenuItem selected="true" text="Español">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="language" />
+                           </toggleGroup>
+                        </RadioMenuItem>
+                     </items>
+                  </Menu>
+                  <MenuItem onAction="#onQuit" text="Salir">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="Q" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                     </accelerator>
+                  </MenuItem>
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Añadir">
+          <Menu text="Añadir">
             <items>
-              <MenuItem mnemonicParsing="false" text="Cita" />
-                  <MenuItem mnemonicParsing="false" text="Paciente" />
-                  <MenuItem mnemonicParsing="false" text="Doctor" />
+              <MenuItem onAction="#onAddAppointment" text="Cita...">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="A" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                     </accelerator></MenuItem>
+                  <MenuItem onAction="#onAddPatient" text="Paciente...">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="P" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                     </accelerator></MenuItem>
+                  <MenuItem onAction="#onAddDoctor" text="Doctor...">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="D" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                     </accelerator></MenuItem>
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Ayuda">
+          <Menu text="Ayuda">
             <items>
-              <MenuItem mnemonicParsing="false" text="Sobre" />
-                  <MenuItem mnemonicParsing="false" text="Idioma" />
+              <MenuItem onAction="#onAbout" text="Sobre este programa" />
             </items>
           </Menu>
         </menus>
       </MenuBar>
    </top>
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab text="Citas">
+          <Tab closable="false" text="Citas">
                <content>
-                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                  <BorderPane>
                      <top>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="48.0" spacing="5.0" BorderPane.alignment="CENTER">
                            <children>
-                              <TextField text="Buscar ...">
+                              <TextField prefHeight="25.0" prefWidth="190.0" text="Buscar ...">
                                  <HBox.margin>
-                                    <Insets right="25.0" />
+                                    <Insets />
                                  </HBox.margin>
                               </TextField>
                               <Button mnemonicParsing="false" text="Buscar">
@@ -64,32 +89,35 @@
                         </HBox>
                      </top>
                      <center>
-                        <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                        <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
                            <center>
-                              <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                              <ListView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
                                  <BorderPane.margin>
                                     <Insets bottom="15.0" left="15.0" />
                                  </BorderPane.margin>
                               </ListView>
                            </center>
                            <right>
-                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" text="Añadir">
+                                    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAddAppointment" prefHeight="30.0" prefWidth="75.0" text="Añadir...">
                                        <VBox.margin>
-                                          <Insets bottom="20.0" />
+                                          <Insets />
                                        </VBox.margin>
                                     </Button>
-                                    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" text="Borrar">
+                                    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRemoveAppointment" prefHeight="30.0" prefWidth="75.0" text="Eliminar">
                                        <VBox.margin>
                                           <Insets bottom="20.0" />
                                        </VBox.margin>
                                     </Button>
                                  </children>
+                                 <BorderPane.margin>
+                                    <Insets top="15.0" />
+                                 </BorderPane.margin>
                               </VBox>
                            </right>
                            <top>
-                              <GridPane prefHeight="90.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+                              <GridPane prefHeight="90.0" BorderPane.alignment="CENTER">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -108,13 +136,13 @@
             </Tab>
             <Tab text="Pacientes">
                <content>
-                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                  <BorderPane>
                      <top>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="48.0" spacing="5.0" BorderPane.alignment="CENTER">
                            <children>
-                              <TextField text="Buscar ...">
+                              <TextField prefHeight="25.0" prefWidth="190.0" text="Buscar ...">
                                  <HBox.margin>
-                                    <Insets right="25.0" />
+                                    <Insets />
                                  </HBox.margin>
                               </TextField>
                               <Button mnemonicParsing="false" text="Buscar">
@@ -126,28 +154,31 @@
                         </HBox>
                      </top>
                      <right>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                            <children>
-                              <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" text="Mostrar">
+                              <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onShowPatient" prefHeight="30.0" prefWidth="75.0" text="Mostrar">
                                  <VBox.margin>
-                                    <Insets bottom="20.0" top="20.0" />
+                                    <Insets />
                                  </VBox.margin>
                               </Button>
-                              <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" text="Añadir">
+                              <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAddPatient" prefHeight="30.0" prefWidth="75.0" text="Añadir...">
                                  <VBox.margin>
-                                    <Insets bottom="20.0" />
+                                    <Insets />
                                  </VBox.margin>
                               </Button>
-                              <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" text="Borrar">
+                              <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRemovePatient" prefHeight="30.0" prefWidth="75.0" text="Eliminar">
                                  <VBox.margin>
-                                    <Insets bottom="20.0" />
+                                    <Insets />
                                  </VBox.margin>
                               </Button>
                            </children>
+                           <BorderPane.margin>
+                              <Insets top="15.0" />
+                           </BorderPane.margin>
                         </VBox>
                      </right>
                      <center>
-                        <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                        <ListView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
                            <BorderPane.margin>
                               <Insets bottom="15.0" left="15.0" />
                            </BorderPane.margin>
@@ -156,15 +187,15 @@
                   </BorderPane>
                </content>
             </Tab>
-            <Tab text="Médicos">
+            <Tab text="Doctores">
                <content>
-                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                  <BorderPane>
                      <top>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="48.0" spacing="5.0" BorderPane.alignment="CENTER">
                            <children>
-                              <TextField text="Buscar ...">
+                              <TextField prefHeight="25.0" prefWidth="190.0" text="Buscar ...">
                                  <HBox.margin>
-                                    <Insets right="25.0" />
+                                    <Insets />
                                  </HBox.margin>
                               </TextField>
                               <Button mnemonicParsing="false" text="Buscar">
@@ -173,31 +204,37 @@
                                  </HBox.margin>
                               </Button>
                            </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
                         </HBox>
                      </top>
                      <right>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                            <children>
-                              <Button minHeight="30.0" minWidth="50.0" mnemonicParsing="false" prefWidth="75.0" text="Mostrar">
+                              <Button minHeight="30.0" minWidth="50.0" mnemonicParsing="false" onAction="#onShowDoctor" prefWidth="75.0" text="Mostrar">
                                  <VBox.margin>
-                                    <Insets bottom="20.0" top="20.0" />
+                                    <Insets />
                                  </VBox.margin>
                               </Button>
-                              <Button minHeight="30.0" minWidth="50.0" mnemonicParsing="false" prefWidth="75.0" text="Añadir">
+                              <Button minHeight="30.0" minWidth="50.0" mnemonicParsing="false" onAction="#onAddDoctor" prefWidth="75.0" text="Añadir...">
                                  <VBox.margin>
-                                    <Insets bottom="20.0" />
+                                    <Insets />
                                  </VBox.margin>
                               </Button>
-                              <Button minHeight="30.0" minWidth="50.0" mnemonicParsing="false" prefWidth="75.0" text="Borrar">
+                              <Button minHeight="30.0" minWidth="50.0" mnemonicParsing="false" onAction="#onRemoveDoctor" prefWidth="75.0" text="Eliminar">
                                  <VBox.margin>
-                                    <Insets bottom="20.0" />
+                                    <Insets />
                                  </VBox.margin>
                               </Button>
                            </children>
+                           <BorderPane.margin>
+                              <Insets top="15.0" />
+                           </BorderPane.margin>
                         </VBox>
                      </right>
                      <center>
-                        <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                        <ListView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
                            <BorderPane.margin>
                               <Insets bottom="15.0" left="15.0" />
                            </BorderPane.margin>

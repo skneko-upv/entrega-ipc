@@ -18,6 +18,9 @@ import javafx.stage.Stage;
 
 public class GestorCitas extends Application {
     
+    public final double MIN_STAGE_HEIGHT = 350;
+    public final double MIN_STAGE_WIDTH = 410;
+    
     @Override
     public void start(Stage stage) throws Exception {
         Locale locale = Locale.getDefault(); // TODO: handle invalid locales
@@ -27,6 +30,8 @@ public class GestorCitas extends Application {
         Scene scene = new Scene(root);
         
         stage.setTitle(rb.getString("window.main.title"));
+        stage.setMinHeight(MIN_STAGE_HEIGHT);
+        stage.setMinWidth(MIN_STAGE_WIDTH);
         stage.setScene(scene);
         stage.show();
     }
