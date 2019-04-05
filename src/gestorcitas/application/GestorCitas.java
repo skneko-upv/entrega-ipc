@@ -21,9 +21,9 @@ public class GestorCitas extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Locale locale = Locale.getDefault(); // TODO: handle invalid locales
-        ResourceBundle rb = ResourceBundle.getBundle("gestorcitas.resources.locales", locale);
+        ResourceBundle rb = ResourceBundle.getBundle("gestorcitas.resources.locales.strings", locale);
         
-        Parent root = FXMLLoader.load(getClass().getResource("MainWindowView.fxml"), rb);
+        Parent root = FXMLLoader.load(getClass().getResource("/gestorcitas/views/MainWindowView.fxml"), rb);
         Scene scene = new Scene(root);
         
         stage.setTitle(rb.getString("window.main.title"));
