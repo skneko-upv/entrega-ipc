@@ -20,6 +20,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestorcitas.controllers.MainWindowController">
    <top>
@@ -80,7 +81,10 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label fx:id="appointmentTabTitle" />
+                                    <Label fx:id="appointmentTabTitle">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font></Label>
                                  </children>
                                  <padding>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -160,9 +164,12 @@
                      <top>
                         <HBox alignment="CENTER_RIGHT" prefHeight="48.0" spacing="5.0" BorderPane.alignment="CENTER">
                            <children>
-                              <HBox alignment="BOTTOM_LEFT" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                              <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label fx:id="patientTabTitle" />
+                                    <Label fx:id="patientTabTitle">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font></Label>
                                  </children>
                                  <padding>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -232,7 +239,10 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label fx:id="doctorTabTitle" />
+                                    <Label fx:id="doctorTabTitle">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font></Label>
                                  </children>
                                  <padding>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
