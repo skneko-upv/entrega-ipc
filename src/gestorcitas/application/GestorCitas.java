@@ -8,6 +8,7 @@
 
 package gestorcitas.application;
 
+import gestorcitas.controllers.MainWindowController;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.application.Application;
@@ -26,7 +27,8 @@ public class GestorCitas extends Application {
         Locale locale = Locale.getDefault(); // TODO: handle invalid locales
         ResourceBundle rb = ResourceBundle.getBundle("gestorcitas.resources.locales.strings", locale);
         
-        Parent root = FXMLLoader.load(getClass().getResource("/gestorcitas/views/MainWindowView.fxml"), rb);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestorcitas/views/MainWindowView.fxml"), rb);
+        Parent root = (Parent)loader.load();
         Scene scene = new Scene(root);
         
         stage.setTitle(rb.getString("window.main.title"));
@@ -34,6 +36,11 @@ public class GestorCitas extends Application {
         stage.setMinWidth(MIN_STAGE_WIDTH);
         stage.setScene(scene);
         stage.show();
+        
+        // Save database on application close
+        stage.setOnCloseRequest((event) -> {
+            ((MainWindowController)loader.getController()).saveDBAndQuit();
+        });
     }
 
     public static void main(String[] args) {
