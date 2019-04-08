@@ -11,8 +11,6 @@ import gestorcitas.controllers.helpers.*;
 import DBAccess.ClinicDBAccess;
 import java.net.URL;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -35,9 +33,14 @@ public class MainWindowController implements Initializable {
     private ResourceBundle rb;
     private final ClinicDBAccess clinic = ClinicDBAccess.getSingletonClinicDBAccess();
 
-    private FilteredList<Patient> patients;
-    private FilteredList<Appointment> appointments;
-    private FilteredList<Doctor> doctors;
+    private ObservableList<Appointment> appointments;
+    private FilteredList<Appointment> appointmentsFiltered;
+    
+    private ObservableList<Patient> patients;
+    private FilteredList<Patient> patientsFiltered;
+    
+    private ObservableList<Doctor> doctors;
+    private FilteredList<Doctor> doctorsFiltered;
 
     @FXML private ToggleGroup language;
     @FXML private TabPane mainTabPane;
@@ -94,7 +97,7 @@ public class MainWindowController implements Initializable {
         doctorTabTitle.setText(clinicName);
 
         // Retrieve data from database
-        loadDB();
+        loadFromDB();
 
         // Set up event listeners
         appointmentTable.getSelectionModel().selectedItemProperty().addListener((val, oldVal, newVal) -> {
@@ -137,77 +140,25 @@ public class MainWindowController implements Initializable {
         );
         
     }
-    
-    public void saveDB() {
-        boolean retry = false;
-        do {
-            Alert saveWait = new Alert(AlertType.INFORMATION);
-            saveWait.setTitle(rb.getString("generic.wait"));
-            saveWait.setHeaderText(rb.getString("modal.saveWait.header"));
-            saveWait.setContentText(rb.getString("modal.saveWait.content"));
-            saveWait.getButtonTypes().clear();
-            saveWait.show();
-
-            boolean success = clinic.saveDB();
-
-            saveWait.setResult(ButtonType.OK);
-            saveWait.close();
-            if (!success) {
-                ButtonType saveFailRetry = new ButtonType(rb.getString("generic.retry"), ButtonData.OK_DONE);
-                ButtonType saveFailDesist = new ButtonType(rb.getString("generic.cancel"), ButtonData.CANCEL_CLOSE);
-                Alert saveFail = new Alert(AlertType.ERROR, rb.getString("modal.saveFail.content"), saveFailRetry, saveFailDesist);
-                saveFail.setTitle(rb.getString("generic.error"));
-                saveFail.setHeaderText(rb.getString("modal.saveFail.header"));
-                saveFail.getButtonTypes().setAll(saveFailRetry, saveFailDesist);
-                
-                Optional<ButtonType> saveFailResult = saveFail.showAndWait();
-                retry = saveFailResult.isPresent() && saveFailResult.get() == saveFailRetry;
-            }
-        } while (retry);
-    }
 
     public void saveDBAndQuit() {
-        saveDB();
+        DatabaseHelper.save(clinic, rb);
         Platform.exit();
         System.exit(0);
     }
     
-    private void loadDB() {
-        appointments = FXCollections.observableArrayList(clinic.getAppointments()).filtered(e -> true);
-        appointmentTable.setItems(appointments);
-        patients = FXCollections.observableArrayList(clinic.getPatients()).filtered(e -> true);
-        patientTable.setItems(patients);
-        doctors = FXCollections.observableArrayList(clinic.getDoctors()).filtered(e -> true);
-        doctorTable.setItems(doctors);
-    }
-    
-    private <T extends Person> void removePerson(ObservableList<T> list, int index, String identifier, Function<Appointment,T> getterFn) {
-        try { 
-            T toDelete = list.get(index);
-            FilteredList<Appointment> conflicts = appointments.filtered(appointment -> {
-                return getterFn.apply(appointment).getIdentifier().equals(toDelete.getIdentifier());
-            });
-            if (conflicts.size() > 0) {
-                Alert removeConflict = new Alert(AlertType.INFORMATION, rb.getString("modal.removeConflict.content"));
-                removeConflict.setTitle(rb.getString("modal.removeConflict.title"));
-                removeConflict.setHeaderText(rb.getString("modal.removeConflict.title"));
-                removeConflict.showAndWait();
-            } else {
-                removeWithConfirmation(list, index, rb.getString("generic." + identifier) + " " + toDelete.getIdentifier());
-            }
-        } catch (Exception e) { System.err.println(e); }
-    }
-    
-    private <T> void removeWithConfirmation(ObservableList<T> list, int index, String identifier) {
-        if (index >= 0 || index < list.size()) {
-            Alert remove = new Alert(AlertType.WARNING, 
-                    rb.getString("modal.remove.content") + "\n" + identifier, 
-                    ButtonType.YES, ButtonType.NO);
-            Optional<ButtonType> removeResult = remove.showAndWait();
-            if (removeResult.isPresent() && removeResult.get() == ButtonType.YES) {
-                list.remove(index);
-            }
-        }
+    private void loadFromDB() {
+        appointments = FXCollections.observableArrayList(clinic.getAppointments());
+        appointmentsFiltered = appointments.filtered(e -> true);
+        appointmentTable.setItems(appointmentsFiltered);
+        
+        patients = FXCollections.observableArrayList(clinic.getPatients());
+        patientsFiltered = patients.filtered(e -> true);
+        patientTable.setItems(patientsFiltered);
+        
+        doctors = FXCollections.observableArrayList(clinic.getDoctors());
+        doctorsFiltered = doctors.filtered(e -> true);
+        doctorTable.setItems(doctorsFiltered);
     }
 
     @FXML private void onChangeName(ActionEvent event) {
@@ -231,13 +182,7 @@ public class MainWindowController implements Initializable {
 
     @FXML private void onRemoveAppointment(ActionEvent event) {
         int index = appointmentTable.getSelectionModel().getSelectedIndex();
-        try { 
-            Appointment toDelete = appointments.get(index);
-            removeWithConfirmation(appointments, index, 
-                rb.getString("generic.appointment") + " "
-                + DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).format(toDelete.getAppointmentDateTime())
-            );
-        } catch (Exception e) {}
+        ItemRemoveHelper.removeAppointment(appointments, index, rb);
     }
 
     @FXML private void onShowPatient(ActionEvent event) {
@@ -245,7 +190,7 @@ public class MainWindowController implements Initializable {
 
     @FXML private void onRemovePatient(ActionEvent event) {
         int index = patientTable.getSelectionModel().getSelectedIndex();
-        removePerson(patients, index, "patient", Appointment::getPatient);
+        ItemRemoveHelper.removePatient(appointments, patients, index, rb);
     }
 
     @FXML private void onShowDoctor(ActionEvent event) {
@@ -253,11 +198,11 @@ public class MainWindowController implements Initializable {
 
     @FXML private void onRemoveDoctor(ActionEvent event) {
         int index = doctorTable.getSelectionModel().getSelectedIndex();
-        removePerson(doctors, index, "doctor", Appointment::getDoctor);
+        ItemRemoveHelper.removeDoctor(appointments, doctors, index, rb);
     }
 
     @FXML private void onSave(ActionEvent event) {
-        saveDB();
+        DatabaseHelper.save(clinic, rb);
     }
     
     @FXML private void onDiscardChanges(ActionEvent event) {
@@ -268,7 +213,7 @@ public class MainWindowController implements Initializable {
         
         Optional<ButtonType> discardResult = discard.showAndWait();
         if (discardResult.isPresent() && discardResult.get() == discardYes) {
-            loadDB();
+            loadFromDB();
         }
     }
     
@@ -277,16 +222,16 @@ public class MainWindowController implements Initializable {
         String query;
         if (selected == appointmentTab) {
             query = appointmentSearchBox.getText();
-            appointments.setPredicate(e -> {
+            appointmentsFiltered.setPredicate(e -> {
                     Predicate<Person> predicate = new PersonSearchPredicate(query);
                     return predicate.test(e.getDoctor()) || predicate.test(e.getPatient());
             });
         } else if (selected == patientTab) {
             query = patientSearchBox.getText();
-            patients.setPredicate(new PersonSearchPredicate(query));
+            patientsFiltered.setPredicate(new PersonSearchPredicate(query));
         } else if (selected == doctorTab) {
             query = doctorSearchBox.getText();
-            doctors.setPredicate(new PersonSearchPredicate(query));
+            doctorsFiltered.setPredicate(new PersonSearchPredicate(query));
         }
     }
 
