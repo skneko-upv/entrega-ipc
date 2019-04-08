@@ -162,6 +162,7 @@ public class MainWindowController implements Initializable {
     }
 
     @FXML private void onChangeName(ActionEvent event) {
+        
     }
 
     @FXML private void onQuit(ActionEvent event) {
@@ -178,6 +179,11 @@ public class MainWindowController implements Initializable {
     }
 
     @FXML private void onAbout(ActionEvent event) {
+        Alert about = new Alert(AlertType.INFORMATION);
+        about.setTitle(rb.getString("modal.about.title"));
+        about.setHeaderText(null); about.setGraphic(null);
+        about.setContentText(rb.getString("modal.about.content"));
+        about.showAndWait();
     }
 
     @FXML private void onRemoveAppointment(ActionEvent event) {

@@ -31,7 +31,7 @@ public class GestorCitas extends Application {
         Parent root = (Parent)loader.load();
         Scene scene = new Scene(root);
         
-        stage.setTitle(rb.getString("window.main.title"));
+        stage.setTitle(rb.getString("app.title"));
         stage.setMinHeight(MIN_STAGE_HEIGHT);
         stage.setMinWidth(MIN_STAGE_WIDTH);
         stage.setScene(scene);
