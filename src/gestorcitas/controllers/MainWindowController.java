@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -24,9 +25,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
@@ -43,6 +49,8 @@ import model.Person;
  * FXML Controller class
  */
 public class MainWindowController implements Initializable {
+    
+    private static final char[] DAYS_KEYS = {'L', 'M', 'X', 'J', 'V', 'S', 'D'};
 
     private ResourceBundle rb;
     private final ClinicDBAccess clinic = ClinicDBAccess.getSingletonClinicDBAccess();
@@ -100,12 +108,7 @@ public class MainWindowController implements Initializable {
         doctorTabTitle.setText(clinicName);
 
         // Retrieve data from database
-        appointments = FXCollections.observableArrayList(clinic.getAppointments());
-        appointmentTable.setItems(appointments);
-        patients = FXCollections.observableArrayList(clinic.getPatients());
-        patientTable.setItems(patients);
-        doctors = FXCollections.observableArrayList(clinic.getDoctors());
-        doctorTable.setItems(doctors);
+        loadDB();
 
         // Set up event listeners
         appointmentTable.getSelectionModel().selectedItemProperty().addListener((val, oldVal, newVal) -> {
@@ -145,19 +148,88 @@ public class MainWindowController implements Initializable {
         doctorNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         doctorPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("telephon"));
         doctorVisitDaysColumn.setCellValueFactory(new PropertyValueFactory<>("visitDays"));
-        doctorVisitTimeColumn.setCellValueFactory(column -> {
-            Doctor doctor = column.getValue();
+        doctorVisitDaysColumn.setCellFactory(column -> {
+            TableCell<Doctor,ArrayList<Days>> cell = new TableCell<Doctor,ArrayList<Days>>() {
+                @Override
+                protected void updateItem(ArrayList<Days> available, boolean empty) {
+                    if (empty || available == null) setText(null);
+                    else {
+                        StringBuilder result = new StringBuilder();
+                        int i = 0;
+                        for (Days day : Days.values()) {
+                            if (available.contains(day)) { result.append(DAYS_KEYS[i]); } // TODO: result.append(rb.getString("base" + DAYS_KEYS[i]));
+                            else { result.append("-"); }
+                            i++;
+                        }
+                        setText(result.toString());
+                    }
+                }
+            };
+            cell.setStyle("-fx-font-family: monospace");
+            return cell;
+        });
+        doctorVisitTimeColumn.setCellValueFactory(data -> {
+            Doctor doctor = data.getValue();
             DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT);
             String start = formatter.format(doctor.getVisitStartTime());
             String end = formatter.format(doctor.getVisitEndTime());
             return new SimpleStringProperty(start + "-" + end);
         });
+        doctorRoomColumn.setCellValueFactory(new PropertyValueFactory<>("examinationRoom"));
+        doctorRoomColumn.setCellFactory(column -> {
+            TableCell<Doctor,ExaminationRoom> cell = new TableCell<Doctor,ExaminationRoom>() {
+                @Override
+                protected void updateItem(ExaminationRoom room, boolean empty) {
+                    if (empty || room == null) setText(null);
+                    else setText(String.valueOf(room.getIdentNumber()));
+                }
+            };
+            return cell;
+        });
+    }
+    
+    public void saveDB() {
+        boolean retry = false;
+        do {
+            Alert saveWait = new Alert(AlertType.INFORMATION);
+            saveWait.setTitle(rb.getString("generic.wait"));
+            saveWait.setHeaderText(rb.getString("modal.saveWait.header"));
+            saveWait.setContentText(rb.getString("modal.saveWait.content"));
+            saveWait.getButtonTypes().clear();
+            saveWait.show();
+
+            boolean success = clinic.saveDB();
+
+            saveWait.setResult(ButtonType.OK);
+            saveWait.close();
+            if (!success) {
+                Alert saveFail = new Alert(AlertType.ERROR);
+                ButtonType saveFailRetry = new ButtonType(rb.getString("generic.retry"), ButtonData.OK_DONE);
+                ButtonType saveFailDesist = new ButtonType(rb.getString("generic.cancel"), ButtonData.CANCEL_CLOSE);
+                saveFail.setTitle(rb.getString("generic.error"));
+                saveFail.setHeaderText(rb.getString("modal.saveFail.header"));
+                saveFail.setContentText(rb.getString("modal.saveFail.content"));
+                saveFail.getButtonTypes().setAll(saveFailRetry, saveFailDesist);
+                
+                Optional<ButtonType> saveFailResult = saveFail.showAndWait();
+                retry = saveFailResult.isPresent() && saveFailResult.get() == saveFailRetry;
+            }
+        } while (retry);
     }
 
     public void saveDBAndQuit() {
-        clinic.saveDB(); // TODO: Handle error
+        saveDB();
         Platform.exit();
         System.exit(0);
+    }
+    
+    private void loadDB() {
+        appointments = FXCollections.observableArrayList(clinic.getAppointments());
+        appointmentTable.setItems(appointments);
+        patients = FXCollections.observableArrayList(clinic.getPatients());
+        patientTable.setItems(patients);
+        doctors = FXCollections.observableArrayList(clinic.getDoctors());
+        doctorTable.setItems(doctors);
     }
 
     @FXML private void onChangeName(ActionEvent event) {
@@ -195,6 +267,19 @@ public class MainWindowController implements Initializable {
     }
 
     @FXML private void onSave(ActionEvent event) {
+        saveDB();
+    }
+    
+    @FXML private void onDiscardChanges(ActionEvent event) {
+        ButtonType discardYes = new ButtonType(rb.getString("modal.discard.btn.yes"), ButtonData.YES);
+        Alert discard = new Alert(AlertType.WARNING, rb.getString("modal.discard.content"), discardYes, ButtonType.NO);
+        discard.setTitle(rb.getString("modal.discard.title"));
+        discard.setHeaderText(rb.getString("modal.discard.header"));
+        
+        Optional<ButtonType> discardResult = discard.showAndWait();
+        if (discardResult.isPresent() && discardResult.get() == discardYes) {
+            loadDB();
+        }
     }
 
 }

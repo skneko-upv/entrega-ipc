@@ -32,6 +32,8 @@ public class ImageCellFactory<T> implements Callback<
                 super.updateItem(image, empty);
                 if (empty || image == null) setGraphic(null);
                 else {
+                    view.setPreserveRatio(true);
+                    view.fitWidthProperty().bind(column.widthProperty());
                     view.setImage(image);
                     setGraphic(view);
                 }
