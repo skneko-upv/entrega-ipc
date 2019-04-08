@@ -5,7 +5,7 @@
  *  Daniel Galán Pascual
  *  Alberto Baixauli Herráez
  */
-package gestorcitas.controllers.factories;
+package gestorcitas.controllers.helpers;
 
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;

@@ -7,45 +7,26 @@
  */
 package gestorcitas.controllers;
 
-import gestorcitas.controllers.factories.ImageCellFactory;
-import gestorcitas.controllers.factories.FormattedDateTimeCellFactory;
-import gestorcitas.controllers.factories.PersonCellFactory;
+import gestorcitas.controllers.helpers.*;
 import DBAccess.ClinicDBAccess;
 import java.net.URL;
-import java.time.LocalDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.function.Function;
+import java.util.function.*;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.*;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+import javafx.fxml.*;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import model.Appointment;
-import model.Days;
-import model.Doctor;
-import model.ExaminationRoom;
-import model.Patient;
-import model.Person;
+import model.*;
 
 /**
  * FXML Controller class
@@ -54,12 +35,18 @@ public class MainWindowController implements Initializable {
     private ResourceBundle rb;
     private final ClinicDBAccess clinic = ClinicDBAccess.getSingletonClinicDBAccess();
 
-    private ObservableList<Patient> patients;
-    private ObservableList<Appointment> appointments;
-    private ObservableList<Doctor> doctors;
+    private FilteredList<Patient> patients;
+    private FilteredList<Appointment> appointments;
+    private FilteredList<Doctor> doctors;
 
     @FXML private ToggleGroup language;
     @FXML private TabPane mainTabPane;
+    @FXML private Tab appointmentTab;
+    @FXML private Tab patientTab;
+    @FXML private Tab doctorTab;
+    @FXML private TextField appointmentSearchBox;
+    @FXML private TextField patientSearchBox;
+    @FXML private TextField doctorSearchBox;
     @FXML private Button showPatientBtn;
     @FXML private Button showDoctorBtn;
     @FXML private Button removeAppointmentBtn;
@@ -78,13 +65,13 @@ public class MainWindowController implements Initializable {
     @FXML private TableView<Patient> patientTable;
     @FXML private TableColumn<Person,Image> patientPhotoColumn;
     @FXML private TableColumn<Person,String> patientIdColumn;
-    @FXML private TableColumn<Person,String> patientNameColumn;
+    @FXML private TableColumn<Person,Person> patientNameColumn;
     @FXML private TableColumn<Person,String> patientPhoneColumn;
 
     @FXML private TableView<Doctor> doctorTable;
     @FXML private TableColumn<Person,Image> doctorPhotoColumn;
     @FXML private TableColumn<Person,String> doctorIdColumn;
-    @FXML private TableColumn<Person,String> doctorNameColumn;
+    @FXML private TableColumn<Person,Person> doctorNameColumn;
     @FXML private TableColumn<Person,String> doctorPhoneColumn;
     @FXML private TableColumn<Doctor,ArrayList<Days>> doctorVisitDaysColumn;
     @FXML private TableColumn<Doctor,String> doctorVisitTimeColumn;
@@ -126,65 +113,29 @@ public class MainWindowController implements Initializable {
         });
 
         // Set up tables
-        appointmentDateColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentDateTime"));
-        appointmentDateColumn.setCellFactory(new FormattedDateTimeCellFactory<>(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)));
-        appointmentTimeColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentDateTime"));
-        appointmentTimeColumn.setCellFactory(new FormattedDateTimeCellFactory<>(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
-        appointmentDoctorColumn.setCellValueFactory(new PropertyValueFactory<>("doctor"));
-        appointmentDoctorColumn.setCellFactory(new PersonCellFactory<>());
-        appointmentPatientColumn.setCellValueFactory(new PropertyValueFactory<>("patient"));
-        appointmentPatientColumn.setCellFactory(new PersonCellFactory<>());
-
-        patientPhotoColumn.setCellValueFactory(new PropertyValueFactory<>("photo"));
-        patientPhotoColumn.setCellFactory(new ImageCellFactory<>());
-        patientIdColumn.setCellValueFactory(new PropertyValueFactory<>("identifier"));
-        patientNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        patientPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("telephon"));
-
-        doctorPhotoColumn.setCellValueFactory(new PropertyValueFactory<>("photo"));
-        doctorPhotoColumn.setCellFactory(new ImageCellFactory<>());
-        doctorIdColumn.setCellValueFactory(new PropertyValueFactory<>("identifier"));
-        doctorNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        doctorPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("telephon"));
-        doctorVisitDaysColumn.setCellValueFactory(new PropertyValueFactory<>("visitDays"));
-        doctorVisitDaysColumn.setCellFactory(column -> {
-            TableCell<Doctor,ArrayList<Days>> cell = new TableCell<Doctor,ArrayList<Days>>() {
-                @Override
-                protected void updateItem(ArrayList<Days> available, boolean empty) {
-                    if (empty || available == null) setText(null);
-                    else {
-                        StringBuilder result = new StringBuilder();
-                        int i = 0;
-                        for (Days day : Days.values()) {
-                            if (available.contains(day)) { result.append(rb.getString("generic.weekday.initial." + i)); }
-                            else { result.append("-"); }
-                            i++;
-                        }
-                        setText(result.toString());
-                    }
-                }
-            };
-            cell.setStyle("-fx-font-family: monospace");
-            return cell;
-        });
-        doctorVisitTimeColumn.setCellValueFactory(data -> {
-            Doctor doctor = data.getValue();
-            DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT);
-            String start = formatter.format(doctor.getVisitStartTime());
-            String end = formatter.format(doctor.getVisitEndTime());
-            return new SimpleStringProperty(start + "-" + end);
-        });
-        doctorRoomColumn.setCellValueFactory(new PropertyValueFactory<>("examinationRoom"));
-        doctorRoomColumn.setCellFactory(column -> {
-            TableCell<Doctor,ExaminationRoom> cell = new TableCell<Doctor,ExaminationRoom>() {
-                @Override
-                protected void updateItem(ExaminationRoom room, boolean empty) {
-                    if (empty || room == null) setText(null);
-                    else setText(String.valueOf(room.getIdentNumber()));
-                }
-            };
-            return cell;
-        });
+        TableViewHelper.setupAppointmentTable(
+                appointmentDateColumn, 
+                appointmentTimeColumn, 
+                appointmentDoctorColumn, 
+                appointmentPatientColumn
+        );
+        TableViewHelper.setupPatientTable(
+                patientPhotoColumn, 
+                patientIdColumn, 
+                patientNameColumn, 
+                patientPhoneColumn
+        );
+        TableViewHelper.setupDoctorTable(
+                doctorPhotoColumn,
+                doctorIdColumn,
+                doctorNameColumn,
+                doctorPhoneColumn,
+                doctorVisitDaysColumn,
+                doctorVisitTimeColumn,
+                doctorRoomColumn,
+                rb
+        );
+        
     }
     
     public void saveDB() {
@@ -222,11 +173,11 @@ public class MainWindowController implements Initializable {
     }
     
     private void loadDB() {
-        appointments = FXCollections.observableArrayList(clinic.getAppointments());
+        appointments = FXCollections.observableArrayList(clinic.getAppointments()).filtered(e -> true);
         appointmentTable.setItems(appointments);
-        patients = FXCollections.observableArrayList(clinic.getPatients());
+        patients = FXCollections.observableArrayList(clinic.getPatients()).filtered(e -> true);
         patientTable.setItems(patients);
-        doctors = FXCollections.observableArrayList(clinic.getDoctors());
+        doctors = FXCollections.observableArrayList(clinic.getDoctors()).filtered(e -> true);
         doctorTable.setItems(doctors);
     }
     
@@ -318,6 +269,24 @@ public class MainWindowController implements Initializable {
         Optional<ButtonType> discardResult = discard.showAndWait();
         if (discardResult.isPresent() && discardResult.get() == discardYes) {
             loadDB();
+        }
+    }
+    
+    @FXML private void onSearch(ActionEvent event) {
+        Tab selected = mainTabPane.getSelectionModel().getSelectedItem();
+        String query;
+        if (selected == appointmentTab) {
+            query = appointmentSearchBox.getText();
+            appointments.setPredicate(e -> {
+                    Predicate<Person> predicate = new PersonSearchPredicate(query);
+                    return predicate.test(e.getDoctor()) || predicate.test(e.getPatient());
+            });
+        } else if (selected == patientTab) {
+            query = patientSearchBox.getText();
+            patients.setPredicate(new PersonSearchPredicate(query));
+        } else if (selected == doctorTab) {
+            query = doctorSearchBox.getText();
+            doctors.setPredicate(new PersonSearchPredicate(query));
         }
     }
 
