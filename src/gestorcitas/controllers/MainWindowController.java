@@ -18,10 +18,12 @@ import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.function.Function;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -49,9 +51,6 @@ import model.Person;
  * FXML Controller class
  */
 public class MainWindowController implements Initializable {
-    
-    private static final char[] DAYS_KEYS = {'L', 'M', 'X', 'J', 'V', 'S', 'D'};
-
     private ResourceBundle rb;
     private final ClinicDBAccess clinic = ClinicDBAccess.getSingletonClinicDBAccess();
 
@@ -157,7 +156,7 @@ public class MainWindowController implements Initializable {
                         StringBuilder result = new StringBuilder();
                         int i = 0;
                         for (Days day : Days.values()) {
-                            if (available.contains(day)) { result.append(DAYS_KEYS[i]); } // TODO: result.append(rb.getString("base" + DAYS_KEYS[i]));
+                            if (available.contains(day)) { result.append(rb.getString("generic.weekday.initial." + i)); }
                             else { result.append("-"); }
                             i++;
                         }
@@ -203,12 +202,11 @@ public class MainWindowController implements Initializable {
             saveWait.setResult(ButtonType.OK);
             saveWait.close();
             if (!success) {
-                Alert saveFail = new Alert(AlertType.ERROR);
                 ButtonType saveFailRetry = new ButtonType(rb.getString("generic.retry"), ButtonData.OK_DONE);
                 ButtonType saveFailDesist = new ButtonType(rb.getString("generic.cancel"), ButtonData.CANCEL_CLOSE);
+                Alert saveFail = new Alert(AlertType.ERROR, rb.getString("modal.saveFail.content"), saveFailRetry, saveFailDesist);
                 saveFail.setTitle(rb.getString("generic.error"));
                 saveFail.setHeaderText(rb.getString("modal.saveFail.header"));
-                saveFail.setContentText(rb.getString("modal.saveFail.content"));
                 saveFail.getButtonTypes().setAll(saveFailRetry, saveFailDesist);
                 
                 Optional<ButtonType> saveFailResult = saveFail.showAndWait();
@@ -231,6 +229,35 @@ public class MainWindowController implements Initializable {
         doctors = FXCollections.observableArrayList(clinic.getDoctors());
         doctorTable.setItems(doctors);
     }
+    
+    private <T extends Person> void removePerson(ObservableList<T> list, int index, String identifier, Function<Appointment,T> getterFn) {
+        try { 
+            T toDelete = list.get(index);
+            FilteredList<Appointment> conflicts = appointments.filtered(appointment -> {
+                return getterFn.apply(appointment).getIdentifier().equals(toDelete.getIdentifier());
+            });
+            if (conflicts.size() > 0) {
+                Alert removeConflict = new Alert(AlertType.INFORMATION, rb.getString("modal.removeConflict.content"));
+                removeConflict.setTitle(rb.getString("modal.removeConflict.title"));
+                removeConflict.setHeaderText(rb.getString("modal.removeConflict.title"));
+                removeConflict.showAndWait();
+            } else {
+                removeWithConfirmation(list, index, rb.getString("generic." + identifier) + " " + toDelete.getIdentifier());
+            }
+        } catch (Exception e) { System.err.println(e); }
+    }
+    
+    private <T> void removeWithConfirmation(ObservableList<T> list, int index, String identifier) {
+        if (index >= 0 || index < list.size()) {
+            Alert remove = new Alert(AlertType.WARNING, 
+                    rb.getString("modal.remove.content") + "\n" + identifier, 
+                    ButtonType.YES, ButtonType.NO);
+            Optional<ButtonType> removeResult = remove.showAndWait();
+            if (removeResult.isPresent() && removeResult.get() == ButtonType.YES) {
+                list.remove(index);
+            }
+        }
+    }
 
     @FXML private void onChangeName(ActionEvent event) {
     }
@@ -252,18 +279,30 @@ public class MainWindowController implements Initializable {
     }
 
     @FXML private void onRemoveAppointment(ActionEvent event) {
+        int index = appointmentTable.getSelectionModel().getSelectedIndex();
+        try { 
+            Appointment toDelete = appointments.get(index);
+            removeWithConfirmation(appointments, index, 
+                rb.getString("generic.appointment") + " "
+                + DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).format(toDelete.getAppointmentDateTime())
+            );
+        } catch (Exception e) {}
     }
 
     @FXML private void onShowPatient(ActionEvent event) {
     }
 
     @FXML private void onRemovePatient(ActionEvent event) {
+        int index = patientTable.getSelectionModel().getSelectedIndex();
+        removePerson(patients, index, "patient", Appointment::getPatient);
     }
 
     @FXML private void onShowDoctor(ActionEvent event) {
     }
 
     @FXML private void onRemoveDoctor(ActionEvent event) {
+        int index = doctorTable.getSelectionModel().getSelectedIndex();
+        removePerson(doctors, index, "doctor", Appointment::getDoctor);
     }
 
     @FXML private void onSave(ActionEvent event) {
