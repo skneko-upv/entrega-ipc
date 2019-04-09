@@ -12,8 +12,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Function;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.Appointment;
 import model.Patient;
 import model.Person;
 
@@ -44,13 +46,18 @@ public class PatientsTabController extends PersonsTabController {
         loadDataFromDB();
     }
     
+    @Override
+    protected Function<Appointment,Person> getAppointmentValueFactory() {
+        return Appointment::getPatient;
+    }
+    
     @FXML @Override
-    protected void onShow(ActionEvent event) {
+    public void onAdd(ActionEvent event) {
         // TODO
     }
-
+    
     @FXML @Override
-    protected void onAdd(ActionEvent event) {
+    protected void onShow(ActionEvent event) {
         // TODO
     }
     

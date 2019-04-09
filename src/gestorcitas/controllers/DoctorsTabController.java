@@ -10,47 +10,32 @@ package gestorcitas.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.function.Function;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.Initializable;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
+import model.Appointment;
+import model.Days;
 import model.Doctor;
+import model.ExaminationRoom;
 import model.Person;
 
 public class DoctorsTabController extends PersonsTabController {
 
     @FXML
-    private Label tabTitle;
+    private TableColumn<Doctor,ArrayList<Days>> visitDaysColumn;
     @FXML
-    private TextField searchBox;
+    private TableColumn<Doctor,String> visitTimeColumn;
     @FXML
-    private TableView<?> table;
-    
-    @FXML
-    private TableColumn<?, ?> photoColumn;
-    @FXML
-    private TableColumn<?, ?> idColumn;
-    @FXML
-    private TableColumn<?, ?> nameColumn;
-    @FXML
-    private TableColumn<?, ?> phoneColumn;
-    @FXML
-    private TableColumn<?, ?> visitDaysColumn;
-    @FXML
-    private TableColumn<?, ?> visitTimeColumn;
-    @FXML
-    private TableColumn<?, ?> roomColumn;
-    
-    @FXML
-    private Button showBtn;
-    @FXML
-    private Button removeBtn;
+    private TableColumn<Doctor,ExaminationRoom> roomColumn;
     
     @Override
     public String getSummary(Person doctor) {
@@ -74,15 +59,64 @@ public class DoctorsTabController extends PersonsTabController {
     public void initialize(URL url, ResourceBundle rb) {
         super.initialize(url,rb);
         
+        // Set up table
+        visitDaysColumn.setCellValueFactory(new PropertyValueFactory<>("visitDays"));
+        visitDaysColumn.setCellFactory(column -> {
+            TableCell<Doctor,ArrayList<Days>> cell = new TableCell<Doctor,ArrayList<Days>>() {
+                @Override
+                protected void updateItem(ArrayList<Days> available, boolean empty) {
+                    if (empty || available == null) setText(null);
+                    else {
+                        StringBuilder result = new StringBuilder();
+                        int i = 0;
+                        for (Days day : Days.values()) {
+                            if (available.contains(day)) {
+                                result.append(rb.getString("generic.weekday.initial." + i));
+                            }
+                            else { result.append("-"); }
+                            i++;
+                        }
+                        setText(result.toString());
+                    }
+                }
+            };
+            cell.setStyle("-fx-font-family: monospace");
+            return cell;
+        });
+        
+        visitTimeColumn.setCellValueFactory(data -> {
+            Doctor doctor = data.getValue();
+            DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT);
+            String start = formatter.format(doctor.getVisitStartTime());
+            String end = formatter.format(doctor.getVisitEndTime());
+            return new SimpleStringProperty(start + "-" + end);
+        });
+        roomColumn.setCellValueFactory(new PropertyValueFactory<>("examinationRoom"));
+        roomColumn.setCellFactory(column -> {
+            TableCell<Doctor,ExaminationRoom> cell = new TableCell<Doctor,ExaminationRoom>() {
+                @Override
+                protected void updateItem(ExaminationRoom room, boolean empty) {
+                    if (empty || room == null) setText(null);
+                    else setText(String.valueOf(room.getIdentNumber()));
+                }
+            };
+            return cell;
+        });
+        
         loadDataFromDB();
-    }    
-
-    @FXML
-    protected void onShow(ActionEvent event) {
+    }
+    
+    @FXML @Override
+    public void onAdd(ActionEvent event) {
+    }
+    
+    @Override
+    protected Function<Appointment,Person> getAppointmentValueFactory() {
+        return Appointment::getDoctor;
     }
 
-    @FXML
-    protected void onAdd(ActionEvent event) {
+    @FXML @Override
+    protected void onShow(ActionEvent event) {
     }
     
 }

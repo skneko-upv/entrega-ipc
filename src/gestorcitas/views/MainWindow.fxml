@@ -9,7 +9,6 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.StackPane?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestorcitas.controllers.MainWindowController">
    <top>
@@ -64,19 +63,19 @@
       </MenuBar>
    </top>
    <center>
-      <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab fx:id="appointmentTab" closable="false" text="%tab.appointments">
+          <Tab closable="false" text="%tab.appointments">
                <content>
                   <fx:include fx:id="appointmentsTab" source="AppointmentsTab.fxml" />
                </content>
             </Tab>
-            <Tab fx:id="patientTab" text="%tab.patients">
+            <Tab text="%tab.patients">
                <content>
                   <fx:include fx:id="patientsTab" source="PatientsTab.fxml" />
                </content>
             </Tab>
-            <Tab fx:id="doctorTab" text="%tab.doctors">
+            <Tab text="%tab.doctors">
                <content>
                   <fx:include fx:id="doctorsTab" source="DoctorsTab.fxml" />
                </content>

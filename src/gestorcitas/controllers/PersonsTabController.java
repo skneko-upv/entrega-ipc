@@ -16,12 +16,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Function;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -34,7 +33,6 @@ public abstract class PersonsTabController extends TabController<Person> {
     @FXML protected Label tabTitle;
     @FXML protected TextField searchBox;
     
-    @FXML protected TableView<Person> table;
     @FXML protected TableColumn<Person,Image> photoColumn;
     @FXML protected TableColumn<Person,String> idColumn;
     @FXML protected TableColumn<Person,Person> nameColumn;
@@ -43,11 +41,10 @@ public abstract class PersonsTabController extends TabController<Person> {
     @FXML protected Button showBtn;
     @FXML protected Button removeBtn;
     
+    protected abstract Function<Appointment,Person> getAppointmentValueFactory();
+    
     @FXML 
     protected abstract void onShow(ActionEvent event);
-
-    @FXML 
-    protected abstract void onAdd(ActionEvent event);
     
     @Override
     public void setTitle(String title) {
@@ -84,12 +81,6 @@ public abstract class PersonsTabController extends TabController<Person> {
             removeBtn.setDisable(noneSelected);
         });
     }
-    
-    @Override
-    public void setItems(ObservableList<? extends Person> items) {
-        super.setItems(items);
-        table.setItems(this.itemsFiltered);
-    }
 
     @FXML @Override
     protected void onSearch(ActionEvent event) {
@@ -104,7 +95,7 @@ public abstract class PersonsTabController extends TabController<Person> {
     @Override
     protected boolean canDelete(Person toDelete) {
         FilteredList<Appointment> conflicts = mainWindowController.getRemoveConflicts(
-                toDelete, Appointment::getPatient
+                toDelete, getAppointmentValueFactory()
         );
         
         boolean canDelete = conflicts.isEmpty();

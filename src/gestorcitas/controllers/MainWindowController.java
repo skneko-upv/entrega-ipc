@@ -9,11 +9,8 @@
 package gestorcitas.controllers;
 
 import DBAccess.ClinicDBAccess;
-import gestorcitas.controllers.helpers.DatabaseHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.ToggleGroup;
 import java.net.URL;
 import java.util.Optional;
@@ -25,6 +22,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
@@ -40,16 +38,7 @@ public class MainWindowController implements Initializable {
     @FXML private PatientsTabController patientsTabController;
     @FXML private DoctorsTabController doctorsTabController;
 
-    @FXML
-    private ToggleGroup language;
-    @FXML
-    private TabPane mainTabPane;
-    @FXML
-    private Tab appointmentTab;
-    @FXML
-    private Tab patientTab;
-    @FXML
-    private Tab doctorTab;
+    @FXML private ToggleGroup language;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -74,8 +63,49 @@ public class MainWindowController implements Initializable {
         });
     }
     
+    public void saveDB() {
+        boolean retry = false;
+        do {
+            Alert saveWait = new Alert(Alert.AlertType.INFORMATION);
+            saveWait.setTitle(rb.getString("generic.wait"));
+            saveWait.setHeaderText(rb.getString("modal.saveWait.header"));
+            saveWait.setContentText(rb.getString("modal.saveWait.content"));
+            saveWait.getButtonTypes().clear();
+            saveWait.show();
+
+            boolean success = clinic.saveDB();
+
+            saveWait.setResult(ButtonType.OK);
+            saveWait.close();
+            if (!success) {
+                ButtonType saveFailRetry = new ButtonType(
+                        rb.getString("generic.retry"), 
+                        ButtonBar.ButtonData.OK_DONE
+                );
+                ButtonType saveFailDesist = new ButtonType(
+                        rb.getString("generic.cancel"), 
+                        ButtonBar.ButtonData.CANCEL_CLOSE
+                );
+                
+                Alert saveFail = new Alert(
+                        Alert.AlertType.ERROR,
+                        rb.getString("modal.saveFail.content"),
+                        saveFailRetry,
+                        saveFailDesist
+                );
+                saveFail.setTitle(rb.getString("generic.error"));
+                saveFail.setHeaderText(rb.getString("modal.saveFail.header"));
+                saveFail.getButtonTypes().setAll(saveFailRetry, saveFailDesist);
+                
+                Optional<ButtonType> saveFailResult = saveFail.showAndWait();
+                retry = saveFailResult.isPresent() 
+                        && saveFailResult.get() == saveFailRetry;
+            }
+        } while (retry);
+    }
+    
     public void saveDBAndQuit() {
-        DatabaseHelper.save(clinic, rb);
+        saveDB();
         Platform.exit();
         System.exit(0);
     }
@@ -107,7 +137,7 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private void onSave(ActionEvent event) {
-        DatabaseHelper.save(clinic, rb);
+        saveDB();
     }
 
     @FXML 
@@ -127,22 +157,32 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private void onQuit(ActionEvent event) {
+        saveDBAndQuit();
     }
 
     @FXML
     private void onAddAppointment(ActionEvent event) {
+        appointmentsTabController.onAdd(event);
     }
 
     @FXML
     private void onAddPatient(ActionEvent event) {
+        patientsTabController.onAdd(event);
     }
 
     @FXML
     private void onAddDoctor(ActionEvent event) {
+        doctorsTabController.onAdd(event);
     }
 
     @FXML
     private void onAbout(ActionEvent event) {
+        Alert about = new Alert(AlertType.INFORMATION);
+        about.setTitle(rb.getString("modal.about.title"));
+        about.setHeaderText(null);
+        about.setGraphic(null);
+        about.setContentText(rb.getString("modal.about.content"));
+        about.showAndWait();
     }
     
 }

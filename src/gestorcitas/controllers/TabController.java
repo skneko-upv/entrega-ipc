@@ -40,6 +40,9 @@ public abstract class TabController<T> implements Initializable {
     protected abstract boolean canDelete(T toDelete);
     
     @FXML
+    public abstract void onAdd(ActionEvent event);
+    
+    @FXML
     protected abstract void onSearch(ActionEvent event);
     
     @Override
@@ -54,6 +57,7 @@ public abstract class TabController<T> implements Initializable {
     public void setItems(ObservableList<? extends T> items) {
         this.items = (ObservableList<T>)items;
         this.itemsFiltered = this.items.filtered(e -> true);
+        table.setItems(this.itemsFiltered);
     }
     
     public ObservableList<T> getItems() {

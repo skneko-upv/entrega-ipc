@@ -35,7 +35,6 @@ public class AppointmentsTabController extends TabController<Appointment> {
     @FXML protected Label tabTitle;
     @FXML protected TextField searchBox;
     
-    @FXML protected TableView<Appointment> table;
     @FXML protected TableColumn<Appointment,LocalDateTime> dateColumn;
     @FXML protected TableColumn<Appointment,LocalDateTime> timeColumn;
     @FXML protected TableColumn<Appointment,Person> doctorColumn;
@@ -106,6 +105,11 @@ public class AppointmentsTabController extends TabController<Appointment> {
         table.setItems(itemsFiltered);
     }
     
+    @FXML @Override
+    public void onAdd(ActionEvent event) {
+        // TODO
+    }
+    
     @Override
     protected boolean canDelete(Appointment toDelete) {
         return true;
@@ -120,9 +124,4 @@ public class AppointmentsTabController extends TabController<Appointment> {
         });
     }
 
-    @FXML
-    protected void onAdd(ActionEvent event) {
-        // TODO
-    }
-    
 }
