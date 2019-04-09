@@ -27,7 +27,7 @@ public class GestorCitas extends Application {
         Locale locale = Locale.getDefault(); // TODO: handle invalid locales
         ResourceBundle rb = ResourceBundle.getBundle("gestorcitas.resources.locales.strings", locale);
         
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestorcitas/views/MainWindowView.fxml"), rb);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestorcitas/views/MainWindow.fxml"), rb);
         Parent root = (Parent)loader.load();
         Scene scene = new Scene(root);
         
