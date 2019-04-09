@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane layoutX="21.0" layoutY="46.0" prefHeight="200.0" prefWidth="244.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="107.0" minWidth="86.0" prefWidth="94.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="100.0" prefWidth="150.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Text>
+            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="Apellidos" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Text>
+            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="D.N.I" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Text>
+            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="Teléfono" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Text>
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField prefHeight="25.0" prefWidth="141.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         </children>
+      </GridPane>
+      <VBox alignment="TOP_RIGHT" layoutX="285.0" layoutY="46.0" prefHeight="200.0" prefWidth="144.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="144.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../resources/img/default.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D minX="150.0" minY="150.0" width="150.0" />
+               </viewport>
+            </ImageView>
+            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="76.0" text="Cambiar">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <GridPane layoutX="20.0" layoutY="308.0" prefHeight="180.0" prefWidth="244.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="107.0" minWidth="86.0" prefWidth="94.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="100.0" prefWidth="150.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="Hora de Inicio " GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Text>
+            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="Hora de Salida" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Text>
+            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="Sala" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Text>
+            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="Días" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Text>
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField prefHeight="25.0" prefWidth="141.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <MenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="159.0" text="Opciones" GridPane.columnIndex="1" GridPane.rowIndex="4">
+              <items>
+                  <CheckMenuItem mnemonicParsing="false" text="Lunes" />
+                  <CheckMenuItem mnemonicParsing="false" text="Martes" />
+                  <CheckMenuItem mnemonicParsing="false" text="Miércoles" />
+                  <CheckMenuItem mnemonicParsing="false" text="Jueves" />
+                  <CheckMenuItem mnemonicParsing="false" text="Viernes" />
+                  <CheckMenuItem mnemonicParsing="false" text="Sábado" />
+                  <CheckMenuItem mnemonicParsing="false" text="Domingo" />
+              </items>
+            </MenuButton>
+         </children>
+      </GridPane>
+      <HBox alignment="BOTTOM_RIGHT" layoutX="250.0" layoutY="450.0" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button mnemonicParsing="false" text="Guardar">
+               <HBox.margin>
+                  <Insets bottom="20.0" right="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button cancelButton="true" mnemonicParsing="false" text="Cancelar">
+               <HBox.margin>
+                  <Insets bottom="20.0" right="20.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <Text fill="#726868" layoutX="21.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datos Personales">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Line endX="307.0" layoutX="128.0" layoutY="39.0" startX="-109.0" />
+      <Text fill="#726868" layoutX="21.0" layoutY="293.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Horario">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Line endX="307.0" layoutX="128.0" layoutY="300.0" startX="-109.0" />
+   </children>
+</AnchorPane>
