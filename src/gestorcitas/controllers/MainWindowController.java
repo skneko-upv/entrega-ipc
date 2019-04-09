@@ -91,10 +91,7 @@ public class MainWindowController implements Initializable {
         this.rb = rb;
 
         // Initialize labels
-        String clinicName = clinic.getClinicName();
-        appointmentTabTitle.setText(clinicName);
-        patientTabTitle.setText(clinicName);
-        doctorTabTitle.setText(clinicName);
+        refreshName();
 
         // Retrieve data from database
         loadFromDB();
@@ -147,6 +144,13 @@ public class MainWindowController implements Initializable {
         System.exit(0);
     }
     
+    private void refreshName() {
+        String clinicName = clinic.getClinicName();
+        appointmentTabTitle.setText(clinicName);
+        patientTabTitle.setText(clinicName);
+        doctorTabTitle.setText(clinicName);
+    }
+    
     private void loadFromDB() {
         appointments = FXCollections.observableArrayList(clinic.getAppointments());
         appointmentsFiltered = appointments.filtered(e -> true);
@@ -162,7 +166,20 @@ public class MainWindowController implements Initializable {
     }
 
     @FXML private void onChangeName(ActionEvent event) {
+        String unnamed = rb.getString("app.default.clinicName");
         
+        TextInputDialog setName = new TextInputDialog();
+        setName.setTitle(rb.getString("modal.setName.title"));
+        setName.setHeaderText(null); setName.setGraphic(null);
+        setName.setContentText(rb.getString("modal.setName.content"));
+        setName.getEditor().setPromptText(unnamed);
+        
+        Optional<String> setNameResult = setName.showAndWait();
+        setNameResult.ifPresent(name -> {
+            if (!setNameResult.get().equals("")) { clinic.setClinicName(name); }
+            else { clinic.setClinicName(unnamed); }
+            refreshName();
+        }); 
     }
 
     @FXML private void onQuit(ActionEvent event) {
