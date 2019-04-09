@@ -17,13 +17,18 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.ToggleGroup;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Function;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.Initializable;
+import model.Appointment;
+import model.Person;
 
 public class MainWindowController implements Initializable {
     
     private ResourceBundle rb;
-    private ClinicDBAccess clinic = ClinicDBAccess.getSingletonClinicDBAccess();
+    private final ClinicDBAccess clinic = ClinicDBAccess.getSingletonClinicDBAccess();
     
     @FXML private AppointmentsTabController appointmentsTabController;
     @FXML private PatientsTabController patientsTabController;
@@ -40,13 +45,26 @@ public class MainWindowController implements Initializable {
     @FXML
     private Tab doctorTab;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.rb = rb;
+        
+        appointmentsTabController.initialize(this);
+        patientsTabController.initialize(this);
+        //doctorsTabController.initialize(this);
         // TODO
+    }
+    
+    public <T extends Person> FilteredList<Appointment> getRemoveConflicts(
+            T toDelete,
+            Function<Appointment,T> personValueFactory
+    ) {
+        ObservableList<Appointment> appointments = appointmentsTabController.getItems();
+        return appointments.filtered(appointment -> {
+            return personValueFactory.apply(appointment)
+                    .getIdentifier()
+                    .equals(toDelete.getIdentifier());
+        });
     }
     
     public void saveDBAndQuit() {

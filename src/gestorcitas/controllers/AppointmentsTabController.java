@@ -17,9 +17,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import model.Appointment;
+import model.Patient;
 
-public class AppointmentsTabController implements Initializable {
+public class AppointmentsTabController extends TabController<Appointment> {
 
     @FXML
     private Label appointmentTabTitle;
@@ -43,8 +46,13 @@ public class AppointmentsTabController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        super.initialize(url, rb);
+        
+        ObservableList<Appointment> loadedItems = 
+                FXCollections.observableArrayList(clinic.getAppointments());
+        setItems(loadedItems);
         // TODO
-    }    
+    }
 
     @FXML
     private void onSearch(ActionEvent event) {
