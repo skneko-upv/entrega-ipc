@@ -51,7 +51,7 @@ public class MainWindowController implements Initializable {
         
         appointmentsTabController.initialize(this);
         patientsTabController.initialize(this);
-        //doctorsTabController.initialize(this);
+        doctorsTabController.initialize(this);
         // TODO
     }
     

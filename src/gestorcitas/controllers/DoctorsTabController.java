@@ -17,57 +17,66 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
+import model.Doctor;
+import model.Person;
 
-public class DoctorsTabController implements Initializable {
+public class DoctorsTabController extends PersonsTabController {
 
     @FXML
-    private Label doctorTabTitle;
+    private Label tabTitle;
     @FXML
-    private TextField doctorSearchBox;
+    private TextField searchBox;
     @FXML
-    private TableView<?> doctorTable;
+    private TableView<?> table;
+    
     @FXML
-    private TableColumn<?, ?> doctorPhotoColumn;
+    private TableColumn<?, ?> photoColumn;
     @FXML
-    private TableColumn<?, ?> doctorIdColumn;
+    private TableColumn<?, ?> idColumn;
     @FXML
-    private TableColumn<?, ?> doctorNameColumn;
+    private TableColumn<?, ?> nameColumn;
     @FXML
-    private TableColumn<?, ?> doctorPhoneColumn;
+    private TableColumn<?, ?> phoneColumn;
     @FXML
-    private TableColumn<?, ?> doctorVisitDaysColumn;
+    private TableColumn<?, ?> visitDaysColumn;
     @FXML
-    private TableColumn<?, ?> doctorVisitTimeColumn;
+    private TableColumn<?, ?> visitTimeColumn;
     @FXML
-    private TableColumn<?, ?> doctorRoomColumn;
+    private TableColumn<?, ?> roomColumn;
+    
     @FXML
-    private Button showDoctorBtn;
+    private Button showBtn;
     @FXML
-    private Button removeDoctorBtn;
+    private Button removeBtn;
+    
+    public String getSummary(Person doctor) {
+        return rb.getString("generic.doctor") + " " + doctor.getIdentifier();
+    }
 
     /**
      * Initializes the controller class.
+     *
+     * @param url Current controller location.
+     * @param rb Resources used to localize this controller.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        super.initialize(url,rb);
+        
+        ObservableList<Doctor> loadedItems = 
+                FXCollections.observableArrayList(clinic.getDoctors());
+        setItems(loadedItems);
     }    
 
     @FXML
-    private void onSearch(ActionEvent event) {
+    protected void onShow(ActionEvent event) {
     }
 
     @FXML
-    private void onShowDoctor(ActionEvent event) {
-    }
-
-    @FXML
-    private void onAddDoctor(ActionEvent event) {
-    }
-
-    @FXML
-    private void onRemoveDoctor(ActionEvent event) {
+    protected void onAdd(ActionEvent event) {
     }
     
 }
