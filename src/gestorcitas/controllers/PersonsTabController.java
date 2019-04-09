@@ -8,7 +8,6 @@
 
 package gestorcitas.controllers;
 
-import DBAccess.ClinicDBAccess;
 import gestorcitas.controllers.helpers.ImageCellFactory;
 import gestorcitas.controllers.helpers.PersonCellFactory;
 import gestorcitas.controllers.helpers.PersonSearchPredicate;
@@ -20,14 +19,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.function.Predicate;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import model.Appointment;
@@ -47,11 +43,16 @@ public abstract class PersonsTabController extends TabController<Person> {
     @FXML protected Button showBtn;
     @FXML protected Button removeBtn;
     
-    public abstract String getSummary(Person person);
-    
-    @FXML protected abstract void onShow(ActionEvent event);
+    @FXML 
+    protected abstract void onShow(ActionEvent event);
 
-    @FXML protected abstract void onAdd(ActionEvent event);
+    @FXML 
+    protected abstract void onAdd(ActionEvent event);
+    
+    @Override
+    public void setTitle(String title) {
+        tabTitle.setText(title);
+    }
 
     /**
      * Initializes the controller class.
@@ -99,18 +100,15 @@ public abstract class PersonsTabController extends TabController<Person> {
             itemsFiltered.setPredicate(new PersonSearchPredicate(query));
         }
     }
-
-    @FXML
-    protected void onRemove(ActionEvent event) {
-        int index = table.getSelectionModel().getSelectedIndex();
-        if (index < 0 || index >= itemsFiltered.size()) return;
-        
-        Person toDelete = itemsFiltered.get(index);
+    
+    @Override
+    protected boolean canDelete(Person toDelete) {
         FilteredList<Appointment> conflicts = mainWindowController.getRemoveConflicts(
                 toDelete, Appointment::getPatient
         );
         
-        if (conflicts.size() > 0) {
+        boolean canDelete = conflicts.isEmpty();
+        if (!canDelete) {
             Alert removeConflict = new Alert(
                     Alert.AlertType.INFORMATION, 
                     rb.getString("modal.removeConflict.content")
@@ -118,18 +116,8 @@ public abstract class PersonsTabController extends TabController<Person> {
             removeConflict.setTitle(rb.getString("modal.removeConflict.title"));
             removeConflict.setHeaderText(rb.getString("modal.removeConflict.title"));
             removeConflict.showAndWait();
-        } else {
-            Alert remove = new Alert(Alert.AlertType.WARNING, 
-                    rb.getString("modal.remove.content") 
-                            + "\n\n\t" + getSummary(toDelete), 
-                    ButtonType.YES, 
-                    ButtonType.NO
-            );
-            Optional<ButtonType> removeResult = remove.showAndWait();
-            removeResult.ifPresent(result -> {
-                if (result == ButtonType.YES) items.remove(index);
-            });
         }
+        return canDelete;
     }
     
 }

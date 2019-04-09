@@ -20,7 +20,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                <children>
-                  <Label fx:id="appointmentTabTitle">
+                  <Label fx:id="tabTitle">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -30,7 +30,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </HBox>
-            <TextField fx:id="appointmentSearchBox" onAction="#onSearch" prefHeight="25.0" prefWidth="190.0" promptText="%tab.appointments.search.prompt">
+            <TextField fx:id="searchBox" onAction="#onSearch" prefHeight="25.0" prefWidth="190.0" promptText="%tab.appointments.search.prompt">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -48,12 +48,12 @@
          <right>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAddAppointment" prefHeight="30.0" prefWidth="75.0" text="%generic.add">
+                  <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAdd" prefHeight="30.0" prefWidth="75.0" text="%generic.add">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="removeAppointmentBtn" disable="true" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRemoveAppointment" prefHeight="30.0" prefWidth="75.0" text="%generic.remove">
+                  <Button fx:id="removeBtn" disable="true" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRemove" prefHeight="30.0" prefWidth="75.0" text="%generic.remove">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
@@ -78,12 +78,12 @@
             </GridPane>
          </top>
          <center>
-            <TableView fx:id="appointmentTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+            <TableView fx:id="table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
                <columns>
-                  <TableColumn fx:id="appointmentDateColumn" editable="false" prefWidth="75.0" text="%generic.date" />
-                  <TableColumn fx:id="appointmentTimeColumn" editable="false" prefWidth="75.0" text="%generic.time" />
-                  <TableColumn fx:id="appointmentDoctorColumn" editable="false" prefWidth="75.0" text="%generic.doctor" />
-                  <TableColumn fx:id="appointmentPatientColumn" editable="false" prefWidth="75.0" text="%generic.patient" />
+                  <TableColumn fx:id="dateColumn" editable="false" prefWidth="75.0" text="%generic.date" />
+                  <TableColumn fx:id="timeColumn" editable="false" prefWidth="75.0" text="%generic.time" />
+                  <TableColumn fx:id="doctorColumn" editable="false" prefWidth="75.0" text="%generic.doctor" />
+                  <TableColumn fx:id="patientColumn" editable="false" prefWidth="75.0" text="%generic.patient" />
                </columns>
                <BorderPane.margin>
                   <Insets bottom="15.0" left="15.0" />
