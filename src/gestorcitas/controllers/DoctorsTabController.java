@@ -30,12 +30,9 @@ import model.Person;
 
 public class DoctorsTabController extends PersonsTabController {
 
-    @FXML
-    private TableColumn<Doctor,ArrayList<Days>> visitDaysColumn;
-    @FXML
-    private TableColumn<Doctor,String> visitTimeColumn;
-    @FXML
-    private TableColumn<Doctor,ExaminationRoom> roomColumn;
+    @FXML private TableColumn<Doctor,ArrayList<Days>> visitDaysColumn;
+    @FXML private TableColumn<Doctor,String> visitTimeColumn;
+    @FXML private TableColumn<Doctor,ExaminationRoom> roomColumn;
     
     @Override
     public String getSummary(Person doctor) {
@@ -108,6 +105,7 @@ public class DoctorsTabController extends PersonsTabController {
     
     @FXML @Override
     public void onAdd(ActionEvent event) {
+        // TODO
     }
     
     @Override
@@ -117,6 +115,7 @@ public class DoctorsTabController extends PersonsTabController {
 
     @FXML @Override
     protected void onShow(ActionEvent event) {
+        // TODO
     }
     
 }

@@ -54,6 +54,7 @@ public abstract class TabController<T> implements Initializable {
         this.mainWindowController = mainWindowController;
     }
     
+    @SuppressWarnings("unchecked")
     public void setItems(ObservableList<? extends T> items) {
         this.items = (ObservableList<T>)items;
         this.itemsFiltered = this.items.filtered(e -> true);
