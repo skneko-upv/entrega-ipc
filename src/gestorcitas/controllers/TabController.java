@@ -35,6 +35,7 @@ public abstract class TabController<T> implements Initializable {
     
     public abstract void setTitle(String title);
     public abstract String getSummary(T item);
+    public abstract void loadDataFromDB();
     
     protected abstract boolean canDelete(T toDelete);
     
@@ -46,7 +47,7 @@ public abstract class TabController<T> implements Initializable {
         this.rb = rb;
     }
     
-    public void initialize(MainWindowController mainWindowController) {
+    public void setMainController(MainWindowController mainWindowController) {
         this.mainWindowController = mainWindowController;
     }
     

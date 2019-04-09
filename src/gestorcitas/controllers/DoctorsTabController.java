@@ -52,8 +52,16 @@ public class DoctorsTabController extends PersonsTabController {
     @FXML
     private Button removeBtn;
     
+    @Override
     public String getSummary(Person doctor) {
         return rb.getString("generic.doctor") + " " + doctor.getIdentifier();
+    }
+    
+    @Override
+    public void loadDataFromDB() {
+        ObservableList<Doctor> loadedItems = 
+                FXCollections.observableArrayList(clinic.getDoctors());
+        setItems(loadedItems);
     }
 
     /**
@@ -66,9 +74,7 @@ public class DoctorsTabController extends PersonsTabController {
     public void initialize(URL url, ResourceBundle rb) {
         super.initialize(url,rb);
         
-        ObservableList<Doctor> loadedItems = 
-                FXCollections.observableArrayList(clinic.getDoctors());
-        setItems(loadedItems);
+        loadDataFromDB();
     }    
 
     @FXML

@@ -17,14 +17,11 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -57,6 +54,13 @@ public class AppointmentsTabController extends TabController<Appointment> {
                 .ofLocalizedDateTime(FormatStyle.MEDIUM)
                 .format(appointment.getAppointmentDateTime());
         return rb.getString("generic.appointment") + " " + formattedDate; 
+    }
+    
+    @Override
+    public void loadDataFromDB() {
+        ObservableList<Appointment> loadedItems = 
+                FXCollections.observableArrayList(clinic.getAppointments());
+        setItems(loadedItems);
     }
 
     /**
@@ -97,9 +101,7 @@ public class AppointmentsTabController extends TabController<Appointment> {
         });
         
         // Load items from DB
-        ObservableList<Appointment> loadedItems = 
-                FXCollections.observableArrayList(clinic.getAppointments());
-        setItems(loadedItems);
+        loadDataFromDB();
         
         table.setItems(itemsFiltered);
     }
