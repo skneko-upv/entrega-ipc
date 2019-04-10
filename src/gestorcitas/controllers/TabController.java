@@ -39,8 +39,8 @@ public abstract class TabController<T> implements Initializable {
     
     protected abstract boolean canDelete(T toDelete);
     
-    @FXML
-    public abstract void onAdd(ActionEvent event);
+    @FXML public abstract void onAdd(ActionEvent event);
+    @FXML protected abstract void onShow(ActionEvent event);
     
     @FXML
     protected abstract void onSearch(ActionEvent event);

@@ -43,9 +43,6 @@ public abstract class PersonsTabController extends TabController<Person> {
     
     protected abstract Function<Appointment,Person> getAppointmentValueFactory();
     
-    @FXML 
-    protected abstract void onShow(ActionEvent event);
-    
     @Override
     public void setTitle(String title) {
         tabTitle.setText(title);

@@ -105,6 +105,11 @@ public class AppointmentsTabController extends TabController<Appointment> {
     }
     
     @FXML @Override
+    public void onShow(ActionEvent event) {
+        // TODO
+    }
+    
+    @FXML @Override
     public void onAdd(ActionEvent event) {
         // TODO
     }
