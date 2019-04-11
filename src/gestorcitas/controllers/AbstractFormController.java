@@ -16,7 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public abstract class EditPrefillFormController<T> implements Initializable {
+public abstract class AbstractFormController<T> implements Initializable {
     
     protected boolean editMode;
     protected T prefill;
@@ -26,7 +26,7 @@ public abstract class EditPrefillFormController<T> implements Initializable {
     @FXML Button saveBtn;
     @FXML Button cancelBtn;
     
-    protected void initialize(boolean editMode, T prefill) {
+    protected void setData(boolean editMode, T prefill) {
         this.editMode = editMode;
         this.prefill = prefill;
         if (this.prefill != null) prefill();

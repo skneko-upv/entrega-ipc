@@ -67,10 +67,12 @@ public abstract class TabController<T> implements Initializable {
     
     @FXML
     protected void onRemove(ActionEvent event) {
-        int index = table.getSelectionModel().getSelectedIndex();
-        if (index < 0 || index >= itemsFiltered.size()) return;
+        int index = itemsFiltered.getSourceIndex(
+                table.getSelectionModel().getSelectedIndex()
+        );
+        if (index < 0 || index >= items.size()) return;
         
-        T toDelete = itemsFiltered.get(index);
+        T toDelete = items.get(index);
         if (canDelete(toDelete)) {
             Alert remove = new Alert(Alert.AlertType.WARNING, 
                     rb.getString("modal.remove.content") 

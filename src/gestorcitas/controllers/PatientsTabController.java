@@ -59,26 +59,35 @@ public class PatientsTabController extends PersonsTabController {
     
     @FXML @Override
     public void onAdd(ActionEvent event) {
+        launchForm(true, null);
+    }
+    
+    @FXML @Override
+    protected void onShow(ActionEvent event) {
+        int index = itemsFiltered.getSourceIndex(
+                table.getSelectionModel().getSelectedIndex()
+        );
+        launchForm(false, items.get(index));
+    }
+    
+    private void launchForm(boolean editMode, Person prefill) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestorcitas/views/PatientForm.fxml"), rb);
             Parent formRoot = (Parent)loader.load();
 
             PatientFormController form = loader.<PatientFormController>getController();
-            form.initialize(true, null, items);
+            form.setData(editMode, prefill, items);
             
             Scene scene = new Scene(formRoot);
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setResizable(false);
-            stage.setTitle(rb.getString("modal.patientForm.title.add"));
+            stage.setTitle(rb.getString(
+                    "modal.patientForm.title." + (editMode ? "add" : "show")
+            ));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
-        } catch (IOException e) { System.err.println(e); }
-    }
-    
-    @FXML @Override
-    protected void onShow(ActionEvent event) {
-        // TODO
-    }
+        } catch (IOException e) { System.err.println(e); /* TODO */ }
+    } 
     
 }

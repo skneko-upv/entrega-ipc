@@ -32,7 +32,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import model.Patient;
 import model.Person;
 
-public class PatientFormController extends EditPrefillFormController<Person> {
+public class PatientFormController extends AbstractFormController<Person> {
     
     public static final int MAX_NAME_LENGTH = 20;
     public static final int MAX_SURNAME_LENGTH = 40;
@@ -99,8 +99,8 @@ public class PatientFormController extends EditPrefillFormController<Person> {
         );
     }
     
-    public void initialize(boolean editMode, Person prefill, ObservableList<Person> patients) {
-        super.initialize(editMode, prefill);
+    public void setData(boolean editMode, Person prefill, ObservableList<Person> patients) {
+        super.setData(editMode, prefill);
         this.persons = patients;
     }
     
@@ -110,6 +110,7 @@ public class PatientFormController extends EditPrefillFormController<Person> {
         surname.setClear();
         id.setClear();
         phone.setClear();
+        photoErrorLabel.setVisible(false);
     }
     
     @Override
@@ -126,6 +127,8 @@ public class PatientFormController extends EditPrefillFormController<Person> {
         surname.setText(prefill.getSurname());
         id.setText(prefill.getIdentifier());
         phone.setText(prefill.getTelephon());
+        photoPreview.setImage(prefill.getPhoto());
+        photoConsentBox.setSelected(prefill.getPhoto() != null);
     }
     
     @Override
@@ -135,21 +138,17 @@ public class PatientFormController extends EditPrefillFormController<Person> {
         id.setEditable(false);
         phone.setEditable(false);
         photoChangeBtn.setVisible(false);
+        photoConsentBox.setDisable(true);
     }
     
     @Override
     protected void onSaveValidated(ActionEvent event) {
-        Image photoOrDefault = photo.getValue();
-        if (photoOrDefault == null) {
-            photoOrDefault = new Image(getClass().getResource(DEFAULT_PHOTO).toString());
-        }
-        
         persons.add(new Patient(
                 id.getText(),
                 surname.getText(),
                 name.getText(),
                 phone.getText(),
-                photoOrDefault
+                photo.getValue()
         ));
     }
 
