@@ -81,6 +81,13 @@ public abstract class BasePersonFormController<T extends Person>
         name.addValidator(ValidatedTextField.getNotEmptyValidator(rb));
         surname.addValidator(ValidatedTextField.getNotEmptyValidator(rb));
         id.addValidator(ValidatedTextField.getNotEmptyValidator(rb));
+        id.addValidator(value -> {
+            if (!value.matches("(?:\\d{8}\\w)|(?:[x-zX-Z]\\d{7}\\w)")) {  // DNI: 00000000A 
+                                                                          // or NIE: X0000000A 
+                                                                          // (where 0 = [0-9], A = [a-zA-Z], X = [x-zX-Z])
+                return rb.getString("form.person.error.dniPattern");
+            } else return null;
+        });
         phone.addValidator(ValidatedTextField.getNotEmptyValidator(rb));
         phone.addValidator(value -> {
             if (!value.matches("[0-9]+")) {
