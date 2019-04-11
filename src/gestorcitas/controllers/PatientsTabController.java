@@ -23,12 +23,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Appointment;
 import model.Patient;
-import model.Person;
 
-public class PatientsTabController extends PersonsTabController {
+public class PatientsTabController extends PersonsTabController<Patient> {
     
     @Override
-    public String getSummary(Person person) {
+    public String getSummary(Patient person) {
         return rb.getString("generic.patient") + " " + person.getIdentifier();
     }
     
@@ -53,7 +52,7 @@ public class PatientsTabController extends PersonsTabController {
     }
     
     @Override
-    protected Function<Appointment,Person> getAppointmentValueFactory() {
+    protected Function<Appointment,Patient> getAppointmentValueFactory() {
         return Appointment::getPatient;
     }
     
@@ -70,7 +69,7 @@ public class PatientsTabController extends PersonsTabController {
         launchForm(false, items.get(index));
     }
     
-    private void launchForm(boolean editMode, Person prefill) {
+    private void launchForm(boolean editMode, Patient prefill) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestorcitas/views/PatientForm.fxml"), rb);
             Parent formRoot = (Parent)loader.load();

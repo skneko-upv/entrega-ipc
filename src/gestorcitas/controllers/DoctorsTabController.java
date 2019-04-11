@@ -26,16 +26,15 @@ import model.Appointment;
 import model.Days;
 import model.Doctor;
 import model.ExaminationRoom;
-import model.Person;
 
-public class DoctorsTabController extends PersonsTabController {
+public class DoctorsTabController extends PersonsTabController<Doctor> {
 
     @FXML private TableColumn<Doctor,ArrayList<Days>> visitDaysColumn;
     @FXML private TableColumn<Doctor,String> visitTimeColumn;
     @FXML private TableColumn<Doctor,ExaminationRoom> roomColumn;
     
     @Override
-    public String getSummary(Person doctor) {
+    public String getSummary(Doctor doctor) {
         return rb.getString("generic.doctor") + " " + doctor.getIdentifier();
     }
     
@@ -109,7 +108,7 @@ public class DoctorsTabController extends PersonsTabController {
     }
     
     @Override
-    protected Function<Appointment,Person> getAppointmentValueFactory() {
+    protected Function<Appointment,Doctor> getAppointmentValueFactory() {
         return Appointment::getDoctor;
     }
 

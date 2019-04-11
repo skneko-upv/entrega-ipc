@@ -28,20 +28,21 @@ import javafx.scene.image.Image;
 import model.Appointment;
 import model.Person;
 
-public abstract class PersonsTabController extends TabController<Person> {
+public abstract class PersonsTabController<T extends Person> 
+        extends TabController<T> {
     
     @FXML protected Label tabTitle;
     @FXML protected TextField searchBox;
     
-    @FXML protected TableColumn<Person,Image> photoColumn;
-    @FXML protected TableColumn<Person,String> idColumn;
-    @FXML protected TableColumn<Person,Person> nameColumn;
-    @FXML protected TableColumn<Person,String> phoneColumn;
+    @FXML protected TableColumn<T,Image> photoColumn;
+    @FXML protected TableColumn<T,String> idColumn;
+    @FXML protected TableColumn<T,Person> nameColumn;
+    @FXML protected TableColumn<T,String> phoneColumn;
     
     @FXML protected Button showBtn;
     @FXML protected Button removeBtn;
     
-    protected abstract Function<Appointment,Person> getAppointmentValueFactory();
+    protected abstract Function<Appointment,T> getAppointmentValueFactory();
     
     @Override
     public void setTitle(String title) {
@@ -90,7 +91,7 @@ public abstract class PersonsTabController extends TabController<Person> {
     }
     
     @Override
-    protected boolean canDelete(Person toDelete) {
+    protected boolean canDelete(T toDelete) {
         FilteredList<Appointment> conflicts = mainWindowController.getRemoveConflicts(
                 toDelete, getAppointmentValueFactory()
         );

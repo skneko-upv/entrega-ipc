@@ -30,9 +30,8 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import model.Patient;
-import model.Person;
 
-public class PatientFormController extends AbstractFormController<Person> {
+public class PatientFormController extends AbstractFormController<Patient> {
     
     public static final int MAX_NAME_LENGTH = 20;
     public static final int MAX_SURNAME_LENGTH = 40;
@@ -42,7 +41,7 @@ public class PatientFormController extends AbstractFormController<Person> {
     public static final int MAX_PHOTO_HEIGHT = 300;
     public static final String DEFAULT_PHOTO = "/gestorcitas/resources/img/default.png";
     
-    private ObservableList<Person> persons;
+    private ObservableList<Patient> persons;
     
     private ValidatedTextField name;
     private ValidatedTextField surname;
@@ -99,7 +98,7 @@ public class PatientFormController extends AbstractFormController<Person> {
         );
     }
     
-    public void setData(boolean editMode, Person prefill, ObservableList<Person> patients) {
+    public void setData(boolean editMode, Patient prefill, ObservableList<Patient> patients) {
         super.setData(editMode, prefill);
         this.persons = patients;
     }
