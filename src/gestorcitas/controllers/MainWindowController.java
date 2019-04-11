@@ -51,6 +51,7 @@ public class MainWindowController implements Initializable {
         refreshName();
     }
     
+    // TODO: add comment about why we're not using clinic.getPatientAppointments(), etc.
     public <T extends Person> FilteredList<Appointment> getRemoveConflicts(
             T toDelete,
             Function<Appointment,T> personValueFactory
@@ -64,6 +65,13 @@ public class MainWindowController implements Initializable {
     }
     
     public void saveDB() {
+        clinic.getAppointments().clear();
+        clinic.getAppointments().addAll(appointmentsTabController.getItems());
+        clinic.getPatients().clear();
+        clinic.getPatients().addAll(patientsTabController.getItems());
+        clinic.getDoctors().clear();
+        clinic.getDoctors().addAll(doctorsTabController.getItems());
+        
         boolean retry = false;
         do {
             Alert saveWait = new Alert(Alert.AlertType.INFORMATION);
