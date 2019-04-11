@@ -6,9 +6,10 @@
  *  Alberto Baixauli Herráez
  */
 
-package gestorcitas.controllers;
+package gestorcitas.controllers.base;
 
 import DBAccess.ClinicDBAccess;
+import gestorcitas.controllers.MainWindowController;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;

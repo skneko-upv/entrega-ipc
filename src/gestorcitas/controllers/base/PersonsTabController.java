@@ -6,7 +6,7 @@
  *  Alberto Baixauli Herráez
  */
 
-package gestorcitas.controllers;
+package gestorcitas.controllers.base;
 
 import gestorcitas.controllers.helpers.ImageCellFactory;
 import gestorcitas.controllers.helpers.PersonCellFactory;

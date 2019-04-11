@@ -8,6 +8,7 @@
 
 package gestorcitas.controllers;
 
+import gestorcitas.controllers.base.AbstractFormController;
 import gestorcitas.controllers.helpers.ValidatedTextField;
 import java.io.File;
 import java.io.FileInputStream;

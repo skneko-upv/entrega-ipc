@@ -6,7 +6,7 @@
  *  Alberto Baixauli Herráez
  */
 
-package gestorcitas.controllers;
+package gestorcitas.controllers.base;
 
 import java.net.URL;
 import java.util.ResourceBundle;

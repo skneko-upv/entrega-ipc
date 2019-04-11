@@ -8,6 +8,7 @@
 
 package gestorcitas.controllers;
 
+import gestorcitas.controllers.base.PersonsTabController;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

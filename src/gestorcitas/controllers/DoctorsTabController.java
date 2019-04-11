@@ -8,6 +8,7 @@
 
 package gestorcitas.controllers;
 
+import gestorcitas.controllers.base.PersonsTabController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;

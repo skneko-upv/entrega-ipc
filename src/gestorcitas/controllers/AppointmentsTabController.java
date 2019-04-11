@@ -8,6 +8,7 @@
 
 package gestorcitas.controllers;
 
+import gestorcitas.controllers.base.TabController;
 import gestorcitas.controllers.helpers.FormattedDateTimeCellFactory;
 import gestorcitas.controllers.helpers.PersonCellFactory;
 import gestorcitas.controllers.helpers.PersonSearchPredicate;
