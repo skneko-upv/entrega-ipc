@@ -52,6 +52,7 @@ public abstract class EditPrefillFormController<T> implements Initializable {
     @FXML
     private void onSave(ActionEvent event) {
         if (validateAll()) onSaveValidated(event);
+        ((Stage)cancelBtn.getScene().getWindow()).close();
     }
     
     @FXML

@@ -64,11 +64,12 @@ public class PatientsTabController extends PersonsTabController {
             Parent formRoot = (Parent)loader.load();
 
             PatientFormController form = loader.<PatientFormController>getController();
-            form.initialize(true, null);
+            form.initialize(true, null, items);
             
             Scene scene = new Scene(formRoot);
             Stage stage = new Stage();
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.setTitle(rb.getString("modal.patientForm.title.add"));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();

@@ -9,15 +9,25 @@
 package gestorcitas.controllers;
 
 import gestorcitas.controllers.helpers.ValidatedTextField;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import model.Patient;
 import model.Person;
 
@@ -27,13 +37,17 @@ public class PatientFormController extends EditPrefillFormController<Person> {
     public static final int MAX_SURNAME_LENGTH = 40;
     public static final int MAX_ID_LENGTH = 9;
     public static final int MAX_PHONE_LENGTH = 15;
+    public static final int MAX_PHOTO_WIDTH = 300;
+    public static final int MAX_PHOTO_HEIGHT = 300;
+    public static final String DEFAULT_PHOTO = "/gestorcitas/resources/img/default.png";
     
-    private ObservableList<Patient> patients;
+    private ObservableList<Person> persons;
     
     private ValidatedTextField name;
     private ValidatedTextField surname;
     private ValidatedTextField id;
     private ValidatedTextField phone;
+    private final ObjectProperty<Image> photo = new SimpleObjectProperty<>();
     
     @FXML private TextField nameField;
     @FXML private Label nameErrorLabel;
@@ -45,6 +59,7 @@ public class PatientFormController extends EditPrefillFormController<Person> {
     @FXML private Label phoneErrorLabel;
     @FXML private ImageView photoPreview;
     @FXML private Button photoChangeBtn;
+    @FXML private Label photoErrorLabel;
     
     /**
      * Initializes the controller class.
@@ -71,11 +86,16 @@ public class PatientFormController extends EditPrefillFormController<Person> {
                 return rb.getString("form.person.error.phoneNotOnlyNumbers");
             } else return null;
         });
+        
+        // Set up listeners
+        photo.addListener((image, oldImage, newImage) -> {
+            if (newImage != null) photoPreview.setImage(newImage);
+        });
     }
     
-    public void initialize(boolean editMode, Person prefill, ObservableList<Patient> patients) {
+    public void initialize(boolean editMode, Person prefill, ObservableList<Person> patients) {
         super.initialize(editMode, prefill);
-        this.patients = patients;
+        this.persons = patients;
     }
     
     @Override
@@ -111,8 +131,52 @@ public class PatientFormController extends EditPrefillFormController<Person> {
         photoChangeBtn.setVisible(false);
     }
     
-    @FXML @Override
+    @Override
     protected void onSaveValidated(ActionEvent event) {
-        // TODO
+        Image photoOrDefault = photo.getValue();
+        if (photoOrDefault == null) {
+            photoOrDefault = new Image(getClass().getResource(DEFAULT_PHOTO).toString());
+        }
+        
+        persons.add(new Patient(
+                id.getText(),
+                surname.getText(),
+                name.getText(),
+                phone.getText(),
+                photoOrDefault
+        ));
+    }
+
+    @FXML
+    private void onChangePhoto(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(rb.getString("modal.photoSelect.title"));
+        fileChooser.getExtensionFilters().addAll(
+                new ExtensionFilter(rb.getString("modal.photoSelect.filter.img"), "*.png", "*.jpg", "*.jpeg")
+        );
+        File selectedFile = fileChooser.showOpenDialog(
+            ((Node)event.getSource()).getScene().getWindow()
+        );
+        if (selectedFile != null) {
+            try {
+                Image loaded = new Image(new FileInputStream(selectedFile.getAbsolutePath()));
+                if (loaded.getWidth() > MAX_PHOTO_WIDTH 
+                        || loaded.getHeight() > MAX_PHOTO_HEIGHT
+                ) {
+                    photoErrorLabel.setText(
+                            rb.getString("form.img.error.tooBig")
+                                    + MAX_PHOTO_WIDTH + "x"
+                                    + MAX_PHOTO_HEIGHT + "."
+                    );
+                    photoErrorLabel.setVisible(true);
+                } else {
+                    photo.setValue(loaded);
+                    photoErrorLabel.setVisible(false);
+                }
+            } catch (FileNotFoundException e) {
+                photoErrorLabel.setText(rb.getString("generic.error.fileNotFound"));
+                photoErrorLabel.setVisible(true);
+            }
+        }
     }
 }
