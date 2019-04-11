@@ -23,6 +23,14 @@ public class ImageCellFactory<T> implements Callback<
         TableCell<T,Image>
     >
 {
+    
+    private Image placeholder = null;
+    
+    public ImageCellFactory<T> withDefault(Image placeholder) {
+        this.placeholder = placeholder;
+        return this;
+    }
+    
     @Override
     public TableCell<T,Image> call(TableColumn<T,Image> column) {
         return new TableCell<T,Image>() {
@@ -30,13 +38,22 @@ public class ImageCellFactory<T> implements Callback<
             @Override
             protected void updateItem(Image image, boolean empty) {
                 super.updateItem(image, empty);
-                if (empty || image == null) setGraphic(null);
-                else {
-                    view.setPreserveRatio(true);
-                    view.fitWidthProperty().bind(column.widthProperty());
-                    view.setImage(image);
-                    setGraphic(view);
+                
+                if (empty) {
+                    setGraphic(null);
+                    return;
                 }
+                
+                Image toUse;
+                if (image == null && placeholder != null) {
+                    toUse = placeholder;
+                } else {
+                    toUse = image;
+                }
+                view.setPreserveRatio(true);
+                view.fitWidthProperty().bind(column.widthProperty());
+                view.setImage(toUse);
+                setGraphic(view);
             }
         };
     }

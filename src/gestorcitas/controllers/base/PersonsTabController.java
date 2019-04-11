@@ -8,6 +8,7 @@
 
 package gestorcitas.controllers.base;
 
+import static gestorcitas.controllers.MainWindowController.DEFAULT_PHOTO;
 import gestorcitas.controllers.helpers.ImageCellFactory;
 import gestorcitas.controllers.helpers.PersonCellFactory;
 import gestorcitas.controllers.helpers.PersonSearchPredicate;
@@ -61,7 +62,9 @@ public abstract class PersonsTabController<T extends Person>
         
         // Set up table
         photoColumn.setCellValueFactory(new PropertyValueFactory<>("photo"));
-        photoColumn.setCellFactory(new ImageCellFactory<>());
+        photoColumn.setCellFactory(new ImageCellFactory<T>().withDefault(
+                new Image(getClass().getResource(DEFAULT_PHOTO).toString())
+        ));
         
         idColumn.setCellValueFactory(new PropertyValueFactory<>("identifier"));
         

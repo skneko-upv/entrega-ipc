@@ -18,8 +18,8 @@ public class PatientFormController extends BasePersonFormController<Patient> {
     protected void onSaveValidated(ActionEvent event) {
         persons.add(new Patient(
                 id.getText(),
-                surname.getText(),
                 name.getText(),
+                surname.getText(),
                 phone.getText(),
                 photo.getValue()
         ));

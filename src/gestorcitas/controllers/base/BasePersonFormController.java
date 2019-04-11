@@ -8,6 +8,7 @@
 
 package gestorcitas.controllers.base;
 
+import static gestorcitas.controllers.MainWindowController.DEFAULT_PHOTO;
 import gestorcitas.controllers.helpers.ValidatedTextField;
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,7 +40,6 @@ public abstract class BasePersonFormController<T extends Person>
     public static final int MAX_PHONE_LENGTH = 15;
     public static final int MAX_PHOTO_WIDTH = 300;
     public static final int MAX_PHOTO_HEIGHT = 300;
-    public static final String DEFAULT_PHOTO = "/gestorcitas/resources/img/default.png";
     
     protected ObservableList<T> persons;
     
@@ -126,7 +126,16 @@ public abstract class BasePersonFormController<T extends Person>
         surname.setText(prefill.getSurname());
         id.setText(prefill.getIdentifier());
         phone.setText(prefill.getTelephon());
-        photoPreview.setImage(prefill.getPhoto());
+        
+        Image savedPhoto = prefill.getPhoto();
+        if (savedPhoto != null) {
+            photoPreview.setImage(savedPhoto);
+        } else {
+            Image placeholder = new Image(
+                    getClass().getResource(DEFAULT_PHOTO).toString()
+            );
+            photoPreview.setImage(placeholder);
+        }
         photoConsentBox.setSelected(prefill.getPhoto() != null);
     }
     

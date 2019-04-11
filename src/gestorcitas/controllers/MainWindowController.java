@@ -31,6 +31,8 @@ import model.Person;
 
 public class MainWindowController implements Initializable {
     
+    public static final String DEFAULT_PHOTO = "/gestorcitas/resources/img/default.png";
+
     private ResourceBundle rb;
     private final ClinicDBAccess clinic = ClinicDBAccess.getSingletonClinicDBAccess();
     
