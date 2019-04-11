@@ -13,8 +13,6 @@ import gestorcitas.controllers.helpers.ValidatedTextField;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -62,21 +60,14 @@ public abstract class BasePersonFormController<T extends Person>
     @FXML protected Label photoErrorLabel;
     @FXML protected CheckBox photoConsentBox;
     
-    /**
-     * Initializes the controller class.
-     *
-     * @param url Current controller location.
-     * @param rb Resources used to localize this controller.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        super.initialize(url, rb);
+    public void setup(boolean editMode, T prefill, ObservableList<T> persons) {
+        this.persons = persons;
         
         // Set up form field constraints
-        name = new ValidatedTextField(nameField, nameErrorLabel, MAX_NAME_LENGTH);
-        surname = new ValidatedTextField(surnameField, surnameErrorLabel, MAX_SURNAME_LENGTH);
-        id = new ValidatedTextField(idField, idErrorLabel, MAX_ID_LENGTH);
-        phone = new ValidatedTextField(phoneField, phoneErrorLabel, MAX_PHONE_LENGTH);
+        name = new ValidatedTextField(nameField, nameErrorLabel, MAX_NAME_LENGTH, editMode);
+        surname = new ValidatedTextField(surnameField, surnameErrorLabel, MAX_SURNAME_LENGTH, editMode);
+        id = new ValidatedTextField(idField, idErrorLabel, MAX_ID_LENGTH, editMode);
+        phone = new ValidatedTextField(phoneField, phoneErrorLabel, MAX_PHONE_LENGTH, editMode);
         
         name.addValidator(ValidatedTextField.getNotEmptyValidator(rb));
         surname.addValidator(ValidatedTextField.getNotEmptyValidator(rb));
@@ -103,11 +94,8 @@ public abstract class BasePersonFormController<T extends Person>
         photoChangeBtn.disableProperty().bind(
                 Bindings.not(photoConsentBox.selectedProperty())
         );
-    }
-    
-    public void setData(boolean editMode, T prefill, ObservableList<T> persons) {
-        super.setData(editMode, prefill);
-        this.persons = persons;
+        
+        super.setup(editMode, prefill);
     }
     
     @Override

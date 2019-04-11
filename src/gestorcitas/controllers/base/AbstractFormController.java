@@ -26,7 +26,7 @@ public abstract class AbstractFormController<T> implements Initializable {
     @FXML Button saveBtn;
     @FXML Button cancelBtn;
     
-    protected void setData(boolean editMode, T prefill) {
+    protected void setup(boolean editMode, T prefill) {
         this.editMode = editMode;
         this.prefill = prefill;
         if (this.prefill != null) prefill();

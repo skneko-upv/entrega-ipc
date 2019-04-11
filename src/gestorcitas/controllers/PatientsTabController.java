@@ -76,7 +76,7 @@ public class PatientsTabController extends PersonsTabController<Patient> {
             Parent formRoot = (Parent)loader.load();
 
             PatientFormController form = loader.<PatientFormController>getController();
-            form.setData(editMode, prefill, items);
+            form.setup(editMode, prefill, items);
             
             Scene scene = new Scene(formRoot);
             Stage stage = new Stage();
