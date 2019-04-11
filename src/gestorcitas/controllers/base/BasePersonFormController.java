@@ -115,9 +115,9 @@ public abstract class BasePersonFormController<T extends Person>
     @Override
     protected boolean validateAll() {
         return name.validate()
-                && surname.validate()
-                && id.validate()
-                && phone.validate();
+                & surname.validate()
+                & id.validate()
+                & phone.validate();
     }
     
     @Override 

@@ -40,7 +40,7 @@ public class ValidatedTextField {
     }
     
     public ValidatedTextField(TextField field, Label errorLabel, int maxLength) {
-        this(field, errorLabel, 0, true);
+        this(field, errorLabel, maxLength, true);
     }
     
     public ValidatedTextField(TextField field, Label errorLabel, int maxLength, boolean autoValidate) {

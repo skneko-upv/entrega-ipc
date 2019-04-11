@@ -14,14 +14,15 @@ import javafx.scene.control.TextField;
 
 public class TextLimiterListener implements ChangeListener<String> {
     
-    private TextField field;
-    private int maxLength;
+    private final TextField field;
+    private final int maxLength;
     
     public TextLimiterListener(TextField field, int maxLength) {
         this.field = field;
         this.maxLength = maxLength;
     }
     
+    @Override
     public void changed(ObservableValue<? extends String> val, String oldVal, String newVal) {
         if (newVal.length() > maxLength) {
             String s = newVal.substring(0, maxLength);
