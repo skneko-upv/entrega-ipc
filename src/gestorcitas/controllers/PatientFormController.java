@@ -22,6 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -60,6 +61,7 @@ public class PatientFormController extends EditPrefillFormController<Person> {
     @FXML private ImageView photoPreview;
     @FXML private Button photoChangeBtn;
     @FXML private Label photoErrorLabel;
+    @FXML private CheckBox photoConsentBox;
     
     /**
      * Initializes the controller class.
@@ -91,6 +93,10 @@ public class PatientFormController extends EditPrefillFormController<Person> {
         photo.addListener((image, oldImage, newImage) -> {
             if (newImage != null) photoPreview.setImage(newImage);
         });
+        
+        photoChangeBtn.disableProperty().bind(
+                Bindings.not(photoConsentBox.selectedProperty())
+        );
     }
     
     public void initialize(boolean editMode, Person prefill, ObservableList<Person> patients) {
@@ -152,7 +158,10 @@ public class PatientFormController extends EditPrefillFormController<Person> {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(rb.getString("modal.photoSelect.title"));
         fileChooser.getExtensionFilters().addAll(
-                new ExtensionFilter(rb.getString("modal.photoSelect.filter.img"), "*.png", "*.jpg", "*.jpeg")
+                new ExtensionFilter(
+                        rb.getString("modal.photoSelect.filter.img"), 
+                        "*.png", "*.jpg", "*.jpeg"
+                )
         );
         File selectedFile = fileChooser.showOpenDialog(
             ((Node)event.getSource()).getScene().getWindow()
