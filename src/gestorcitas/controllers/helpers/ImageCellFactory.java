@@ -7,6 +7,7 @@
  */
 package gestorcitas.controllers.helpers;
 
+import javafx.beans.binding.Bindings;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.image.Image;
@@ -51,7 +52,7 @@ public class ImageCellFactory<T> implements Callback<
                     toUse = image;
                 }
                 view.setPreserveRatio(true);
-                view.fitWidthProperty().bind(column.widthProperty());
+                view.fitWidthProperty().bind(Bindings.multiply(0.8f, column.widthProperty()));
                 view.setImage(toUse);
                 setGraphic(view);
             }
