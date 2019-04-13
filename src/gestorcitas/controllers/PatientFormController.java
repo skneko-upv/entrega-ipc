@@ -24,4 +24,5 @@ public class PatientFormController extends BasePersonFormController<Patient> {
                 photo.getValue()
         ));
     }
+    
 }

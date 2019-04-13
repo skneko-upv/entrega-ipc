@@ -9,6 +9,7 @@
 package gestorcitas.controllers;
 
 import gestorcitas.controllers.base.PersonsTabController;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -21,8 +22,13 @@ import java.util.function.Function;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.Appointment;
 import model.Days;
 import model.Doctor;
@@ -105,7 +111,7 @@ public class DoctorsTabController extends PersonsTabController<Doctor> {
     
     @FXML @Override
     public void onAdd(ActionEvent event) {
-        // TODO
+        launchForm(true, null);
     }
     
     @Override
@@ -115,7 +121,30 @@ public class DoctorsTabController extends PersonsTabController<Doctor> {
 
     @FXML @Override
     protected void onShow(ActionEvent event) {
-        // TODO
+        int index = itemsFiltered.getSourceIndex(
+                table.getSelectionModel().getSelectedIndex()
+        );
+        launchForm(false, items.get(index));
     }
+    
+    private void launchForm(boolean editMode, Doctor prefill) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestorcitas/views/DoctorForm.fxml"), rb);
+            Parent formRoot = (Parent)loader.load();
+
+            DoctorFormController form = loader.<DoctorFormController>getController();
+            form.setup(editMode, prefill, items, clinic.getExaminationRooms());
+            
+            Scene scene = new Scene(formRoot);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.setTitle(rb.getString(
+                    "modal.doctorForm.title." + (editMode ? "add" : "show")
+            ));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        } catch (IOException e) { System.err.println(e); /* TODO */ }
+    } 
     
 }
