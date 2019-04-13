@@ -35,9 +35,9 @@ public abstract class BasePersonFormController<T extends Person>
     public static final int MAX_NAME_LENGTH = 20;
     public static final int MAX_SURNAME_LENGTH = 40;
     public static final int MAX_ID_LENGTH = 9;
-    public static final int MAX_PHONE_LENGTH = 15;
-    public static final int MAX_PHOTO_WIDTH = 300;
-    public static final int MAX_PHOTO_HEIGHT = 300;
+    public static final int MAX_PHONE_LENGTH = 9;
+    public static final int MAX_PHOTO_WIDTH = 400;
+    public static final int MAX_PHOTO_HEIGHT = 400;
     
     protected ObservableList<T> persons;
     
