@@ -71,7 +71,7 @@ public class MainWindowController implements Initializable {
         language.selectedToggleProperty().addListener((val, oldVal, newVal) -> {
             if (newVal != null && (oldVal == null || !oldVal.equals(newVal))) {
                 if (newVal == langEN) { restartWithLocale(new Locale("en", "us")); }
-                else if (newVal == langES) { System.out.println(new Locale("es", "es")); }
+                else if (newVal == langES) { restartWithLocale(new Locale("es", "es")); }
             }
         });
     }
@@ -219,6 +219,7 @@ public class MainWindowController implements Initializable {
     }
     
     private void restartWithLocale(Locale locale) {
+        saveDB();
         ((Stage)root.getScene().getWindow()).close();
         Platform.runLater(() -> {
             try {
