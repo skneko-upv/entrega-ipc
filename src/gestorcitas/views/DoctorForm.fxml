@@ -19,18 +19,18 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestorcitas.controllers.DoctorFormController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="589.0" prefWidth="555.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestorcitas.controllers.DoctorFormController">
    <children>
-      <Text fill="#726868" layoutX="21.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datos personales">
+      <Text fill="#726868" layoutX="27.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%form.person.title">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <Line endX="307.0" layoutX="128.0" layoutY="39.0" startX="-109.0" />
-      <GridPane layoutX="27.0" layoutY="53.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="225.0" prefWidth="253.0">
+      <Line endX="136.0" layoutX="136.0" layoutY="48.0" startX="-109.0" />
+      <GridPane layoutX="27.0" layoutY="53.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="391.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="107.0" minWidth="68.0" prefWidth="85.0000244140625" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.5999755859375" minWidth="100.0" prefWidth="169.5999755859375" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="169.5999755859375" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints />
@@ -40,69 +40,70 @@
             <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre" GridPane.rowIndex="1">
+            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="%table.person.name" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Text>
-            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="Apellidos" GridPane.rowIndex="2">
+            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="%table.person.surname" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Text>
-            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="D.N.I" GridPane.rowIndex="3">
+            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="%table.person.id" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Text>
-            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="Teléfono" GridPane.rowIndex="4">
+            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="%table.person.phone" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Text>
             <VBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <TextField fx:id="nameField" alignment="BASELINE_LEFT" maxWidth="-Infinity" prefWidth="120.0">
+                  <TextField fx:id="nameField" alignment="BASELINE_LEFT" maxWidth="-Infinity" prefWidth="160.0">
                      <VBox.margin>
                         <Insets top="18.0" />
                      </VBox.margin>
                   </TextField>
-                  <Label fx:id="nameErrorLabel" alignment="CENTER_RIGHT" text="Label" />
+                  <Label fx:id="nameErrorLabel" alignment="CENTER_RIGHT" textFill="RED" visible="false" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <TextField fx:id="surnameField" alignment="BASELINE_LEFT">
+                  <TextField fx:id="surnameField" alignment="BASELINE_LEFT" maxWidth="-Infinity" prefWidth="260.0">
                      <VBox.margin>
                         <Insets top="18.0" />
                      </VBox.margin>
                   </TextField>
-                  <Label fx:id="surnameErrorField" alignment="CENTER_RIGHT" text="Label" />
+                  <Label fx:id="surnameErrorLabel" alignment="CENTER_RIGHT" textFill="RED" visible="false" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <TextField fx:id="idField" alignment="BASELINE_LEFT" maxWidth="-Infinity" prefWidth="100.0">
+                  <TextField fx:id="idField" alignment="BASELINE_LEFT" maxWidth="-Infinity" prefWidth="110.0">
                      <VBox.margin>
                         <Insets top="18.0" />
                      </VBox.margin>
                   </TextField>
-                  <Label fx:id="idErrorField" alignment="CENTER_RIGHT" text="El DNI no contiene letra." />
+                  <Label fx:id="idErrorLabel" alignment="CENTER_RIGHT" textFill="RED" visible="false" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
-                  <TextField fx:id="phoneField" alignment="BASELINE_LEFT" maxWidth="-Infinity" prefWidth="100.0">
+                  <TextField fx:id="phoneField" alignment="BASELINE_LEFT" maxWidth="-Infinity" prefWidth="110.0">
                      <VBox.margin>
                         <Insets top="18.0" />
                      </VBox.margin>
                   </TextField>
-                  <Label fx:id="phoneErrorField" alignment="CENTER_RIGHT" text="Label" />
+                  <Label fx:id="phoneErrorLabel" alignment="CENTER_RIGHT" textFill="RED" visible="false" />
                </children>
             </VBox>
          </children>
       </GridPane>
-      <VBox alignment="TOP_RIGHT" layoutX="285.0" layoutY="46.0" prefHeight="200.0" prefWidth="144.0">
+      <CheckBox fx:id="photoConsentBox" layoutX="39.0" layoutY="291.0" mnemonicParsing="false" text="%form.person.photoConsent" />
+      <VBox alignment="TOP_RIGHT" layoutX="378.0" layoutY="24.0" prefWidth="167.0">
          <children>
             <ImageView fx:id="photoPreview" fitHeight="150.0" fitWidth="144.0" pickOnBounds="true">
                <image>
@@ -112,17 +113,24 @@
                   <Rectangle2D minX="150.0" minY="150.0" width="150.0" />
                </viewport>
             </ImageView>
-            <Button fx:id="phoneChangeBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="76.0" text="Cambiar">
+            <Button fx:id="photoChangeBtn" alignment="CENTER" mnemonicParsing="false" onAction="#onChangePhoto" prefHeight="25.0" text="%generic.change">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </Button>
+            <Label fx:id="photoErrorLabel" textAlignment="RIGHT" textFill="RED" visible="false" wrapText="true" />
          </children>
       </VBox>
-      <GridPane layoutX="20.0" layoutY="320.0" prefHeight="180.0" prefWidth="417.0">
+      <Text fill="#726868" layoutX="29.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%form.doctor.title">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Line endX="307.0" layoutX="136.0" layoutY="368.0" startX="-109.0" />
+      <GridPane layoutX="27.0" layoutY="369.0" prefHeight="180.0" prefWidth="514.0">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.0" minWidth="86.0" prefWidth="116.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="301.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.0" minWidth="86.0" prefWidth="140.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="374.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints />
@@ -132,73 +140,75 @@
             <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="Hora de inicio " GridPane.rowIndex="2">
+            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="%form.doctor.startTime" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Text>
-            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="Hora de salida" GridPane.rowIndex="3">
+            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="%form.doctor.endTime" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Text>
-            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="Sala" GridPane.rowIndex="4">
+            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="%form.doctor.room" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Text>
-            <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="Días de consulta" GridPane.rowIndex="1">
+            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" text="%form.doctor.visitDays" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Text>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="14.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <CheckBox mnemonicParsing="false" text="L" />
-                  <CheckBox mnemonicParsing="false" text="M" />
-                  <CheckBox mnemonicParsing="false" text="X" />
-                  <CheckBox mnemonicParsing="false" text="J" />
-                  <CheckBox mnemonicParsing="false" text="V" />
-                  <CheckBox mnemonicParsing="false" text="S" textFill="#ff0101" />
-                  <CheckBox mnemonicParsing="false" text="D" textFill="#ff0101" />
+                  <CheckBox fx:id="mondayBox" maxWidth="40.0" mnemonicParsing="false" text="%generic.weekday.initial.0" />
+                  <CheckBox fx:id="tuesdayBox" maxWidth="40.0" mnemonicParsing="false" text="%generic.weekday.initial.1" />
+                  <CheckBox fx:id="wednesdayBox" maxWidth="40.0" mnemonicParsing="false" text="%generic.weekday.initial.2" />
+                  <CheckBox fx:id="thursdayBox" maxWidth="40.0" mnemonicParsing="false" text="%generic.weekday.initial.3" />
+                  <CheckBox fx:id="fridayBox" maxWidth="40.0" mnemonicParsing="false" text="%generic.weekday.initial.4" />
+                  <CheckBox fx:id="saturdayBox" maxWidth="40.0" mnemonicParsing="false" text="%generic.weekday.initial.5" textFill="#ff0101" />
+                  <CheckBox fx:id="sundayBox" maxWidth="40.0" mnemonicParsing="false" text="%generic.weekday.initial.6" textFill="#ff0101" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="3.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <ChoiceBox prefWidth="55.0" />
+                  <ChoiceBox fx:id="startTimeHourSelector" prefWidth="55.0" />
                   <Label text=":" />
-                  <ChoiceBox prefWidth="55.0" />
+                  <ChoiceBox fx:id="startTimeMinSelector" prefWidth="55.0" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="3.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <ChoiceBox prefWidth="55.0" />
+                  <ChoiceBox fx:id="endTimeHourSelector" prefWidth="55.0" />
                   <Label text=":" />
-                  <ChoiceBox prefWidth="55.0" />
+                  <ChoiceBox fx:id="endTimeMinSelector" prefWidth="55.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <children>
+                  <ChoiceBox fx:id="roomSelector" prefHeight="25.0" prefWidth="55.0" />
+                  <Label fx:id="roomDescriptionLabel" />
                </children>
             </HBox>
          </children>
       </GridPane>
-      <Text fill="#726868" layoutX="19.0" layoutY="312.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajustes de consultas">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Line endX="307.0" layoutX="126.0" layoutY="319.0" startX="-109.0" />
-      <HBox alignment="BOTTOM_RIGHT" layoutX="250.0" layoutY="450.0" prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="CENTER_RIGHT" layoutX="273.0" layoutY="542.0" prefHeight="47.0" prefWidth="284.0" spacing="6.0">
          <children>
-            <Button mnemonicParsing="false" text="Guardar">
+            <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#onSave" text="%generic.save">
                <HBox.margin>
-                  <Insets bottom="20.0" right="20.0" />
+                  <Insets />
                </HBox.margin>
             </Button>
-            <Button cancelButton="true" mnemonicParsing="false" text="Cancelar">
+            <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#onCancel" text="%generic.cancel">
                <HBox.margin>
-                  <Insets bottom="20.0" right="20.0" />
+                  <Insets />
                </HBox.margin>
             </Button>
          </children>
+         <padding>
+            <Insets right="10.0" />
+         </padding>
       </HBox>
    </children>
 </AnchorPane>

@@ -1,0 +1,9 @@
+.accelerator-text {
+	-fx-graphic: none !important;
+}
+
+.input-error {
+	-fx-highlight-text-fill: red !important;
+	-fx-highlight-fill: red !important;
+	-fx-border-color: red;
+}
