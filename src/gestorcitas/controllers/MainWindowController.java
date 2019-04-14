@@ -9,10 +9,12 @@
 package gestorcitas.controllers;
 
 import DBAccess.ClinicDBAccess;
+import gestorcitas.application.GestorCitas;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ToggleGroup;
 import java.net.URL;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Function;
@@ -25,7 +27,10 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import model.Appointment;
 import model.Person;
 
@@ -36,11 +41,15 @@ public class MainWindowController implements Initializable {
     private ResourceBundle rb;
     private final ClinicDBAccess clinic = ClinicDBAccess.getSingletonClinicDBAccess();
     
+    @FXML private BorderPane root;
+    
     @FXML private AppointmentsTabController appointmentsTabController;
     @FXML private PatientsTabController patientsTabController;
     @FXML private DoctorsTabController doctorsTabController;
 
     @FXML private ToggleGroup language;
+    @FXML private RadioMenuItem langES;
+    @FXML private RadioMenuItem langEN;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -51,6 +60,20 @@ public class MainWindowController implements Initializable {
         doctorsTabController.setMainController(this);
         
         refreshName();
+        
+        // Set up language change
+        Locale locale = rb.getLocale();
+        if (locale.equals(new Locale("en", "us"))) {
+            language.selectToggle(langEN);
+        } else if (locale.equals(new Locale("es", "es"))) {
+            language.selectToggle(langES);
+        }
+        language.selectedToggleProperty().addListener((val, oldVal, newVal) -> {
+            if (newVal != null && (oldVal == null || !oldVal.equals(newVal))) {
+                if (newVal == langEN) { restartWithLocale(new Locale("en", "us")); }
+                else if (newVal == langES) { System.out.println(new Locale("es", "es")); }
+            }
+        });
     }
     
     // TODO: add comment about why we're not using clinic.getPatientAppointments(), etc.
@@ -193,6 +216,17 @@ public class MainWindowController implements Initializable {
         about.setGraphic(null);
         about.setContentText(rb.getString("modal.about.content"));
         about.showAndWait();
+    }
+    
+    private void restartWithLocale(Locale locale) {
+        ((Stage)root.getScene().getWindow()).close();
+        Platform.runLater(() -> {
+            try {
+                new GestorCitas().start(new Stage(), locale);
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        });
     }
     
 }
