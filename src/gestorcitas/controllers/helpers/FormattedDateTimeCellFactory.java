@@ -8,6 +8,7 @@
 package gestorcitas.controllers.helpers;
 
 import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -19,7 +20,7 @@ import javafx.util.Callback;
  * of DateTime creates instances of TableCell containing String resulting from
  * formatting said date with the given formatter.
  */
-public class FormattedDateTimeCellFactory<T,R extends LocalDateTime> implements Callback<
+public class FormattedDateTimeCellFactory<T,R extends ChronoLocalDateTime<?>> implements Callback<
         TableColumn<T,R>,
         TableCell<T,R>
     >
