@@ -7,10 +7,11 @@
  */
 package gestorcitas.controllers.helpers;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAccessor;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
 /**
@@ -18,7 +19,7 @@ import javafx.util.Callback;
  * of DateTime creates instances of TableCell containing String resulting from
  * formatting said date with the given formatter.
  */
-public class FormattedDateTimeCellFactory<T,R extends TemporalAccessor> implements Callback<
+public class FormattedDateTimeCellFactory<T,R extends LocalDateTime> implements Callback<
         TableColumn<T,R>,
         TableCell<T,R>
     >
@@ -38,6 +39,9 @@ public class FormattedDateTimeCellFactory<T,R extends TemporalAccessor> implemen
                 if (empty || date == null) setText(null);
                 else {
                     setText(formatter.format(date));
+                    if (date.isBefore(LocalDateTime.now())) {
+                        setTextFill(Color.RED);
+                    }
                 }
             }
         };
