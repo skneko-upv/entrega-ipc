@@ -8,6 +8,7 @@
 
 package gestorcitas.application;
 
+import com.sun.javafx.css.StyleManager;
 import gestorcitas.controllers.MainWindowController;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -36,6 +37,8 @@ public class GestorCitas extends Application {
         stage.setMinWidth(MIN_STAGE_WIDTH);
         stage.setScene(scene);
         stage.show();
+        
+        StyleManager.getInstance().addUserAgentStylesheet("/gestorcitas/resources/css/custom.css");
         
         // Save database on application close
         stage.setOnCloseRequest((event) -> {

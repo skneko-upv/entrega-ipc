@@ -10,19 +10,19 @@
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestorcitas.controllers.MainWindowController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="550.0" prefWidth="750.0" stylesheets="@../resources/css/custom.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestorcitas.controllers.MainWindowController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
           <Menu text="%menu.clinic">
             <items>
-              <MenuItem onAction="#onChangeName" text="%menu.clinic.setName" />
-                  <MenuItem onAction="#onSave" text="%menu.clinic.save">
+              <MenuItem onAction="#onChangeName" style="-fx-graphic: url(&quot;/gestorcitas/resources/icon/edit-file.png&quot;);" text="%menu.clinic.setName" />
+                  <MenuItem onAction="#onSave" style="-fx-graphic: url(&quot;/gestorcitas/resources/icon/save.png&quot;);" text="%menu.clinic.save">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="S" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator></MenuItem>
-                  <MenuItem onAction="#onDiscardChanges" text="%menu.clinic.discard" />
-                  <Menu text="%menu.clinic.lang">
+                  <MenuItem onAction="#onDiscardChanges" style="-fx-graphic: url(&quot;/gestorcitas/resources/icon/discard.png&quot;);" text="%menu.clinic.discard" />
+                  <Menu style="-fx-graphic: url(&quot;/gestorcitas/resources/icon/lang.png&quot;);" text="%menu.clinic.lang">
                      <items>
                         <RadioMenuItem selected="true" text="%menu.clinic.lang.es">
                            <toggleGroup>
@@ -31,7 +31,7 @@
                         </RadioMenuItem>
                      </items>
                   </Menu>
-                  <MenuItem onAction="#onQuit" text="%menu.clinic.quit">
+                  <MenuItem onAction="#onQuit" style="-fx-graphic: url(&quot;/gestorcitas/resources/icon/exit.png&quot;);" text="%menu.clinic.quit">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="Q" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator>
@@ -40,15 +40,15 @@
           </Menu>
           <Menu text="%menu.add">
             <items>
-              <MenuItem onAction="#onAddAppointment" text="%menu.add.appointment">
+              <MenuItem onAction="#onAddAppointment" style="-fx-graphic: url(&quot;/gestorcitas/resources/icon/appointment.png&quot;);" text="%menu.add.appointment">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="A" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator></MenuItem>
-                  <MenuItem onAction="#onAddPatient" text="%menu.add.patient">
+                  <MenuItem onAction="#onAddPatient" style="-fx-graphic: url(&quot;/gestorcitas/resources/icon/patient.png&quot;);" text="%menu.add.patient">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="P" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator></MenuItem>
-                  <MenuItem onAction="#onAddDoctor" text="%menu.add.doctor">
+                  <MenuItem onAction="#onAddDoctor" style="-fx-graphic: url(&quot;/gestorcitas/resources/icon/doctor.png&quot;);" text="%menu.add.doctor">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="D" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator></MenuItem>
@@ -56,7 +56,7 @@
           </Menu>
           <Menu text="%menu.help">
             <items>
-              <MenuItem onAction="#onAbout" text="%menu.help.about" />
+              <MenuItem onAction="#onAbout" style="-fx-graphic: url(&quot;/gestorcitas/resources/icon/about.png&quot;);" text="%menu.help.about" />
             </items>
           </Menu>
         </menus>
@@ -65,7 +65,7 @@
    <center>
       <TabPane tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab closable="false" text="%tab.appointments">
+          <Tab closable="false" style="-fx-graphic: url(&quot;/gestorcitas/resources/icon/appointment.png&quot;);" text="%tab.appointments">
                <content>
                   <fx:include fx:id="appointmentsTab" source="AppointmentsTab.fxml" />
                </content>
