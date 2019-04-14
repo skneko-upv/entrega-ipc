@@ -102,7 +102,7 @@ public class ValidatedTextField {
     
     public void setClear() {
         isError = false;
-        field.getStyleClass().remove("input-error");
+        field.getStyleClass().remove(CSS_ERROR_CLASS);
         errorLabel.setVisible(false);
     }
 }
