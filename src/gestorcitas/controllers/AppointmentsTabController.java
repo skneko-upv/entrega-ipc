@@ -12,6 +12,7 @@ import gestorcitas.controllers.base.TabController;
 import gestorcitas.controllers.helpers.FormattedDateTimeCellFactory;
 import gestorcitas.controllers.helpers.PersonCellFactory;
 import gestorcitas.controllers.helpers.PersonSearchPredicate;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import java.net.URL;
@@ -19,23 +20,24 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.Appointment;
-import model.Doctor;
 import model.ExaminationRoom;
 import model.Person;
-import utils.SlotAppointmentsWeek;
-import utils.SlotWeek;
 
 public class AppointmentsTabController extends TabController<Appointment> {
 
@@ -170,27 +172,21 @@ public class AppointmentsTabController extends TabController<Appointment> {
     
     @FXML @Override
     public void onAdd(ActionEvent event) {
-        Doctor test = clinic.getDoctors().get(0);
-        ArrayList<SlotWeek> slots = SlotAppointmentsWeek.getAppointmentsWeek(
-                13, 
-                test.getVisitDays(), 
-                test.getVisitStartTime(), 
-                test.getVisitEndTime(), 
-                new ArrayList<>(items)
-        );
-        for (SlotWeek slot : slots) {
-            System.out.printf(
-                    "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n",
-                    slot.getSlot(),
-                    slot.getMondayAvailability(),
-                    slot.getTuesdayAvailability(),
-                    slot.getWednesdayAvailability(),
-                    slot.getThursdayAvailability(),
-                    slot.getFridayAvailability(),
-                    slot.getSaturdayAvailability(),
-                    slot.getSundayAvailability()
-            );
-        }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestorcitas/views/AppointmentForm.fxml"), rb);
+            Parent formRoot = (Parent)loader.load();
+
+            AppointmentFormController form = loader.<AppointmentFormController>getController();
+            form.setup(items);
+            
+            Scene scene = new Scene(formRoot);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.setTitle(rb.getString("modal.appointmentForm.title"));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        } catch (IOException e) { System.err.println(e); /* TODO */ }
     }
     
     @Override
