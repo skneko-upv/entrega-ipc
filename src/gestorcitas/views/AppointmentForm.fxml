@@ -27,37 +27,37 @@
             <TableView fx:id="weekTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
               <columns>
                 <TableColumn fx:id="slotColumn" editable="false" prefWidth="75.0" sortable="false" text="Time" />
-                <TableColumn prefWidth="75.0" text="Monday">
+                <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Monday">
                      <columns>
                         <TableColumn fx:id="mondayColumn" editable="false" prefWidth="75.0" sortable="false" text="1" />
                      </columns>
                   </TableColumn>
-                  <TableColumn prefWidth="75.0" text="Tuesday">
+                  <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Tuesday">
                      <columns>
                         <TableColumn fx:id="tuesdayColumn" editable="false" prefWidth="75.0" sortable="false" text="2" />
                      </columns>
                   </TableColumn>
-                  <TableColumn prefWidth="75.0" text="Wednesday">
+                  <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Wednesday">
                      <columns>
                         <TableColumn fx:id="wednesdayColumn" editable="false" prefWidth="75.0" sortable="false" text="3" />
                      </columns>
                   </TableColumn>
-                  <TableColumn prefWidth="75.0" text="Thursday">
+                  <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Thursday">
                      <columns>
                         <TableColumn fx:id="thursdayColumn" editable="false" prefWidth="75.0" sortable="false" text="4" />
                      </columns>
                   </TableColumn>
-                  <TableColumn prefWidth="75.0" text="Friday">
+                  <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Friday">
                      <columns>
                         <TableColumn fx:id="fridayColumn" editable="false" prefWidth="75.0" sortable="false" text="5" />
                      </columns>
                   </TableColumn>
-                  <TableColumn prefWidth="75.0" text="Saturday">
+                  <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Saturday">
                      <columns>
                         <TableColumn fx:id="saturdayColumn" editable="false" prefWidth="75.0" sortable="false" text="6" />
                      </columns>
                   </TableColumn>
-                  <TableColumn prefWidth="75.0" text="Sunday">
+                  <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Sunday">
                      <columns>
                         <TableColumn fx:id="sundayColumn" editable="false" prefWidth="75.0" sortable="false" text="7" />
                      </columns>
@@ -101,30 +101,30 @@
                   <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="15.0" valignment="TOP" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Visit day" GridPane.rowIndex="1">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Visit day" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </Text>
-                  <DatePicker fx:id="visitDayPicker" prefHeight="25.0" prefWidth="164.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Visit time" GridPane.rowIndex="2" />
-                  <Label fx:id="visitTimeLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room" GridPane.rowIndex="3">
+                  <DatePicker fx:id="visitDayPicker" prefHeight="25.0" prefWidth="164.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Visit time" GridPane.rowIndex="4" />
+                  <Label fx:id="visitTimeLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room" GridPane.rowIndex="5">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </Text>
-                  <ChoiceBox fx:id="roomSelector" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label fx:id="roomDescriptionLabel" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient" GridPane.rowIndex="5" />
-                  <ChoiceBox fx:id="patientSelector" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Doctor" GridPane.rowIndex="6" />
-                  <ChoiceBox fx:id="doctorSelector" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <ChoiceBox fx:id="roomSelector" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label fx:id="roomDescriptionLabel" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient" GridPane.rowIndex="2" />
+                  <ChoiceBox fx:id="patientSelector" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Doctor" GridPane.rowIndex="1" />
+                  <ChoiceBox fx:id="doctorSelector" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <Label fx:id="errorLabel" layoutX="5.0" layoutY="340.0" textFill="RED" />

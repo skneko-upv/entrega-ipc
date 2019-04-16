@@ -32,6 +32,8 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.Appointment;
+import model.Doctor;
+import model.Patient;
 import model.Person;
 
 public class MainWindowController implements Initializable {
@@ -87,6 +89,18 @@ public class MainWindowController implements Initializable {
                     .getIdentifier()
                     .equals(toDelete.getIdentifier());
         });
+    }
+    
+    public ObservableList<Appointment> getAppointments() {
+        return appointmentsTabController.getItems();
+    }
+    
+    public ObservableList<Patient> getPatients() {
+        return patientsTabController.getItems();
+    }
+    
+    public ObservableList<Doctor> getDoctors() {
+        return doctorsTabController.getItems();
     }
     
     public void saveDB() {

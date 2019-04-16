@@ -177,7 +177,7 @@ public class AppointmentsTabController extends TabController<Appointment> {
             Parent formRoot = (Parent)loader.load();
 
             AppointmentFormController form = loader.<AppointmentFormController>getController();
-            form.setup(items);
+            form.setup(items, mainWindowController.getPatients(), mainWindowController.getDoctors());
             
             Scene scene = new Scene(formRoot);
             Stage stage = new Stage();
