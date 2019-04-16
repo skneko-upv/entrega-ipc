@@ -7,3 +7,19 @@
 	-fx-highlight-fill: red !important;
 	-fx-border-color: red;
 }
+
+.cell-free {
+        -fx-background-color: green;
+}
+
+.cell-unavailable {
+        -fx-background-color: red;
+}
+
+.cell-taken {
+        -fx-background-color: orangered;
+}
+
+.cell-old {
+        -fx-background-color: grey;
+}

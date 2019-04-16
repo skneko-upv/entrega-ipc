@@ -26,7 +26,7 @@
          <center>
             <TableView fx:id="weekTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
               <columns>
-                <TableColumn fx:id="slotColumn" editable="false" prefWidth="75.0" sortable="false" text="Time" />
+                <TableColumn fx:id="slotColumn" editable="false" maxWidth="3000.0" prefWidth="50.0" sortable="false" text="Time" />
                 <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Monday">
                      <columns>
                         <TableColumn fx:id="mondayColumn" editable="false" prefWidth="75.0" sortable="false" text="1" />
@@ -71,9 +71,9 @@
          <top>
             <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="25.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="prevWeekBtn" mnemonicParsing="false" text="←" />
+                  <Button mnemonicParsing="false" onAction="#onPrevWeek" text="←" />
                   <Label fx:id="weekLabel" text="Week 5 September 2018" />
-                  <Button fx:id="nextWeekBtn" mnemonicParsing="false" text="→" />
+                  <Button mnemonicParsing="false" onAction="#onNextWeek" text="→" />
                </children>
                <BorderPane.margin>
                   <Insets bottom="4.0" />

@@ -37,26 +37,31 @@ public class SlotDayCellFactory implements Callback<
             @Override
             protected void updateItem(String day, boolean empty) {
                 super.updateItem(day, empty);
+                getStyleClass().remove("cell-free");
+                getStyleClass().remove("cell-unavailable");
+                getStyleClass().remove("cell-taken");
                 if (empty || day == null) setText(null);
-                
-                if (day.equals(FREE)) {
-                    getStyleClass().add("cell-free");
-                    setText(rb.getString("modal.appointmentForm.cell.free"));
-                } else if (day.equals(UNAVAILABLE)) {
-                    getStyleClass().add("cell-unavailable");
-                    setText(rb.getString("modal.appointmentForm.cell.unavailable"));
-                } else {
-                    Patient found = patients.stream()
-                            .filter(p -> p.getIdentifier().equals(day))
-                            .findFirst()
-                            .orElse(null);
-                    
-                    String text = rb.getString("modal.appointmentForm.cell.taken");
-                    if (found != null) {
-                        text += "\n" + found.getSurname() + ", " + found.getName() 
-                                + "(" + found.getIdentifier() + ")";
+                else {
+                    if (day.equals(FREE)) {
+                        getStyleClass().add("cell-free");
+                        setText(rb.getString("modal.appointmentForm.cell.free"));
+                    } else if (day.equals(UNAVAILABLE)) {
+                        getStyleClass().add("cell-unavailable");
+                        setText(rb.getString("modal.appointmentForm.cell.unavailable"));
+                    } else {
+                        getStyleClass().add("cell-taken");
+                        Patient found = patients.stream()
+                                .filter(p -> p.getIdentifier().equals(day))
+                                .findFirst()
+                                .orElse(null);
+
+                        String text = rb.getString("modal.appointmentForm.cell.taken");
+                        if (found != null) {
+                            text += "\n" + found.getSurname() + ", " + found.getName() 
+                                    + "(" + found.getIdentifier() + ")";
+                        }
+                        setText(text);
                     }
-                    setText(text);
                 }
             }
         };
