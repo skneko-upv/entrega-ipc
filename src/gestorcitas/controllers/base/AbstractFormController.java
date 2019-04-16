@@ -51,6 +51,7 @@ public abstract class AbstractFormController<T> implements Initializable {
     
     @FXML
     private void onSave(ActionEvent event) {
+        setClearAll();
         if (validateAll()) {
             onSaveValidated(event);
             ((Stage)cancelBtn.getScene().getWindow()).close();
