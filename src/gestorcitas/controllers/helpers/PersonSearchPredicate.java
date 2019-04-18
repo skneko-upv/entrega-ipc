@@ -11,7 +11,7 @@ package gestorcitas.controllers.helpers;
 import java.util.function.Predicate;
 import model.Person;
 
-public class PersonSearchPredicate implements Predicate<Person> {
+public class PersonSearchPredicate<T extends Person> implements Predicate<T> {
     
     private String query;
     
@@ -20,7 +20,7 @@ public class PersonSearchPredicate implements Predicate<Person> {
     }
     
     @Override
-    public boolean test(Person p) {
+    public boolean test(T p) {
         if (query.equals("")) return true;
         else {
             return p.getIdentifier().toLowerCase().contains(query)

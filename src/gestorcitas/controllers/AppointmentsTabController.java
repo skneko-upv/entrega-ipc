@@ -198,7 +198,7 @@ public class AppointmentsTabController extends TabController<Appointment> {
     protected void onSearch(ActionEvent event) {
         String query = searchBox.getText();
         itemsFiltered.setPredicate(e -> {
-                Predicate<Person> predicate = new PersonSearchPredicate(query);
+                Predicate<Person> predicate = new PersonSearchPredicate<>(query);
                 return predicate.test(e.getDoctor()) || predicate.test(e.getPatient());
         });
     }

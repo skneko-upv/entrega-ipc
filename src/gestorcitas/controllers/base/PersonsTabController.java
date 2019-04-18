@@ -89,7 +89,7 @@ public abstract class PersonsTabController<T extends Person>
         if (query.equals("")) {
             itemsFiltered.setPredicate(e -> true);
         } else {
-            itemsFiltered.setPredicate(new PersonSearchPredicate(query));
+            itemsFiltered.setPredicate(new PersonSearchPredicate<>(query));
         }
     }
     
