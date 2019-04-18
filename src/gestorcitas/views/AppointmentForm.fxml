@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="950.0" styleClass="background-form" stylesheets="@../resources/css/sceneTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestorcitas.controllers.AppointmentFormController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="1000.0" styleClass="background-form" stylesheets="@../resources/css/sceneTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestorcitas.controllers.AppointmentFormController">
    <center>
       <BorderPane BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -26,40 +26,40 @@
          <center>
             <TableView fx:id="weekTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
               <columns>
-                <TableColumn fx:id="slotColumn" editable="false" maxWidth="3000.0" prefWidth="50.0" sortable="false" text="Time" />
-                <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Monday">
+                <TableColumn fx:id="slotColumn" editable="false" maxWidth="3000.0" prefWidth="50.0" sortable="false" text="%generic.time" />
+                <TableColumn editable="false" prefWidth="75.0" sortable="false" text="%generic.week.0">
                      <columns>
-                        <TableColumn fx:id="mondayColumn" editable="false" prefWidth="75.0" sortable="false" text="1" />
+                        <TableColumn fx:id="mondayColumn" editable="false" prefWidth="75.0" sortable="false" />
                      </columns>
                   </TableColumn>
-                  <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Tuesday">
+                  <TableColumn editable="false" prefWidth="75.0" sortable="false" text="%generic.week.1">
                      <columns>
-                        <TableColumn fx:id="tuesdayColumn" editable="false" prefWidth="75.0" sortable="false" text="2" />
+                        <TableColumn fx:id="tuesdayColumn" editable="false" prefWidth="75.0" sortable="false" />
                      </columns>
                   </TableColumn>
-                  <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Wednesday">
+                  <TableColumn editable="false" prefWidth="75.0" sortable="false" text="%generic.week.2">
                      <columns>
-                        <TableColumn fx:id="wednesdayColumn" editable="false" prefWidth="75.0" sortable="false" text="3" />
+                        <TableColumn fx:id="wednesdayColumn" editable="false" prefWidth="75.0" sortable="false" />
                      </columns>
                   </TableColumn>
-                  <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Thursday">
+                  <TableColumn editable="false" prefWidth="75.0" sortable="false" text="%generic.week.3">
                      <columns>
-                        <TableColumn fx:id="thursdayColumn" editable="false" prefWidth="75.0" sortable="false" text="4" />
+                        <TableColumn fx:id="thursdayColumn" editable="false" prefWidth="75.0" sortable="false" />
                      </columns>
                   </TableColumn>
-                  <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Friday">
+                  <TableColumn editable="false" prefWidth="75.0" sortable="false" text="%generic.week.4">
                      <columns>
-                        <TableColumn fx:id="fridayColumn" editable="false" prefWidth="75.0" sortable="false" text="5" />
+                        <TableColumn fx:id="fridayColumn" editable="false" prefWidth="75.0" sortable="false" />
                      </columns>
                   </TableColumn>
-                  <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Saturday">
+                  <TableColumn editable="false" prefWidth="75.0" sortable="false" text="%generic.week.5">
                      <columns>
-                        <TableColumn fx:id="saturdayColumn" editable="false" prefWidth="75.0" sortable="false" text="6" />
+                        <TableColumn fx:id="saturdayColumn" editable="false" prefWidth="75.0" sortable="false" />
                      </columns>
                   </TableColumn>
-                  <TableColumn editable="false" prefWidth="75.0" sortable="false" text="Sunday">
+                  <TableColumn editable="false" prefWidth="75.0" sortable="false" text="%generic.week.6">
                      <columns>
-                        <TableColumn fx:id="sundayColumn" editable="false" prefWidth="75.0" sortable="false" text="7" />
+                        <TableColumn fx:id="sundayColumn" editable="false" prefWidth="75.0" sortable="false" />
                      </columns>
                   </TableColumn>
               </columns>
@@ -72,7 +72,7 @@
             <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="25.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="prevWeekBtn" mnemonicParsing="false" onAction="#onPrevWeek" styleClass="neutralButton" stylesheets="@../resources/css/sceneTheme.css" text="←" />
-                  <Label fx:id="weekLabel" styleClass="text-id-sub" text="Week 5 September 2018" />
+                  <Label fx:id="weekLabel" styleClass="text-id-sub" />
                   <Button mnemonicParsing="false" onAction="#onNextWeek" styleClass="neutralButton" stylesheets="@../resources/css/sceneTheme.css" text="→" />
                </children>
                <BorderPane.margin>
@@ -91,10 +91,10 @@
                </font>
             </Text>
             <Line endX="167.0" layoutX="36.0" layoutY="43.0" startX="-33.0" startY="1.52587890625E-5" />
-            <GridPane layoutX="5.0" layoutY="52.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="220.0" vgap="8.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="15.0">
+            <GridPane layoutX="5.0" layoutY="52.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="250.0" vgap="8.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="15.0">
                <columnConstraints>
-                  <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="107.0" minWidth="68.0" prefWidth="85.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="180.0" />
+                  <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="107.0" minWidth="68.0" prefWidth="200.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="160.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints />
@@ -104,22 +104,22 @@
                   <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-id-sub" text="Visit day" GridPane.rowIndex="3">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-id-sub" text="%form.appointment.visitDay" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </Text>
                   <DatePicker fx:id="visitDayPicker" prefHeight="25.0" prefWidth="164.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-id-sub" text="Visit time" GridPane.rowIndex="4" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-id-sub" text="%form.appointment.visitTime" GridPane.rowIndex="4" />
                   <Label fx:id="visitTimeLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-id-sub" text="Patient" GridPane.rowIndex="2" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-id-sub" text="%generic.patient" GridPane.rowIndex="2" />
                   <ChoiceBox fx:id="patientSelector" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-id-sub" text="Doctor" GridPane.rowIndex="1" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-id-sub" text="%generic.doctor" GridPane.rowIndex="1" />
                   <ChoiceBox fx:id="doctorSelector" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <Label fx:id="errorLabel" layoutX="5.0" layoutY="340.0" prefHeight="55.0" prefWidth="229.0" textFill="RED" wrapText="true" />
-            <HBox alignment="CENTER_RIGHT" layoutX="2.0" layoutY="403.0" maxWidth="1.7976931348623157E308" prefHeight="47.0" prefWidth="238.0" spacing="6.0">
+            <HBox alignment="CENTER_RIGHT" layoutX="32.0" layoutY="403.0" maxWidth="1.7976931348623157E308" prefHeight="47.0" prefWidth="238.0" spacing="6.0">
                <children>
                   <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#onSave" styleClass="nextButton" stylesheets="@../resources/css/sceneTheme.css" text="%generic.save">
                      <HBox.margin>

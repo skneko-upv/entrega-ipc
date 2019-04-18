@@ -63,7 +63,7 @@ public class SlotDayCellFactory implements Callback<
                             String text = rb.getString("modal.appointmentForm.cell.taken");
                             if (found != null) {
                                 text += "\n" + found.getSurname() + ", " + found.getName()
-                                        + "(" + found.getIdentifier() + ")";
+                                        + " (" + found.getIdentifier() + ")";
                             }   setText(text);
                             break;
                     }
