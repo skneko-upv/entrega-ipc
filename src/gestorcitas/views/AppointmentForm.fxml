@@ -71,7 +71,7 @@
          <top>
             <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="25.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onPrevWeek" text="←" />
+                  <Button fx:id="prevWeekBtn" mnemonicParsing="false" onAction="#onPrevWeek" text="←" />
                   <Label fx:id="weekLabel" text="Week 5 September 2018" />
                   <Button mnemonicParsing="false" onAction="#onNextWeek" text="→" />
                </children>
