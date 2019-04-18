@@ -9,6 +9,7 @@
 package gestorcitas.controllers;
 
 import gestorcitas.controllers.base.AbstractFormController;
+import gestorcitas.controllers.helpers.PersonStringConverter;
 import gestorcitas.controllers.helpers.SlotDayCellFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -113,11 +114,11 @@ public class AppointmentFormController extends AbstractFormController<Appointmen
                 LocalDate date = mondayDate;
                 TableColumn column = selectedCells.get(0).getTableColumn();
                 if (column == tuesdayColumn) { date.plusDays(1); }
-                else if (column == wednesdayColumn) { date.plusDays(2); }
-                else if (column == thursdayColumn) { date.plusDays(3); }
-                else if (column == fridayColumn) { date.plusDays(4); }
-                else if (column == saturdayColumn) { date.plusDays(5); }
-                else if (column == sundayColumn) { date.plusDays(6); }
+                else if (column == wednesdayColumn) { date = date.plusDays(2); }
+                else if (column == thursdayColumn) { date = date.plusDays(3); }
+                else if (column == fridayColumn) { date = date.plusDays(4); }
+                else if (column == saturdayColumn) { date = date.plusDays(5); }
+                else if (column == sundayColumn) { date = date.plusDays(6); }
                 
                 int rowIndex = selectedCells.get(0).getRow();
                 LocalTime time = tableContent.get(rowIndex).getSlot();
@@ -134,6 +135,7 @@ public class AppointmentFormController extends AbstractFormController<Appointmen
         });
         
         visitDayPicker.valueProperty().addListener((val, oldVal, newVal) -> { 
+            if (visitDayPicker.isDisable()) return;
             mondayDate = newVal.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)); 
             buildTable();
         });
@@ -154,9 +156,14 @@ public class AppointmentFormController extends AbstractFormController<Appointmen
                             + "-"
                             + formatter.format(newVal.plusMinutes(15))
                 );
+                visitDayPicker.setDisable(true);
+                visitDayPicker.setValue(newVal.toLocalDate());
+                visitDayPicker.setDisable(false);
             } else { visitTimeLabel.setText(""); }
         });
-
+        
+        patientSelector.setConverter(new PersonStringConverter<>(patients));
+        doctorSelector.setConverter(new PersonStringConverter<>(doctors));
     }
 
     public void setup(
@@ -232,6 +239,9 @@ public class AppointmentFormController extends AbstractFormController<Appointmen
             setupColumn(sundayColumn, 6);
 
             prevWeekBtn.setDisable(mondayDate.minusDays(1).isBefore(today));
+            
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ww, MMMM yyyy", rb.getLocale());
+            weekLabel.setText(rb.getString("generic.week") + " " + formatter.format(mondayDate));
 
             tableContent = FXCollections.observableArrayList(
                     SlotAppointmentsWeek.getAppointmentsWeek(
