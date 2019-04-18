@@ -1,57 +1,57 @@
 .background-form{
- -fx-background-color: linear-gradient(to bottom ,#cce6ff,#e6f2ff);   
+    -fx-background-color: linear-gradient(to bottom ,#cce6ff,#e6f2ff);   
 }
 .background-tab{
- -fx-background-color: linear-gradient(to bottom,#cce6ff,#e6f2ff);
+    -fx-background-color: linear-gradient(to bottom,#cce6ff,#e6f2ff);
 }
 .text-id-table { 
- -fx-font: 12px sans-serif;  
+    -fx-font: 12px sans-serif;  
 }
 .text-id-sub { 
- -fx-font: 10pt sans-serif;  
+    -fx-font: 10pt sans-serif;  
 }
 .text-id-up{ 
- -fx-font: 13pt sans-serif; 
+    -fx-font: 13pt sans-serif; 
 }
 .button{ 
--fx-font: 10pt sans-serif;
--fx-background-radius: 20;
--fx-border-radius: 20;
--fx-border-width: 1.5;
--fx-border-color: #bfbfbf;
--fx-text-fill: black;
+    -fx-font: 10pt sans-serif;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-width: 1.5;
+    -fx-border-color: #bfbfbf;
+    -fx-text-fill: black;
 }
 .button:focused{
--fx-border-color:  #3399ff;   
+    -fx-border-color:  #3399ff;   
 }
 .button:pressed{
--fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 1, 0, 0, 0);
--fx-border-color:  #3399ff;    
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 1, 0, 0, 0);
+    -fx-border-color:  #3399ff;    
 }
 .nextButton{
--fx-background-color: linear-gradient(to right, #b3dbff, #80c3ff );
+    -fx-background-color: linear-gradient(to right, #b3dbff, #80c3ff );
 }
 .nextButton:hover{
--fx-background-color:#b3dbff; 
+    -fx-background-color:#b3dbff; 
 }
 .nextButton:pressed{
- -fx-background-color: #80c3ff; 
+    -fx-background-color: #80c3ff; 
 }
 .cancelButton{
--fx-background-color: linear-gradient(to right,#ff9999 ,#ff8080);
+    -fx-background-color: linear-gradient(to right,#ff9999 ,#ff8080);
 }
 .cancelButton:hover{
--fx-background-color:#ff9999;
+    -fx-background-color:#ff9999;
 }
 .cancelButton:pressed{ 
- -fx-background-color: #ff8080;  
+    -fx-background-color: #ff8080;  
 }
 .neutralButton{
--fx-background-color: linear-gradient(to right,#ffffff ,#e6e6e6);    
+    -fx-background-color: linear-gradient(to right,#ffffff ,#e6e6e6);    
 }
 .neutralButton:hover{
--fx-background-color:#ffffff;
+    -fx-background-color:#ffffff;
 }
 .neutralButton:pressed{ 
- -fx-background-color: #e6e6e6;
+    -fx-background-color: #e6e6e6;
 }

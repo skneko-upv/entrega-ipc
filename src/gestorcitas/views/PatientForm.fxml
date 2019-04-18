@@ -19,123 +19,123 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="346.0" prefWidth="555.0" styleClass="background-form" stylesheets="@../resources/css/sceneTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestorcitas.controllers.PatientFormController">
-   <children>
-      <Text fill="#726868" layoutX="17.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-id-up" text="%form.person.title">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Line endX="136.0" layoutX="126.0" layoutY="38.0" startX="-109.0" />
-      <GridPane layoutX="17.0" layoutY="43.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="391.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="107.0" minWidth="68.0" prefWidth="85.0000244140625" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="169.5999755859375" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints />
-          <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-id-sub" text="%table.person.name" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-            </Text>
-            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-id-sub" text="%table.person.surname" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-            </Text>
-            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-id-sub" text="%table.person.id" GridPane.rowIndex="3">
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-            </Text>
-            <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-id-sub" text="%table.person.phone" GridPane.rowIndex="4">
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-            </Text>
-            <VBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <children>
-                  <TextField fx:id="nameField" alignment="BASELINE_LEFT" maxWidth="-Infinity" prefWidth="160.0" styleClass="text-id-sub">
-                     <VBox.margin>
-                        <Insets top="18.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <Label fx:id="nameErrorLabel" alignment="CENTER_RIGHT" textFill="RED" visible="false" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <children>
-                  <TextField fx:id="surnameField" alignment="BASELINE_LEFT" maxWidth="-Infinity" prefWidth="260.0" styleClass="text-id-sub">
-                     <VBox.margin>
-                        <Insets top="18.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <Label fx:id="surnameErrorLabel" alignment="CENTER_RIGHT" textFill="RED" visible="false" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <children>
-                  <TextField fx:id="idField" alignment="BASELINE_LEFT" maxWidth="-Infinity" prefWidth="110.0" styleClass="text-id-sub">
-                     <VBox.margin>
-                        <Insets top="18.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <Label fx:id="idErrorLabel" alignment="CENTER_RIGHT" textFill="RED" visible="false" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="4">
-               <children>
-                  <TextField fx:id="phoneField" alignment="BASELINE_LEFT" maxWidth="-Infinity" prefWidth="110.0" styleClass="text-id-sub">
-                     <VBox.margin>
-                        <Insets top="18.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <Label fx:id="phoneErrorLabel" alignment="CENTER_RIGHT" textFill="RED" visible="false" />
-               </children>
-            </VBox>
-         </children>
-      </GridPane>
-      <CheckBox fx:id="photoConsentBox" layoutX="29.0" layoutY="281.0" mnemonicParsing="false" styleClass="text-id-sub" text="%form.person.photoConsent" />
-      <VBox alignment="TOP_RIGHT" layoutX="368.0" layoutY="14.0" prefWidth="167.0">
-         <children>
-            <ImageView fx:id="photoPreview" fitHeight="150.0" fitWidth="144.0" pickOnBounds="true">
-               <image>
-                  <Image url="@../resources/img/default.png" />
-               </image>
-               <viewport>
-                  <Rectangle2D minX="150.0" minY="150.0" width="150.0" />
-               </viewport>
-            </ImageView>
-            <Button fx:id="photoChangeBtn" alignment="CENTER" mnemonicParsing="false" onAction="#onChangePhoto" prefHeight="25.0" styleClass="neutralButton" text="%generic.change">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Button>
-            <Label fx:id="photoErrorLabel" textAlignment="RIGHT" textFill="RED" visible="false" wrapText="true" />
-         </children>
-      </VBox>
-      <HBox alignment="CENTER_RIGHT" layoutX="266.0" layoutY="298.0" prefHeight="47.0" prefWidth="284.0" spacing="6.0">
-         <children>
-            <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#onSave" styleClass="nextButton" text="%generic.save">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#onCancel" styleClass="cancelButton" text="%generic.cancel">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Button>
-         </children>
-         <padding>
-            <Insets right="10.0" />
-         </padding>
-      </HBox>
-   </children>
+    <children>
+        <Text fill="#726868" layoutX="17.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-id-up" text="%form.person.title">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Text>
+        <Line endX="136.0" layoutX="126.0" layoutY="38.0" startX="-109.0" />
+        <GridPane layoutX="17.0" layoutY="43.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="232.0" prefWidth="391.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="107.0" minWidth="68.0" prefWidth="85.0000244140625" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="169.5999755859375" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="15.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-id-sub" text="%table.person.name" GridPane.rowIndex="1">
+                    <GridPane.margin>
+                        <Insets left="10.0" />
+                    </GridPane.margin>
+                </Text>
+                <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-id-sub" text="%table.person.surname" GridPane.rowIndex="2">
+                    <GridPane.margin>
+                        <Insets left="10.0" />
+                    </GridPane.margin>
+                </Text>
+                <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-id-sub" text="%table.person.id" GridPane.rowIndex="3">
+                    <GridPane.margin>
+                        <Insets left="10.0" />
+                    </GridPane.margin>
+                </Text>
+                <Text fill="#575757" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-id-sub" text="%table.person.phone" GridPane.rowIndex="4">
+                    <GridPane.margin>
+                        <Insets left="10.0" />
+                    </GridPane.margin>
+                </Text>
+                <VBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <children>
+                        <TextField fx:id="nameField" alignment="BASELINE_LEFT" maxWidth="-Infinity" prefWidth="160.0" styleClass="text-id-sub">
+                            <VBox.margin>
+                                <Insets top="18.0" />
+                            </VBox.margin>
+                        </TextField>
+                        <Label fx:id="nameErrorLabel" alignment="CENTER_RIGHT" textFill="RED" visible="false" />
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <children>
+                        <TextField fx:id="surnameField" alignment="BASELINE_LEFT" maxWidth="-Infinity" prefWidth="260.0" styleClass="text-id-sub">
+                            <VBox.margin>
+                                <Insets top="18.0" />
+                            </VBox.margin>
+                        </TextField>
+                        <Label fx:id="surnameErrorLabel" alignment="CENTER_RIGHT" textFill="RED" visible="false" />
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <children>
+                        <TextField fx:id="idField" alignment="BASELINE_LEFT" maxWidth="-Infinity" prefWidth="110.0" styleClass="text-id-sub">
+                            <VBox.margin>
+                                <Insets top="18.0" />
+                            </VBox.margin>
+                        </TextField>
+                        <Label fx:id="idErrorLabel" alignment="CENTER_RIGHT" textFill="RED" visible="false" />
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                    <children>
+                        <TextField fx:id="phoneField" alignment="BASELINE_LEFT" maxWidth="-Infinity" prefWidth="110.0" styleClass="text-id-sub">
+                            <VBox.margin>
+                                <Insets top="18.0" />
+                            </VBox.margin>
+                        </TextField>
+                        <Label fx:id="phoneErrorLabel" alignment="CENTER_RIGHT" textFill="RED" visible="false" />
+                    </children>
+                </VBox>
+            </children>
+        </GridPane>
+        <CheckBox fx:id="photoConsentBox" layoutX="29.0" layoutY="281.0" mnemonicParsing="false" styleClass="text-id-sub" text="%form.person.photoConsent" />
+        <VBox alignment="TOP_RIGHT" layoutX="368.0" layoutY="14.0" prefWidth="167.0">
+            <children>
+                <ImageView fx:id="photoPreview" fitHeight="150.0" fitWidth="144.0" pickOnBounds="true">
+                    <image>
+                        <Image url="@../resources/img/default.png" />
+                    </image>
+                    <viewport>
+                        <Rectangle2D minX="150.0" minY="150.0" width="150.0" />
+                    </viewport>
+                </ImageView>
+                <Button fx:id="photoChangeBtn" alignment="CENTER" mnemonicParsing="false" onAction="#onChangePhoto" prefHeight="25.0" styleClass="neutralButton" text="%generic.change">
+                    <VBox.margin>
+                        <Insets top="10.0" />
+                    </VBox.margin>
+                </Button>
+                <Label fx:id="photoErrorLabel" textAlignment="RIGHT" textFill="RED" visible="false" wrapText="true" />
+            </children>
+        </VBox>
+        <HBox alignment="CENTER_RIGHT" layoutX="266.0" layoutY="298.0" prefHeight="47.0" prefWidth="284.0" spacing="6.0">
+            <children>
+                <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#onSave" styleClass="nextButton" text="%generic.save">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#onCancel" styleClass="cancelButton" text="%generic.cancel">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                </Button>
+            </children>
+            <padding>
+                <Insets right="10.0" />
+            </padding>
+        </HBox>
+    </children>
 </AnchorPane>

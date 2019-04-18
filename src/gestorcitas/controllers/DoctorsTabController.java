@@ -5,7 +5,6 @@
  *  Daniel Galán Pascual
  *  Alberto Baixauli Herráez
  */
-
 package gestorcitas.controllers;
 
 import gestorcitas.controllers.base.PersonsTabController;
@@ -36,19 +35,22 @@ import model.ExaminationRoom;
 
 public class DoctorsTabController extends PersonsTabController<Doctor> {
 
-    @FXML private TableColumn<Doctor,ArrayList<Days>> visitDaysColumn;
-    @FXML private TableColumn<Doctor,String> visitTimeColumn;
-    @FXML private TableColumn<Doctor,ExaminationRoom> roomColumn;
-    
+    @FXML
+    private TableColumn<Doctor, ArrayList<Days>> visitDaysColumn;
+    @FXML
+    private TableColumn<Doctor, String> visitTimeColumn;
+    @FXML
+    private TableColumn<Doctor, ExaminationRoom> roomColumn;
+
     @Override
     public String getSummary(Doctor doctor) {
         return rb.getString("generic.doctor") + " " + doctor.getIdentifier();
     }
-    
+
     @Override
     public void loadDataFromDB() {
-        ObservableList<Doctor> loadedItems = 
-                FXCollections.observableArrayList(clinic.getDoctors());
+        ObservableList<Doctor> loadedItems
+                = FXCollections.observableArrayList(clinic.getDoctors());
         setItems(loadedItems);
     }
 
@@ -60,23 +62,25 @@ public class DoctorsTabController extends PersonsTabController<Doctor> {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        super.initialize(url,rb);
-        
+        super.initialize(url, rb);
+
         // Set up table
         visitDaysColumn.setCellValueFactory(new PropertyValueFactory<>("visitDays"));
         visitDaysColumn.setCellFactory(column -> {
-            TableCell<Doctor,ArrayList<Days>> cell = new TableCell<Doctor,ArrayList<Days>>() {
+            TableCell<Doctor, ArrayList<Days>> cell = new TableCell<Doctor, ArrayList<Days>>() {
                 @Override
                 protected void updateItem(ArrayList<Days> available, boolean empty) {
-                    if (empty || available == null) setText(null);
-                    else {
+                    if (empty || available == null) {
+                        setText(null);
+                    } else {
                         StringBuilder result = new StringBuilder();
                         int i = 0;
                         for (Days day : Days.values()) {
                             if (available.contains(day)) {
                                 result.append(rb.getString("generic.weekday.initial." + i));
+                            } else {
+                                result.append("-");
                             }
-                            else { result.append("-"); }
                             i++;
                         }
                         setText(result.toString());
@@ -86,7 +90,7 @@ public class DoctorsTabController extends PersonsTabController<Doctor> {
             cell.setStyle("-fx-font-family: monospace");
             return cell;
         });
-        
+
         visitTimeColumn.setCellValueFactory(data -> {
             Doctor doctor = data.getValue();
             DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT);
@@ -96,45 +100,50 @@ public class DoctorsTabController extends PersonsTabController<Doctor> {
         });
         roomColumn.setCellValueFactory(new PropertyValueFactory<>("examinationRoom"));
         roomColumn.setCellFactory(column -> {
-            TableCell<Doctor,ExaminationRoom> cell = new TableCell<Doctor,ExaminationRoom>() {
+            TableCell<Doctor, ExaminationRoom> cell = new TableCell<Doctor, ExaminationRoom>() {
                 @Override
                 protected void updateItem(ExaminationRoom room, boolean empty) {
-                    if (empty || room == null) setText(null);
-                    else setText(String.valueOf(room.getIdentNumber()));
+                    if (empty || room == null) {
+                        setText(null);
+                    } else {
+                        setText(String.valueOf(room.getIdentNumber()));
+                    }
                 }
             };
             return cell;
         });
-        
+
         loadDataFromDB();
     }
-    
-    @FXML @Override
+
+    @FXML
+    @Override
     public void onAdd(ActionEvent event) {
         launchForm(true, null);
     }
-    
+
     @Override
-    protected Function<Appointment,Doctor> getAppointmentValueFactory() {
+    protected Function<Appointment, Doctor> getAppointmentValueFactory() {
         return Appointment::getDoctor;
     }
 
-    @FXML @Override
+    @FXML
+    @Override
     protected void onShow(ActionEvent event) {
         int index = itemsFiltered.getSourceIndex(
                 table.getSelectionModel().getSelectedIndex()
         );
         launchForm(false, items.get(index));
     }
-    
+
     private void launchForm(boolean editMode, Doctor prefill) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestorcitas/views/DoctorForm.fxml"), rb);
-            Parent formRoot = (Parent)loader.load();
+            Parent formRoot = (Parent) loader.load();
 
             DoctorFormController form = loader.<DoctorFormController>getController();
             form.setup(editMode, prefill, items, clinic.getExaminationRooms());
-            
+
             Scene scene = new Scene(formRoot);
             Stage stage = new Stage();
             stage.setScene(scene);
@@ -144,7 +153,9 @@ public class DoctorsTabController extends PersonsTabController<Doctor> {
             ));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
-        } catch (IOException e) { System.err.println(e); /* TODO */ }
-    } 
-    
+        } catch (IOException e) {
+            System.err.println(e);
+            /* TODO */ }
+    }
+
 }

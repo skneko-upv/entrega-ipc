@@ -16,32 +16,31 @@ import model.Patient;
 import utils.SlotWeek;
 
 public class SlotDayCellFactory implements Callback<
-        TableColumn<SlotWeek,String>,
-        TableCell<SlotWeek,String>
-    >
-{
+        TableColumn<SlotWeek, String>, TableCell<SlotWeek, String>> {
+
     public static final String FREE = "Free";
     public static final String UNAVAILABLE = "Not Available";
-    
+
     private final ObservableList<Patient> patients;
     private final ResourceBundle rb;
-    
+
     public SlotDayCellFactory(ObservableList<Patient> patients, ResourceBundle rb) {
         this.patients = patients;
         this.rb = rb;
     }
-    
+
     @Override
-    public TableCell<SlotWeek,String> call(TableColumn<SlotWeek,String> column) {
-        return new TableCell<SlotWeek,String>() {
+    public TableCell<SlotWeek, String> call(TableColumn<SlotWeek, String> column) {
+        return new TableCell<SlotWeek, String>() {
             @Override
             protected void updateItem(String day, boolean empty) {
                 super.updateItem(day, empty);
                 getStyleClass().remove("cell-free");
                 getStyleClass().remove("cell-unavailable");
                 getStyleClass().remove("cell-taken");
-                if (empty || day == null) setText(null);
-                else {
+                if (empty || day == null) {
+                    setText(null);
+                } else {
                     switch (day) {
                         case FREE:
                             getStyleClass().add("cell-free");
@@ -64,7 +63,8 @@ public class SlotDayCellFactory implements Callback<
                             if (found != null) {
                                 text += "\n" + found.getSurname() + ", " + found.getName()
                                         + " (" + found.getIdentifier() + ")";
-                            }   setText(text);
+                            }
+                            setText(text);
                             break;
                     }
                 }

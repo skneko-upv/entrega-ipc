@@ -5,7 +5,6 @@
  *  Daniel Galán Pascual
  *  Alberto Baixauli Herráez
  */
-
 package gestorcitas.controllers;
 
 import gestorcitas.controllers.base.AbstractFormController;
@@ -49,7 +48,7 @@ public class AppointmentFormController extends AbstractFormController<Appointmen
     protected ObservableList<Patient> patients;
     protected ObservableList<Appointment> appointments;
     protected ObservableList<Doctor> doctors;
-    
+
     protected Patient selectedPatient = null;
     protected Doctor selectedDoctor = null;
     protected SimpleObjectProperty<LocalDateTime> selectedSlot = new SimpleObjectProperty<>(null);
@@ -58,38 +57,55 @@ public class AppointmentFormController extends AbstractFormController<Appointmen
     protected LocalDate today = LocalDate.now();
     protected LocalDate mondayDate = null;
 
-    @FXML private Label weekLabel;
-    @FXML private Button prevWeekBtn;
+    @FXML
+    private Label weekLabel;
+    @FXML
+    private Button prevWeekBtn;
 
-    @FXML private TableView<SlotWeek> weekTable;
-    @FXML private TableColumn<SlotWeek,LocalTime> slotColumn;
-    @FXML private TableColumn<SlotWeek,String> mondayColumn;
-    @FXML private TableColumn<SlotWeek,String> tuesdayColumn;
-    @FXML private TableColumn<SlotWeek,String> wednesdayColumn;
-    @FXML private TableColumn<SlotWeek,String> thursdayColumn;
-    @FXML private TableColumn<SlotWeek,String> fridayColumn;
-    @FXML private TableColumn<SlotWeek,String> saturdayColumn;
-    @FXML private TableColumn<SlotWeek,String> sundayColumn;
+    @FXML
+    private TableView<SlotWeek> weekTable;
+    @FXML
+    private TableColumn<SlotWeek, LocalTime> slotColumn;
+    @FXML
+    private TableColumn<SlotWeek, String> mondayColumn;
+    @FXML
+    private TableColumn<SlotWeek, String> tuesdayColumn;
+    @FXML
+    private TableColumn<SlotWeek, String> wednesdayColumn;
+    @FXML
+    private TableColumn<SlotWeek, String> thursdayColumn;
+    @FXML
+    private TableColumn<SlotWeek, String> fridayColumn;
+    @FXML
+    private TableColumn<SlotWeek, String> saturdayColumn;
+    @FXML
+    private TableColumn<SlotWeek, String> sundayColumn;
 
-    @FXML private DatePicker visitDayPicker;
-    @FXML private Label visitTimeLabel;
-    @FXML private ChoiceBox<Patient> patientSelector;
-    @FXML private ChoiceBox<Doctor> doctorSelector;
-    @FXML private Label errorLabel;
+    @FXML
+    private DatePicker visitDayPicker;
+    @FXML
+    private Label visitTimeLabel;
+    @FXML
+    private ChoiceBox<Patient> patientSelector;
+    @FXML
+    private ChoiceBox<Doctor> doctorSelector;
+    @FXML
+    private Label errorLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         super.initialize(url, rb);
-        
+
         // Set up table
         slotColumn.setCellValueFactory(new PropertyValueFactory<>("slot"));
         slotColumn.setCellFactory(data -> {
-            return new TableCell<SlotWeek,LocalTime>() {
+            return new TableCell<SlotWeek, LocalTime>() {
                 @Override
                 protected void updateItem(LocalTime date, boolean empty) {
                     super.updateItem(date, empty);
-                    if (empty || date == null) setText(null);
-                    else {
+                    if (empty || date == null) {
+                        setText(null);
+                    } else {
                         setText(
                                 DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
                                         .format(date)
@@ -105,63 +121,76 @@ public class AppointmentFormController extends AbstractFormController<Appointmen
         fridayColumn.setCellValueFactory(new PropertyValueFactory<>("fridayAvailability"));
         saturdayColumn.setCellValueFactory(new PropertyValueFactory<>("saturdayAvailability"));
         sundayColumn.setCellValueFactory(new PropertyValueFactory<>("sundayAvailability"));
-        
+
         weekTable.getSelectionModel().setCellSelectionEnabled(true);
-        
+
         ObservableList<TablePosition> selectedCells = weekTable.getSelectionModel().getSelectedCells();
         selectedCells.addListener((ListChangeListener.Change<? extends TablePosition> change) -> {
             if (selectedCells.size() > 0) {
                 LocalDate date = mondayDate;
                 TableColumn column = selectedCells.get(0).getTableColumn();
-                if (column == tuesdayColumn) { date.plusDays(1); }
-                else if (column == wednesdayColumn) { date = date.plusDays(2); }
-                else if (column == thursdayColumn) { date = date.plusDays(3); }
-                else if (column == fridayColumn) { date = date.plusDays(4); }
-                else if (column == saturdayColumn) { date = date.plusDays(5); }
-                else if (column == sundayColumn) { date = date.plusDays(6); }
-                
+                if (column == tuesdayColumn) {
+                    date.plusDays(1);
+                } else if (column == wednesdayColumn) {
+                    date = date.plusDays(2);
+                } else if (column == thursdayColumn) {
+                    date = date.plusDays(3);
+                } else if (column == fridayColumn) {
+                    date = date.plusDays(4);
+                } else if (column == saturdayColumn) {
+                    date = date.plusDays(5);
+                } else if (column == sundayColumn) {
+                    date = date.plusDays(6);
+                }
+
                 int rowIndex = selectedCells.get(0).getRow();
                 LocalTime time = tableContent.get(rowIndex).getSlot();
                 this.selectedSlot.setValue(LocalDateTime.of(date, time));
             }
         });
-        
+
         // Set up form
-        patientSelector.valueProperty().addListener((val, oldVal, newVal) -> { this.selectedPatient = newVal; });
-        
-        doctorSelector.valueProperty().addListener((val, oldVal, newVal) -> { 
-            this.selectedDoctor = newVal; 
+        patientSelector.valueProperty().addListener((val, oldVal, newVal) -> {
+            this.selectedPatient = newVal;
+        });
+
+        doctorSelector.valueProperty().addListener((val, oldVal, newVal) -> {
+            this.selectedDoctor = newVal;
             buildTable();
         });
-        
-        visitDayPicker.valueProperty().addListener((val, oldVal, newVal) -> { 
-            if (visitDayPicker.isDisable()) return;
-            mondayDate = newVal.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)); 
+
+        visitDayPicker.valueProperty().addListener((val, oldVal, newVal) -> {
+            if (visitDayPicker.isDisable()) {
+                return;
+            }
+            mondayDate = newVal.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
             buildTable();
         });
         visitDayPicker.setDayCellFactory(picker -> new DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
-                setDisable(empty || date.compareTo(today) < 0 );
+                setDisable(empty || date.compareTo(today) < 0);
             }
         });
         visitDayPicker.setValue(today);
-        
+
         selectedSlot.addListener((val, oldVal, newVal) -> {
             if (newVal != null) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT);
                 visitTimeLabel.setText(
-                        formatter.format(newVal) 
-                            + "-"
-                            + formatter.format(newVal.plusMinutes(15))
+                        formatter.format(newVal)
+                        + "-"
+                        + formatter.format(newVal.plusMinutes(15))
                 );
                 visitDayPicker.setDisable(true);
                 visitDayPicker.setValue(newVal.toLocalDate());
                 visitDayPicker.setDisable(false);
-            } else { visitTimeLabel.setText(""); }
+            } else {
+                visitTimeLabel.setText("");
+            }
         });
-        
+
         patientSelector.setConverter(new PersonStringConverter<>(patients));
         doctorSelector.setConverter(new PersonStringConverter<>(doctors));
     }
@@ -177,7 +206,7 @@ public class AppointmentFormController extends AbstractFormController<Appointmen
         this.doctors = doctors;
 
         patientSelector.setItems(patients);
-        doctorSelector.setItems(doctors); 
+        doctorSelector.setItems(doctors);
     }
 
     @Override
@@ -197,10 +226,8 @@ public class AppointmentFormController extends AbstractFormController<Appointmen
 
     @Override
     protected boolean validateAll() {
-        if (
-                selectedDoctor == null 
-                || selectedPatient == null
-        ) {
+        if (selectedDoctor == null
+                || selectedPatient == null) {
             errorLabel.setVisible(true);
             errorLabel.setText(rb.getString("form.generic.error.notComplete"));
             return false;
@@ -223,7 +250,7 @@ public class AppointmentFormController extends AbstractFormController<Appointmen
                 )
         );
     }
-    
+
     protected void buildTable() {
         selectedSlot.setValue(null);
         if (mondayDate != null && selectedDoctor != null) {
@@ -239,7 +266,7 @@ public class AppointmentFormController extends AbstractFormController<Appointmen
             setupColumn(sundayColumn, 6);
 
             prevWeekBtn.setDisable(mondayDate.minusDays(1).isBefore(today));
-            
+
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ww, MMMM yyyy", rb.getLocale());
             weekLabel.setText(rb.getString("generic.week") + " " + formatter.format(mondayDate));
 
@@ -259,17 +286,18 @@ public class AppointmentFormController extends AbstractFormController<Appointmen
             weekTable.setItems(null);
         }
     }
-    
+
     protected void setupColumn(TableColumn column, int offset) {
         LocalDate current = mondayDate.plusDays(offset);
         column.setText(String.valueOf(current.getDayOfMonth()));
         if (current.isBefore(today)) {
-            column.setCellFactory(col -> new TableCell<SlotWeek,String>() {
+            column.setCellFactory(col -> new TableCell<SlotWeek, String>() {
                 @Override
                 protected void updateItem(String item, boolean empty) {
                     getStyleClass().remove("cell-old");
-                    if (item == null || empty) setText(null);
-                    else {
+                    if (item == null || empty) {
+                        setText(null);
+                    } else {
                         getStyleClass().add("cell-old");
                         setDisable(true);
                     }
@@ -279,7 +307,7 @@ public class AppointmentFormController extends AbstractFormController<Appointmen
             column.setCellFactory(new SlotDayCellFactory(patients, rb));
         }
     }
-    
+
     @FXML
     protected void onNextWeek(ActionEvent event) {
         if (tableContent != null) {
@@ -287,10 +315,12 @@ public class AppointmentFormController extends AbstractFormController<Appointmen
             buildTable();
         }
     }
-    
+
     @FXML
     protected void onPrevWeek(ActionEvent event) {
-        if (mondayDate.minusDays(1).isBefore(today)) return;
+        if (mondayDate.minusDays(1).isBefore(today)) {
+            return;
+        }
         if (tableContent != null) {
             mondayDate = mondayDate.minusWeeks(1);
             buildTable();

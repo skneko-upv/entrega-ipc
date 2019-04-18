@@ -19,163 +19,163 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane styleClass="background-form" stylesheets="@../resources/css/sceneTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestorcitas.controllers.AppointmentsTabController">
-   <top>
-      <HBox alignment="CENTER_RIGHT" prefHeight="48.0" spacing="5.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-               <children>
-                  <Label fx:id="tabTitle">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </HBox>
-            <TextField fx:id="searchBox" onAction="#onSearch" prefHeight="35.0" prefWidth="190.0" promptText="%tab.appointments.search.prompt">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </TextField>
-            <Button mnemonicParsing="false" onAction="#onSearch" prefHeight="35.0" styleClass="neutralButton" text="%generic.search">
-               <HBox.margin>
-                  <Insets right="25.0" />
-               </HBox.margin>
-            </Button>
-         </children>
-      </HBox>
-   </top>
-   <center>
-      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="750.0" BorderPane.alignment="CENTER">
-         <right>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAdd" prefHeight="35.0" styleClass="nextButton" text="%generic.add">
-                     <VBox.margin>
+    <top>
+        <HBox alignment="CENTER_RIGHT" prefHeight="48.0" spacing="5.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label fx:id="tabTitle">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </Label>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </HBox>
+                <TextField fx:id="searchBox" onAction="#onSearch" prefHeight="35.0" prefWidth="190.0" promptText="%tab.appointments.search.prompt">
+                    <HBox.margin>
                         <Insets />
-                     </VBox.margin>
-                  </Button>
-                  <Button fx:id="removeBtn" disable="true" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRemove" prefHeight="35.0" styleClass="cancelButton" text="%generic.remove">
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-               <BorderPane.margin>
-                  <Insets top="15.0" />
-               </BorderPane.margin>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </VBox>
-         </right>
-         <top>
-            <GridPane prefHeight="90.0" BorderPane.alignment="CENTER">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="220.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="260.0" minWidth="10.0" prefWidth="247.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="10.0" prefWidth="89.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Label fx:id="dateTimeLabel" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="dateTimeDiffLabel" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css">
-                           <font>
-                              <Font name="System Italic" size="12.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets right="5.0" />
-                     </padding>
-                  </VBox>
-                  <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
-                     <children>
-                        <Label styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" text="%generic.patient">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="patientLabel" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" />
-                        <Label styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" text="%generic.doctor">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets top="8.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Label fx:id="doctorLabel" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" />
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="80.0" prefWidth="224.0" GridPane.columnIndex="2">
-                     <children>
-                        <HBox spacing="5.0">
-                           <children>
-                              <Label styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" text="%generic.room">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="roomIdLabel" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" />
-                           </children>
-                        </HBox>
-                        <Label fx:id="roomDescLabel" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css">
-                           <VBox.margin>
-                              <Insets top="2.0" />
-                           </VBox.margin>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="136.0" GridPane.columnIndex="3">
-                     <children>
-                        <ImageView fx:id="photoPreview" fitHeight="62.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../resources/img/default.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </VBox>
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
-               </padding>
-            </GridPane>
-         </top>
-         <center>
-            <TableView fx:id="table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
-               <columns>
-                  <TableColumn fx:id="dateColumn" editable="false" prefWidth="75.0" text="%generic.date" />
-                  <TableColumn fx:id="timeColumn" editable="false" prefWidth="75.0" text="%generic.time" />
-                  <TableColumn fx:id="doctorColumn" editable="false" prefWidth="75.0" text="%generic.doctor" />
-                  <TableColumn fx:id="patientColumn" editable="false" prefWidth="75.0" text="%generic.patient" />
-               </columns>
-               <BorderPane.margin>
-                  <Insets bottom="15.0" left="15.0" />
-               </BorderPane.margin>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-               <contextMenu>
-                  <ContextMenu>
-                    <items>
-                      <MenuItem mnemonicParsing="false" onAction="#onRemove" text="%generic.remove" />
-                    </items>
-                  </ContextMenu>
-               </contextMenu>
-            </TableView>
-         </center>
-      </BorderPane>
-   </center>
+                    </HBox.margin>
+                </TextField>
+                <Button mnemonicParsing="false" onAction="#onSearch" prefHeight="35.0" styleClass="neutralButton" text="%generic.search">
+                    <HBox.margin>
+                        <Insets right="25.0" />
+                    </HBox.margin>
+                </Button>
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="750.0" BorderPane.alignment="CENTER">
+            <right>
+                <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAdd" prefHeight="35.0" styleClass="nextButton" text="%generic.add">
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                        </Button>
+                        <Button fx:id="removeBtn" disable="true" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRemove" prefHeight="35.0" styleClass="cancelButton" text="%generic.remove">
+                            <VBox.margin>
+                                <Insets bottom="20.0" />
+                            </VBox.margin>
+                        </Button>
+                    </children>
+                    <BorderPane.margin>
+                        <Insets top="15.0" />
+                    </BorderPane.margin>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </VBox>
+            </right>
+            <top>
+                <GridPane prefHeight="90.0" BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="220.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="260.0" minWidth="10.0" prefWidth="247.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="10.0" prefWidth="89.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                            <children>
+                                <Label fx:id="dateTimeLabel" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="dateTimeDiffLabel" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css">
+                                    <font>
+                                        <Font name="System Italic" size="12.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                            <padding>
+                                <Insets right="5.0" />
+                            </padding>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                            <children>
+                                <Label styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" text="%generic.patient">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="patientLabel" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" />
+                                <Label styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" text="%generic.doctor">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                    <VBox.margin>
+                                        <Insets top="8.0" />
+                                    </VBox.margin>
+                                </Label>
+                                <Label fx:id="doctorLabel" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" />
+                            </children>
+                        </VBox>
+                        <VBox prefHeight="80.0" prefWidth="224.0" GridPane.columnIndex="2">
+                            <children>
+                                <HBox spacing="5.0">
+                                    <children>
+                                        <Label styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" text="%generic.room">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="roomIdLabel" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" />
+                                    </children>
+                                </HBox>
+                                <Label fx:id="roomDescLabel" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css">
+                                    <VBox.margin>
+                                        <Insets top="2.0" />
+                                    </VBox.margin>
+                                </Label>
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="136.0" GridPane.columnIndex="3">
+                            <children>
+                                <ImageView fx:id="photoPreview" fitHeight="62.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../resources/img/default.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </VBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+                    </padding>
+                </GridPane>
+            </top>
+            <center>
+                <TableView fx:id="table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+                    <columns>
+                        <TableColumn fx:id="dateColumn" editable="false" prefWidth="75.0" text="%generic.date" />
+                        <TableColumn fx:id="timeColumn" editable="false" prefWidth="75.0" text="%generic.time" />
+                        <TableColumn fx:id="doctorColumn" editable="false" prefWidth="75.0" text="%generic.doctor" />
+                        <TableColumn fx:id="patientColumn" editable="false" prefWidth="75.0" text="%generic.patient" />
+                    </columns>
+                    <BorderPane.margin>
+                        <Insets bottom="15.0" left="15.0" />
+                    </BorderPane.margin>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
+                    <contextMenu>
+                        <ContextMenu>
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#onRemove" text="%generic.remove" />
+                            </items>
+                        </ContextMenu>
+                    </contextMenu>
+                </TableView>
+            </center>
+        </BorderPane>
+    </center>
 </BorderPane>

@@ -5,7 +5,6 @@
  *  Daniel Galán Pascual
  *  Alberto Baixauli Herráez
  */
-
 package gestorcitas.controllers;
 
 import gestorcitas.controllers.base.BasePersonFormController;
@@ -26,51 +25,70 @@ import model.Doctor;
 import model.ExaminationRoom;
 
 public class DoctorFormController extends BasePersonFormController<Doctor> {
-    
+
     public static final int FIRST_VISIT_HOUR = 7;
     public static final int LAST_VISIT_HOUR = 23;
     public static final List<Integer> VISIT_HOURS = new ArrayList<>();
-    
-    public static final Integer[] VISIT_MINUTES = new Integer[] {0, 15, 30, 45};
-    
+
+    public static final Integer[] VISIT_MINUTES = new Integer[]{0, 15, 30, 45};
+
     static {
         for (int hour = FIRST_VISIT_HOUR; hour < LAST_VISIT_HOUR; hour++) {
             VISIT_HOURS.add(hour);
         }
     }
-    
-    @FXML private CheckBox mondayBox;
-    @FXML private CheckBox tuesdayBox;
-    @FXML private CheckBox wednesdayBox;
-    @FXML private CheckBox thursdayBox;
-    @FXML private CheckBox fridayBox;
-    @FXML private CheckBox saturdayBox;
-    @FXML private CheckBox sundayBox;
-    @FXML private ChoiceBox<Integer> startTimeHourSelector;
-    @FXML private ChoiceBox<Integer> startTimeMinSelector;
-    @FXML private ChoiceBox<Integer> endTimeHourSelector;
-    @FXML private ChoiceBox<Integer> endTimeMinSelector;
-    @FXML private ChoiceBox<ExaminationRoom> roomSelector;
-    @FXML private Label roomDescriptionLabel;
-    @FXML private Button saveBtn;
-    @FXML private Button cancelBtn;
-    
+
+    @FXML
+    private CheckBox mondayBox;
+    @FXML
+    private CheckBox tuesdayBox;
+    @FXML
+    private CheckBox wednesdayBox;
+    @FXML
+    private CheckBox thursdayBox;
+    @FXML
+    private CheckBox fridayBox;
+    @FXML
+    private CheckBox saturdayBox;
+    @FXML
+    private CheckBox sundayBox;
+    @FXML
+    private ChoiceBox<Integer> startTimeHourSelector;
+    @FXML
+    private ChoiceBox<Integer> startTimeMinSelector;
+    @FXML
+    private ChoiceBox<Integer> endTimeHourSelector;
+    @FXML
+    private ChoiceBox<Integer> endTimeMinSelector;
+    @FXML
+    private ChoiceBox<ExaminationRoom> roomSelector;
+    @FXML
+    private Label roomDescriptionLabel;
+    @FXML
+    private Button saveBtn;
+    @FXML
+    private Button cancelBtn;
+
     private final StringConverter<Integer> minStringConverter = new StringConverter<Integer>() {
         @Override
-        public Integer fromString(String s) { return Integer.parseInt(s); }
-        
+        public Integer fromString(String s) {
+            return Integer.parseInt(s);
+        }
+
         @Override
-        public String toString(Integer i) { 
+        public String toString(Integer i) {
             String res = String.valueOf(i);
-            if (i < 10) { res = "0" + res; }
+            if (i < 10) {
+                res = "0" + res;
+            }
             return res;
         }
     };
 
     public void setup(
-            boolean editMode, 
-            Doctor prefill, 
-            ObservableList<Doctor> persons, 
+            boolean editMode,
+            Doctor prefill,
+            ObservableList<Doctor> persons,
             ArrayList<ExaminationRoom> rooms
     ) {
         super.setup(editMode, prefill, persons);
@@ -83,7 +101,7 @@ public class DoctorFormController extends BasePersonFormController<Doctor> {
         endTimeHourSelector.setItems(hoursList);
         endTimeMinSelector.setItems(minsList);
         roomSelector.setItems(FXCollections.observableArrayList(rooms));
-        
+
         startTimeMinSelector.setConverter(minStringConverter);
         endTimeMinSelector.setConverter(minStringConverter);
         roomSelector.setConverter(new StringConverter<ExaminationRoom>() {
@@ -99,13 +117,13 @@ public class DoctorFormController extends BasePersonFormController<Doctor> {
                 }
                 return room;
             }
-            
+
             @Override
             public String toString(ExaminationRoom e) {
                 return String.valueOf(e.getIdentNumber());
             }
         });
-        
+
         // Set up listeners
         roomSelector.valueProperty().addListener((val, oldVal, newVal) -> {
             roomDescriptionLabel.setText(newVal.getEquipmentDescription()); // TODO: join and pretty print
@@ -118,11 +136,11 @@ public class DoctorFormController extends BasePersonFormController<Doctor> {
                 roomSelector.getValue(),
                 Days.Monday,
                 LocalTime.of(
-                        startTimeHourSelector.getValue(), 
+                        startTimeHourSelector.getValue(),
                         startTimeMinSelector.getValue()
                 ),
                 LocalTime.of(
-                        endTimeHourSelector.getValue(), 
+                        endTimeHourSelector.getValue(),
                         endTimeMinSelector.getValue()
                 ),
                 id.getText(),
@@ -131,48 +149,76 @@ public class DoctorFormController extends BasePersonFormController<Doctor> {
                 phone.getText(),
                 photo.getValue()
         );
-        
-        ArrayList<Days> visitDays = new ArrayList<>(); 
-        if (mondayBox.isSelected()) { visitDays.add(Days.Monday); }
-        if (tuesdayBox.isSelected()) { visitDays.add(Days.Tuesday); }
-        if (wednesdayBox.isSelected()) { visitDays.add(Days.Wednesday); }
-        if (thursdayBox.isSelected()) { visitDays.add(Days.Thursday); }
-        if (fridayBox.isSelected()) { visitDays.add(Days.Friday); }
-        if (saturdayBox.isSelected()) { visitDays.add(Days.Saturday); }
-        if (sundayBox.isSelected()) { visitDays.add(Days.Sunday); }
+
+        ArrayList<Days> visitDays = new ArrayList<>();
+        if (mondayBox.isSelected()) {
+            visitDays.add(Days.Monday);
+        }
+        if (tuesdayBox.isSelected()) {
+            visitDays.add(Days.Tuesday);
+        }
+        if (wednesdayBox.isSelected()) {
+            visitDays.add(Days.Wednesday);
+        }
+        if (thursdayBox.isSelected()) {
+            visitDays.add(Days.Thursday);
+        }
+        if (fridayBox.isSelected()) {
+            visitDays.add(Days.Friday);
+        }
+        if (saturdayBox.isSelected()) {
+            visitDays.add(Days.Saturday);
+        }
+        if (sundayBox.isSelected()) {
+            visitDays.add(Days.Sunday);
+        }
         toAdd.setVisitDays(visitDays);
-        
+
         persons.add(toAdd);
     }
-    
+
     @Override
     protected void prefill() {
         super.prefill();
-        
+
         ArrayList<Days> visitDays = prefill.getVisitDays();
-        if (visitDays.contains(Days.Monday)) { mondayBox.setSelected(true); }
-        if (visitDays.contains(Days.Tuesday)) { tuesdayBox.setSelected(true); }
-        if (visitDays.contains(Days.Wednesday)) { wednesdayBox.setSelected(true); }
-        if (visitDays.contains(Days.Thursday)) { thursdayBox.setSelected(true); }
-        if (visitDays.contains(Days.Friday)) { fridayBox.setSelected(true); }
-        if (visitDays.contains(Days.Saturday)) { saturdayBox.setSelected(true); }
-        if (visitDays.contains(Days.Sunday)) { sundayBox.setSelected(true); }
-        
+        if (visitDays.contains(Days.Monday)) {
+            mondayBox.setSelected(true);
+        }
+        if (visitDays.contains(Days.Tuesday)) {
+            tuesdayBox.setSelected(true);
+        }
+        if (visitDays.contains(Days.Wednesday)) {
+            wednesdayBox.setSelected(true);
+        }
+        if (visitDays.contains(Days.Thursday)) {
+            thursdayBox.setSelected(true);
+        }
+        if (visitDays.contains(Days.Friday)) {
+            fridayBox.setSelected(true);
+        }
+        if (visitDays.contains(Days.Saturday)) {
+            saturdayBox.setSelected(true);
+        }
+        if (visitDays.contains(Days.Sunday)) {
+            sundayBox.setSelected(true);
+        }
+
         LocalTime start = prefill.getVisitStartTime();
         LocalTime end = prefill.getVisitEndTime();
         startTimeHourSelector.setValue(start.getHour());
         startTimeMinSelector.setValue(start.getMinute());
         endTimeHourSelector.setValue(end.getHour());
         endTimeMinSelector.setValue(end.getMinute());
-        
+
         roomSelector.setValue(prefill.getExaminationRoom()); // TODO: fix
         roomDescriptionLabel.setText(prefill.getExaminationRoom().getEquipmentDescription());
     }
-    
+
     @Override
     protected void setUneditableAll() {
         super.setUneditableAll();
-        
+
         mondayBox.setDisable(true);
         tuesdayBox.setDisable(true);
         wednesdayBox.setDisable(true);
@@ -180,13 +226,13 @@ public class DoctorFormController extends BasePersonFormController<Doctor> {
         fridayBox.setDisable(true);
         saturdayBox.setDisable(true);
         sundayBox.setDisable(true);
-        
+
         startTimeHourSelector.setDisable(true);
         startTimeMinSelector.setDisable(true);
         endTimeHourSelector.setDisable(true);
         endTimeMinSelector.setDisable(true);
-        
+
         roomSelector.setDisable(true);
     }
-    
+
 }

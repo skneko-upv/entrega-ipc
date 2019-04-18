@@ -5,7 +5,6 @@
  *  Daniel Galán Pascual
  *  Alberto Baixauli Herráez
  */
-
 package gestorcitas.controllers;
 
 import DBAccess.ClinicDBAccess;
@@ -37,32 +36,39 @@ import model.Patient;
 import model.Person;
 
 public class MainWindowController implements Initializable {
-    
+
     public static final String DEFAULT_PHOTO = "/gestorcitas/resources/img/default.png";
 
     private ResourceBundle rb;
     private final ClinicDBAccess clinic = ClinicDBAccess.getSingletonClinicDBAccess();
-    
-    @FXML private BorderPane root;
-    
-    @FXML private AppointmentsTabController appointmentsTabController;
-    @FXML private PatientsTabController patientsTabController;
-    @FXML private DoctorsTabController doctorsTabController;
 
-    @FXML private ToggleGroup language;
-    @FXML private RadioMenuItem langES;
-    @FXML private RadioMenuItem langEN;
+    @FXML
+    private BorderPane root;
+
+    @FXML
+    private AppointmentsTabController appointmentsTabController;
+    @FXML
+    private PatientsTabController patientsTabController;
+    @FXML
+    private DoctorsTabController doctorsTabController;
+
+    @FXML
+    private ToggleGroup language;
+    @FXML
+    private RadioMenuItem langES;
+    @FXML
+    private RadioMenuItem langEN;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.rb = rb;
-        
+
         appointmentsTabController.setMainController(this);
         patientsTabController.setMainController(this);
         doctorsTabController.setMainController(this);
-        
+
         refreshName();
-        
+
         // Set up language change
         Locale locale = rb.getLocale();
         if (locale.equals(new Locale("en", "us"))) {
@@ -72,16 +78,19 @@ public class MainWindowController implements Initializable {
         }
         language.selectedToggleProperty().addListener((val, oldVal, newVal) -> {
             if (newVal != null && (oldVal == null || !oldVal.equals(newVal))) {
-                if (newVal == langEN) { restartWithLocale(new Locale("en", "us")); }
-                else if (newVal == langES) { restartWithLocale(new Locale("es", "es")); }
+                if (newVal == langEN) {
+                    restartWithLocale(new Locale("en", "us"));
+                } else if (newVal == langES) {
+                    restartWithLocale(new Locale("es", "es"));
+                }
             }
         });
     }
-    
+
     // TODO: add comment about why we're not using clinic.getPatientAppointments(), etc.
     public <T extends Person> FilteredList<Appointment> getRemoveConflicts(
             T toDelete,
-            Function<Appointment,T> personValueFactory
+            Function<Appointment, T> personValueFactory
     ) {
         ObservableList<Appointment> appointments = appointmentsTabController.getItems();
         return appointments.filtered(appointment -> {
@@ -90,19 +99,19 @@ public class MainWindowController implements Initializable {
                     .equals(toDelete.getIdentifier());
         });
     }
-    
+
     public ObservableList<Appointment> getAppointments() {
         return appointmentsTabController.getItems();
     }
-    
+
     public ObservableList<Patient> getPatients() {
         return patientsTabController.getItems();
     }
-    
+
     public ObservableList<Doctor> getDoctors() {
         return doctorsTabController.getItems();
     }
-    
+
     public void saveDB() {
         clinic.getAppointments().clear();
         clinic.getAppointments().addAll(appointmentsTabController.getItems());
@@ -110,7 +119,7 @@ public class MainWindowController implements Initializable {
         clinic.getPatients().addAll(patientsTabController.getItems());
         clinic.getDoctors().clear();
         clinic.getDoctors().addAll(doctorsTabController.getItems());
-        
+
         boolean retry = false;
         do {
             Alert saveWait = new Alert(Alert.AlertType.INFORMATION);
@@ -126,14 +135,14 @@ public class MainWindowController implements Initializable {
             saveWait.close();
             if (!success) {
                 ButtonType saveFailRetry = new ButtonType(
-                        rb.getString("generic.retry"), 
+                        rb.getString("generic.retry"),
                         ButtonBar.ButtonData.OK_DONE
                 );
                 ButtonType saveFailDesist = new ButtonType(
-                        rb.getString("generic.cancel"), 
+                        rb.getString("generic.cancel"),
                         ButtonBar.ButtonData.CANCEL_CLOSE
                 );
-                
+
                 Alert saveFail = new Alert(
                         Alert.AlertType.ERROR,
                         rb.getString("modal.saveFail.content"),
@@ -143,20 +152,20 @@ public class MainWindowController implements Initializable {
                 saveFail.setTitle(rb.getString("generic.error"));
                 saveFail.setHeaderText(rb.getString("modal.saveFail.header"));
                 saveFail.getButtonTypes().setAll(saveFailRetry, saveFailDesist);
-                
+
                 Optional<ButtonType> saveFailResult = saveFail.showAndWait();
-                retry = saveFailResult.isPresent() 
+                retry = saveFailResult.isPresent()
                         && saveFailResult.get() == saveFailRetry;
             }
         } while (retry);
     }
-    
+
     public void saveDBAndQuit() {
         saveDB();
         Platform.exit();
         System.exit(0);
     }
-    
+
     private void refreshName() {
         String clinicName = clinic.getClinicName();
         appointmentsTabController.setTitle(clinicName);
@@ -164,22 +173,26 @@ public class MainWindowController implements Initializable {
         doctorsTabController.setTitle(clinicName);
     }
 
-    @FXML 
+    @FXML
     private void onChangeName(ActionEvent event) {
         String unnamed = rb.getString("app.default.clinicName");
-        
+
         TextInputDialog setName = new TextInputDialog();
         setName.setTitle(rb.getString("modal.setName.title"));
-        setName.setHeaderText(null); setName.setGraphic(null);
+        setName.setHeaderText(null);
+        setName.setGraphic(null);
         setName.setContentText(rb.getString("modal.setName.content"));
         setName.getEditor().setPromptText(unnamed);
-        
+
         Optional<String> setNameResult = setName.showAndWait();
         setNameResult.ifPresent(name -> {
-            if (!setNameResult.get().equals("")) { clinic.setClinicName(name); }
-            else { clinic.setClinicName(unnamed); }
+            if (!setNameResult.get().equals("")) {
+                clinic.setClinicName(name);
+            } else {
+                clinic.setClinicName(unnamed);
+            }
             refreshName();
-        }); 
+        });
     }
 
     @FXML
@@ -187,13 +200,13 @@ public class MainWindowController implements Initializable {
         saveDB();
     }
 
-    @FXML 
+    @FXML
     private void onDiscardChanges(ActionEvent event) {
         ButtonType discardYes = new ButtonType(rb.getString("modal.discard.btn.yes"), ButtonData.YES);
         Alert discard = new Alert(AlertType.WARNING, rb.getString("modal.discard.content"), discardYes, ButtonType.NO);
         discard.setTitle(rb.getString("modal.discard.title"));
         discard.setHeaderText(rb.getString("modal.discard.header"));
-        
+
         Optional<ButtonType> discardResult = discard.showAndWait();
         if (discardResult.isPresent() && discardResult.get() == discardYes) {
             appointmentsTabController.loadDataFromDB();
@@ -231,10 +244,10 @@ public class MainWindowController implements Initializable {
         about.setContentText(rb.getString("modal.about.content"));
         about.showAndWait();
     }
-    
+
     private void restartWithLocale(Locale locale) {
         saveDB();
-        ((Stage)root.getScene().getWindow()).close();
+        ((Stage) root.getScene().getWindow()).close();
         Platform.runLater(() -> {
             try {
                 new GestorCitas().start(new Stage(), locale);
@@ -243,5 +256,5 @@ public class MainWindowController implements Initializable {
             }
         });
     }
-    
+
 }
