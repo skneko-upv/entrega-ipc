@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestorcitas.controllers.AppointmentFormController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="950.0" styleClass="background-form" stylesheets="@../resources/css/sceneTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestorcitas.controllers.AppointmentFormController">
    <center>
       <BorderPane BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -71,9 +71,9 @@
          <top>
             <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="25.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="prevWeekBtn" mnemonicParsing="false" onAction="#onPrevWeek" text="←" />
-                  <Label fx:id="weekLabel" text="Week 5 September 2018" />
-                  <Button mnemonicParsing="false" onAction="#onNextWeek" text="→" />
+                  <Button fx:id="prevWeekBtn" mnemonicParsing="false" onAction="#onPrevWeek" styleClass="neutralButton" stylesheets="@../resources/css/sceneTheme.css" text="←" />
+                  <Label fx:id="weekLabel" styleClass="text-id-sub" text="Week 5 September 2018" />
+                  <Button mnemonicParsing="false" onAction="#onNextWeek" styleClass="neutralButton" stylesheets="@../resources/css/sceneTheme.css" text="→" />
                </children>
                <BorderPane.margin>
                   <Insets bottom="4.0" />
@@ -83,9 +83,9 @@
       </BorderPane>
    </center>
    <right>
-      <AnchorPane BorderPane.alignment="CENTER">
+      <AnchorPane styleClass="background-form" stylesheets="@../resources/css/sceneTheme.css" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#726868" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%form.appointment.title">
+            <Text fill="#726868" layoutX="5.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-id-up" text="%form.appointment.title">
                <font>
                   <Font size="16.0" />
                </font>
@@ -106,36 +106,36 @@
                   <RowConstraints minHeight="15.0" valignment="TOP" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Visit day" GridPane.rowIndex="3">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-id-sub" text="Visit day" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </Text>
                   <DatePicker fx:id="visitDayPicker" prefHeight="25.0" prefWidth="164.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Visit time" GridPane.rowIndex="4" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-id-sub" text="Visit time" GridPane.rowIndex="4" />
                   <Label fx:id="visitTimeLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room" GridPane.rowIndex="5">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-id-sub" text="Room" GridPane.rowIndex="5">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </Text>
                   <ChoiceBox fx:id="roomSelector" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Label fx:id="roomDescriptionLabel" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient" GridPane.rowIndex="2" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-id-sub" text="Patient" GridPane.rowIndex="2" />
                   <ChoiceBox fx:id="patientSelector" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Doctor" GridPane.rowIndex="1" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-id-sub" text="Doctor" GridPane.rowIndex="1" />
                   <ChoiceBox fx:id="doctorSelector" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <Label fx:id="errorLabel" layoutX="5.0" layoutY="340.0" textFill="RED" />
             <HBox alignment="CENTER_RIGHT" layoutX="2.0" layoutY="403.0" maxWidth="1.7976931348623157E308" prefHeight="47.0" prefWidth="238.0" spacing="6.0">
                <children>
-                  <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#onSave" text="%generic.save">
+                  <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#onSave" styleClass="nextButton" stylesheets="@../resources/css/sceneTheme.css" text="%generic.save">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="cancelBtn" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onCancel" text="%generic.cancel">
+                  <Button fx:id="cancelBtn" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onCancel" styleClass="cancelButton" stylesheets="@../resources/css/sceneTheme.css" text="%generic.cancel">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>

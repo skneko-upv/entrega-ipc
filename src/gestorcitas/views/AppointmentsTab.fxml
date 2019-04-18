@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestorcitas.controllers.AppointmentsTabController">
+<BorderPane styleClass="background-form" stylesheets="@../resources/css/sceneTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestorcitas.controllers.AppointmentsTabController">
    <top>
       <HBox alignment="CENTER_RIGHT" prefHeight="48.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
@@ -39,7 +39,7 @@
                   <Insets />
                </HBox.margin>
             </TextField>
-            <Button mnemonicParsing="false" onAction="#onSearch" prefHeight="35.0" text="%generic.search">
+            <Button mnemonicParsing="false" onAction="#onSearch" prefHeight="35.0" styleClass="neutralButton" text="%generic.search">
                <HBox.margin>
                   <Insets right="25.0" />
                </HBox.margin>
@@ -52,12 +52,12 @@
          <right>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAdd" prefHeight="35.0" text="%generic.add">
+                  <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAdd" prefHeight="35.0" styleClass="nextButton" text="%generic.add">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="removeBtn" disable="true" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRemove" prefHeight="35.0" text="%generic.remove">
+                  <Button fx:id="removeBtn" disable="true" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRemove" prefHeight="35.0" styleClass="cancelButton" text="%generic.remove">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
@@ -85,12 +85,12 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Label fx:id="dateTimeLabel">
+                        <Label fx:id="dateTimeLabel" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <Label fx:id="dateTimeDiffLabel">
+                        <Label fx:id="dateTimeDiffLabel" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css">
                            <font>
                               <Font name="System Italic" size="12.0" />
                            </font>
@@ -102,13 +102,13 @@
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                      <children>
-                        <Label text="%generic.patient">
+                        <Label styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" text="%generic.patient">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <Label fx:id="patientLabel" />
-                        <Label text="%generic.doctor">
+                        <Label fx:id="patientLabel" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" />
+                        <Label styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" text="%generic.doctor">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -116,22 +116,22 @@
                               <Insets top="8.0" />
                            </VBox.margin>
                         </Label>
-                        <Label fx:id="doctorLabel" />
+                        <Label fx:id="doctorLabel" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" />
                      </children>
                   </VBox>
                   <VBox prefHeight="80.0" prefWidth="224.0" GridPane.columnIndex="2">
                      <children>
                         <HBox spacing="5.0">
                            <children>
-                              <Label text="%generic.room">
+                              <Label styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" text="%generic.room">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="roomIdLabel" />
+                              <Label fx:id="roomIdLabel" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" />
                            </children>
                         </HBox>
-                        <Label fx:id="roomDescLabel">
+                        <Label fx:id="roomDescLabel" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css">
                            <VBox.margin>
                               <Insets top="2.0" />
                            </VBox.margin>
