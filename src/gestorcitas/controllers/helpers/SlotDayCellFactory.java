@@ -42,25 +42,30 @@ public class SlotDayCellFactory implements Callback<
                 getStyleClass().remove("cell-taken");
                 if (empty || day == null) setText(null);
                 else {
-                    if (day.equals(FREE)) {
-                        getStyleClass().add("cell-free");
-                        setText(rb.getString("modal.appointmentForm.cell.free"));
-                    } else if (day.equals(UNAVAILABLE)) {
-                        getStyleClass().add("cell-unavailable");
-                        setText(rb.getString("modal.appointmentForm.cell.unavailable"));
-                    } else {
-                        getStyleClass().add("cell-taken");
-                        Patient found = patients.stream()
-                                .filter(p -> p.getIdentifier().equals(day))
-                                .findFirst()
-                                .orElse(null);
-
-                        String text = rb.getString("modal.appointmentForm.cell.taken");
-                        if (found != null) {
-                            text += "\n" + found.getSurname() + ", " + found.getName() 
-                                    + "(" + found.getIdentifier() + ")";
-                        }
-                        setText(text);
+                    switch (day) {
+                        case FREE:
+                            getStyleClass().add("cell-free");
+                            setDisable(false);
+                            setText(rb.getString("modal.appointmentForm.cell.free"));
+                            break;
+                        case UNAVAILABLE:
+                            getStyleClass().add("cell-unavailable");
+                            setDisable(true);
+                            setText(rb.getString("modal.appointmentForm.cell.unavailable"));
+                            break;
+                        default:
+                            getStyleClass().add("cell-taken");
+                            setDisable(true);
+                            Patient found = patients.stream()
+                                    .filter(p -> p.getIdentifier().equals(day))
+                                    .findFirst()
+                                    .orElse(null);
+                            String text = rb.getString("modal.appointmentForm.cell.taken");
+                            if (found != null) {
+                                text += "\n" + found.getSurname() + ", " + found.getName()
+                                        + "(" + found.getIdentifier() + ")";
+                            }   setText(text);
+                            break;
                     }
                 }
             }
