@@ -5,7 +5,6 @@
  *  Daniel Galán Pascual
  *  Alberto Baixauli Herráez
  */
-
 package gestorcitas.controllers;
 
 import gestorcitas.controllers.base.PersonsTabController;
@@ -26,16 +25,16 @@ import model.Appointment;
 import model.Patient;
 
 public class PatientsTabController extends PersonsTabController<Patient> {
-    
+
     @Override
     public String getSummary(Patient person) {
         return rb.getString("generic.patient") + " " + person.getIdentifier();
     }
-    
+
     @Override
     public void loadDataFromDB() {
-        ObservableList<Patient> loadedItems = 
-                FXCollections.observableArrayList(clinic.getPatients());
+        ObservableList<Patient> loadedItems
+                = FXCollections.observableArrayList(clinic.getPatients());
         setItems(loadedItems);
     }
 
@@ -47,37 +46,39 @@ public class PatientsTabController extends PersonsTabController<Patient> {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        super.initialize(url,rb);
-        
+        super.initialize(url, rb);
+
         loadDataFromDB();
     }
-    
+
     @Override
-    protected Function<Appointment,Patient> getAppointmentValueFactory() {
+    protected Function<Appointment, Patient> getAppointmentValueFactory() {
         return Appointment::getPatient;
     }
-    
-    @FXML @Override
+
+    @FXML
+    @Override
     public void onAdd(ActionEvent event) {
         launchForm(true, null);
     }
-    
-    @FXML @Override
+
+    @FXML
+    @Override
     protected void onShow(ActionEvent event) {
         int index = itemsFiltered.getSourceIndex(
                 table.getSelectionModel().getSelectedIndex()
         );
         launchForm(false, items.get(index));
     }
-    
+
     private void launchForm(boolean editMode, Patient prefill) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestorcitas/views/PatientForm.fxml"), rb);
-            Parent formRoot = (Parent)loader.load();
+            Parent formRoot = (Parent) loader.load();
 
             PatientFormController form = loader.<PatientFormController>getController();
             form.setup(editMode, prefill, items);
-            
+
             Scene scene = new Scene(formRoot);
             Stage stage = new Stage();
             stage.setScene(scene);
@@ -87,7 +88,9 @@ public class PatientsTabController extends PersonsTabController<Patient> {
             ));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
-        } catch (IOException e) { System.err.println(e); /* TODO */ }
-    } 
-    
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+    }
+
 }

@@ -5,11 +5,11 @@
  *  Daniel Galán Pascual
  *  Alberto Baixauli Herráez
  */
-
 package gestorcitas.application;
 
 import com.sun.javafx.css.StyleManager;
 import gestorcitas.controllers.MainWindowController;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.application.Application;
@@ -20,18 +20,35 @@ import javafx.stage.Stage;
 
 public class GestorCitas extends Application {
 
+    public final Locale[] ALLOWED_LOCALES = new Locale[]{
+        new Locale("en", "us"),
+        new Locale("es", "es")
+    };
+    public static final Locale DEFAULT_LOCALE = new Locale("en", "us");
+
     public final double MIN_STAGE_HEIGHT = 350;
     public final double MIN_STAGE_WIDTH = 410;
 
     @Override
     public void start(Stage stage) throws Exception {
-        Locale locale = Locale.getDefault(); // TODO: handle invalid locales
+        start(stage, Locale.getDefault());
+    }
+
+    public void start(Stage stage, Locale locale) throws Exception {
+        if (Arrays.asList(ALLOWED_LOCALES).contains(locale)) {
+            startWithLocale(stage, locale);
+        } else {
+            startWithLocale(stage, DEFAULT_LOCALE);
+        }
+    }
+
+    private void startWithLocale(Stage stage, Locale locale) throws Exception {
         ResourceBundle rb = ResourceBundle.getBundle("gestorcitas.resources.locales.strings", locale);
 
         Application.setUserAgentStylesheet(null);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestorcitas/views/MainWindow.fxml"), rb);
-        Parent root = (Parent)loader.load();
+        Parent root = (Parent) loader.load();
         Scene scene = new Scene(root);
 
         stage.setTitle(rb.getString("app.title"));
@@ -45,7 +62,7 @@ public class GestorCitas extends Application {
 
         // Save database on application close
         stage.setOnCloseRequest((event) -> {
-            ((MainWindowController)loader.getController()).saveDBAndQuit();
+            ((MainWindowController) loader.getController()).saveDBAndQuit();
         });
     }
 
