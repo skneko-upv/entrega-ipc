@@ -8,6 +8,7 @@
 package gestorcitas.controllers;
 
 import gestorcitas.controllers.base.BasePersonFormController;
+import gestorcitas.controllers.helpers.StringUtils;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,8 +92,6 @@ public class DoctorFormController extends BasePersonFormController<Doctor> {
             ObservableList<Doctor> persons,
             ArrayList<ExaminationRoom> rooms
     ) {
-        super.setup(editMode, prefill, persons);
-
         // Set up choice boxes
         ObservableList<Integer> hoursList = FXCollections.observableArrayList(VISIT_HOURS);
         ObservableList<Integer> minsList = FXCollections.observableArrayList(VISIT_MINUTES);
@@ -126,8 +125,12 @@ public class DoctorFormController extends BasePersonFormController<Doctor> {
 
         // Set up listeners
         roomSelector.valueProperty().addListener((val, oldVal, newVal) -> {
-            roomDescriptionLabel.setText(newVal.getEquipmentDescription()); // TODO: join and pretty print
+            roomDescriptionLabel.setText(
+                    StringUtils.prettifyEnumeration(newVal.getEquipmentDescription())
+            );
         });
+        
+        super.setup(editMode, prefill, persons);
     }
 
     @Override
@@ -211,8 +214,9 @@ public class DoctorFormController extends BasePersonFormController<Doctor> {
         endTimeHourSelector.setValue(end.getHour());
         endTimeMinSelector.setValue(end.getMinute());
 
-        roomSelector.setValue(prefill.getExaminationRoom()); // TODO: fix
-        roomDescriptionLabel.setText(prefill.getExaminationRoom().getEquipmentDescription());
+        ExaminationRoom room = prefill.getExaminationRoom();
+        roomSelector.setItems(FXCollections.observableArrayList(room));
+        roomSelector.setValue(room);
     }
 
     @Override

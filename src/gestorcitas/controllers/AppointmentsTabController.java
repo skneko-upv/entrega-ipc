@@ -202,7 +202,7 @@ public class AppointmentsTabController extends TabController<Appointment> {
             stage.showAndWait();
         } catch (IOException e) {
             System.err.println(e);
-            /* TODO */ }
+        }
     }
 
     @Override

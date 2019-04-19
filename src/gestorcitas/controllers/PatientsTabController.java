@@ -90,7 +90,7 @@ public class PatientsTabController extends PersonsTabController<Patient> {
             stage.showAndWait();
         } catch (IOException e) {
             System.err.println(e);
-            /* TODO */ }
+        }
     }
 
 }

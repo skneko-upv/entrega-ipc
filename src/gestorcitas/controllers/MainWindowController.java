@@ -87,7 +87,6 @@ public class MainWindowController implements Initializable {
         });
     }
 
-    // TODO: add comment about why we're not using clinic.getPatientAppointments(), etc.
     public <T extends Person> FilteredList<Appointment> getRemoveConflicts(
             T toDelete,
             Function<Appointment, T> personValueFactory
@@ -112,7 +111,16 @@ public class MainWindowController implements Initializable {
         return doctorsTabController.getItems();
     }
 
+    
     public void saveDB() {
+        /*
+         * Even though we could be using ClinicDBAccess' instance internal
+         * lists, we have decided to use a separate list in each controller to
+         * avoid staging changes to the database when manipulating the elements,
+         * allowing us to implement the 'discard all changes' feature, among 
+         * others. Hence, we explictly replace the ClinicDBAccess instance lists
+         * here.
+         */
         clinic.getAppointments().clear();
         clinic.getAppointments().addAll(appointmentsTabController.getItems());
         clinic.getPatients().clear();
