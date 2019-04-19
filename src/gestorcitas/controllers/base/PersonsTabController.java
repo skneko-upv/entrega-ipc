@@ -8,8 +8,8 @@
 package gestorcitas.controllers.base;
 
 import static gestorcitas.controllers.MainWindowController.DEFAULT_PHOTO;
-import gestorcitas.controllers.helpers.ImageCellFactory;
-import gestorcitas.controllers.helpers.PersonCellFactory;
+import gestorcitas.controllers.factories.ImageCellFactory;
+import gestorcitas.controllers.factories.PersonCellFactory;
 import gestorcitas.controllers.helpers.PersonSearchPredicate;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

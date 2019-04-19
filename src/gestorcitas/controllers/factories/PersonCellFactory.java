@@ -5,7 +5,7 @@
  *  Daniel Galán Pascual
  *  Alberto Baixauli Herráez
  */
-package gestorcitas.controllers.helpers;
+package gestorcitas.controllers.factories;
 
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;

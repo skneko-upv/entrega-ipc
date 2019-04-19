@@ -9,7 +9,7 @@ package gestorcitas.controllers;
 
 import gestorcitas.controllers.base.AbstractFormController;
 import gestorcitas.controllers.helpers.PersonStringConverter;
-import gestorcitas.controllers.helpers.SlotDayCellFactory;
+import gestorcitas.controllers.factories.SlotDayCellFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;

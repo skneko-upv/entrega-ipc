@@ -8,8 +8,8 @@
 package gestorcitas.controllers;
 
 import gestorcitas.controllers.base.TabController;
-import gestorcitas.controllers.helpers.FormattedDateTimeCellFactory;
-import gestorcitas.controllers.helpers.PersonCellFactory;
+import gestorcitas.controllers.factories.FormattedDateTimeCellFactory;
+import gestorcitas.controllers.factories.PersonCellFactory;
 import gestorcitas.controllers.helpers.PersonSearchPredicate;
 import java.io.IOException;
 import javafx.event.ActionEvent;
