@@ -38,39 +38,45 @@ public class DoctorFormController extends BasePersonFormController<Doctor> {
             VISIT_HOURS.add(hour);
         }
     }
+    
+    protected LocalTime startTime;
+    protected LocalTime endTime;
+    protected ArrayList<Days> selectedDays;
 
     @FXML
-    private CheckBox mondayBox;
+    protected CheckBox mondayBox;
     @FXML
-    private CheckBox tuesdayBox;
+    protected CheckBox tuesdayBox;
     @FXML
-    private CheckBox wednesdayBox;
+    protected CheckBox wednesdayBox;
     @FXML
-    private CheckBox thursdayBox;
+    protected CheckBox thursdayBox;
     @FXML
-    private CheckBox fridayBox;
+    protected CheckBox fridayBox;
     @FXML
-    private CheckBox saturdayBox;
+    protected CheckBox saturdayBox;
     @FXML
-    private CheckBox sundayBox;
+    protected CheckBox sundayBox;
     @FXML
-    private ChoiceBox<Integer> startTimeHourSelector;
+    protected ChoiceBox<Integer> startTimeHourSelector;
     @FXML
-    private ChoiceBox<Integer> startTimeMinSelector;
+    protected ChoiceBox<Integer> startTimeMinSelector;
     @FXML
-    private ChoiceBox<Integer> endTimeHourSelector;
+    protected ChoiceBox<Integer> endTimeHourSelector;
     @FXML
-    private ChoiceBox<Integer> endTimeMinSelector;
+    protected ChoiceBox<Integer> endTimeMinSelector;
     @FXML
-    private ChoiceBox<ExaminationRoom> roomSelector;
+    protected ChoiceBox<ExaminationRoom> roomSelector;
     @FXML
-    private Label roomDescriptionLabel;
+    protected Label roomDescriptionLabel;
     @FXML
-    private Button saveBtn;
+    protected Label timeErrorLabel;
     @FXML
-    private Button cancelBtn;
+    protected Button saveBtn;
+    @FXML
+    protected Button cancelBtn;
 
-    private final StringConverter<Integer> minStringConverter = new StringConverter<Integer>() {
+    protected final StringConverter<Integer> minStringConverter = new StringConverter<Integer>() {
         @Override
         public Integer fromString(String s) {
             return Integer.parseInt(s);
@@ -152,32 +158,63 @@ public class DoctorFormController extends BasePersonFormController<Doctor> {
                 phone.getText(),
                 photo.getValue()
         );
-
-        ArrayList<Days> visitDays = new ArrayList<>();
+        toAdd.setVisitDays(selectedDays);
+        persons.add(toAdd);
+    }
+    
+    @Override
+    protected boolean validateAll() {
+        if (!super.validateAll()) return false;
+        
+        selectedDays = new ArrayList<>();
         if (mondayBox.isSelected()) {
-            visitDays.add(Days.Monday);
+            selectedDays.add(Days.Monday);
         }
         if (tuesdayBox.isSelected()) {
-            visitDays.add(Days.Tuesday);
+            selectedDays.add(Days.Tuesday);
         }
         if (wednesdayBox.isSelected()) {
-            visitDays.add(Days.Wednesday);
+            selectedDays.add(Days.Wednesday);
         }
         if (thursdayBox.isSelected()) {
-            visitDays.add(Days.Thursday);
+            selectedDays.add(Days.Thursday);
         }
         if (fridayBox.isSelected()) {
-            visitDays.add(Days.Friday);
+            selectedDays.add(Days.Friday);
         }
         if (saturdayBox.isSelected()) {
-            visitDays.add(Days.Saturday);
+            selectedDays.add(Days.Saturday);
         }
         if (sundayBox.isSelected()) {
-            visitDays.add(Days.Sunday);
+            selectedDays.add(Days.Sunday);
         }
-        toAdd.setVisitDays(visitDays);
+        if (selectedDays.isEmpty()) return false;
 
-        persons.add(toAdd);
+        if (
+            startTimeHourSelector.getValue() == null
+                || startTimeMinSelector.getValue() == null
+                || endTimeHourSelector.getValue() == null
+                || endTimeMinSelector.getValue() == null
+        ) return false;
+        
+        startTime = LocalTime.of(
+                startTimeHourSelector.getValue(),
+                startTimeMinSelector.getValue()
+        );
+        endTime = LocalTime.of(
+                endTimeHourSelector.getValue(),
+                endTimeMinSelector.getValue()
+        );
+        
+        if (!startTime.isBefore(endTime)) {
+            timeErrorLabel.setText(rb.getString("form.doctor.error.endTimeBefore"));
+            timeErrorLabel.setVisible(true);
+            return false;
+        }
+        
+        if (roomSelector.getValue() == null) return false;
+        
+        return true;
     }
 
     @Override

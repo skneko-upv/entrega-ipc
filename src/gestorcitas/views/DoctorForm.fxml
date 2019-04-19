@@ -183,6 +183,11 @@
                         <ChoiceBox fx:id="endTimeHourSelector" prefWidth="55.0" styleClass="text-id-sub" />
                         <Label styleClass="text-id-sub" text=":" />
                         <ChoiceBox fx:id="endTimeMinSelector" prefWidth="55.0" styleClass="text-id-sub" />
+                  <Label fx:id="timeErrorLabel" prefHeight="72.0" prefWidth="245.0" textFill="RED" wrapText="true">
+                     <HBox.margin>
+                        <Insets left="6.0" />
+                     </HBox.margin>
+                  </Label>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
