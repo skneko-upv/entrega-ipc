@@ -3,23 +3,22 @@
 }
 
 .input-error {
-    -fx-highlight-text-fill: red !important;
-    -fx-highlight-fill: red !important;
+    -fx-text-inner-color: red;
     -fx-border-color: red;
 }
 
 .cell-free {
-    -fx-background-color: green;
+    -fx-background-color: rgba(0, 255, 0, 0.3);
 }
 
 .cell-unavailable {
-    -fx-background-color: red;
+    -fx-background-color: rgba(255, 0, 0, 0.3);
 }
 
 .cell-taken {
-    -fx-background-color: orangered;
+    -fx-background-color: rgba(255, 69, 0, 0.3);
 }
 
 .cell-old {
-    -fx-background-color: grey;
+    -fx-background-color: rgba(128,128,128, 0.3);
 }
