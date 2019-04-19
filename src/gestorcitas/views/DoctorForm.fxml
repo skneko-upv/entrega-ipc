@@ -102,7 +102,7 @@
                 </VBox>
             </children>
         </GridPane>
-        <CheckBox fx:id="photoConsentBox" layoutX="39.0" layoutY="291.0" mnemonicParsing="false" styleClass="text-id-sub" text="%form.person.photoConsent" />
+        <CheckBox fx:id="photoConsentBox" layoutX="39.0" layoutY="291.0" mnemonicParsing="false" styleClass="text-id-sub" text="%form.doctor.photoConsent" />
         <VBox alignment="TOP_RIGHT" layoutX="378.0" layoutY="24.0" prefWidth="167.0">
             <children>
                 <ImageView fx:id="photoPreview" fitHeight="150.0" fitWidth="144.0" pickOnBounds="true">
