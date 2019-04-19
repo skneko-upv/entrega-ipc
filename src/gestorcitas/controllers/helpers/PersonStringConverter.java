@@ -21,7 +21,14 @@ public class PersonStringConverter<T extends Person> extends StringConverter<T> 
 
     @Override
     public T fromString(String s) {
-        return list.filtered(new PersonSearchPredicate<>(s)).get(0);
+        int start = s.lastIndexOf('(');
+        int end = s.lastIndexOf(')');
+        String id = s.substring(start + 1, end);
+        
+        return list.stream()
+                .filter(e -> e.getIdentifier().equals(id))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
