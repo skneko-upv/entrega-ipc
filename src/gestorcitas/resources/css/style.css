@@ -1990,8 +1990,6 @@
  *  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
- @import "JMetroBase.css";
-
  .background{
      -fx-background-color: white;
  }

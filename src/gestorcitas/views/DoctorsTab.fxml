@@ -48,17 +48,17 @@
     <right>
         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
             <children>
-                <Button fx:id="showBtn" disable="true" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onShow" prefHeight="35.0" styleClass="neutralButton" text="%generic.show">
+                <Button fx:id="showBtn" disable="true" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onShow" prefHeight="35.0" styleClass="neutralButton" text="%generic.show">
                     <VBox.margin>
                         <Insets />
                     </VBox.margin>
                 </Button>
-                <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAdd" prefHeight="35.0" styleClass="nextButton" text="%generic.add">
+                <Button maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAdd" prefHeight="35.0" styleClass="nextButton" text="%generic.add">
                     <VBox.margin>
                         <Insets />
                     </VBox.margin>
                 </Button>
-                <Button fx:id="removeBtn" disable="true" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRemove" prefHeight="35.0" styleClass="cancelButton" text="%generic.remove">
+                <Button fx:id="removeBtn" disable="true" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onRemove" prefHeight="35.0" styleClass="cancelButton" text="%generic.remove">
                     <VBox.margin>
                         <Insets />
                     </VBox.margin>
