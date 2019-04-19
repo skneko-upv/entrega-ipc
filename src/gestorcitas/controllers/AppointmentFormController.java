@@ -287,7 +287,7 @@ public class AppointmentFormController extends AbstractFormController<Appointmen
         }
     }
 
-    protected void setupColumn(TableColumn column, int offset) {
+    protected void setupColumn(TableColumn<SlotWeek,String> column, int offset) {
         LocalDate current = mondayDate.plusDays(offset);
         column.setText(String.valueOf(current.getDayOfMonth()));
         if (current.isBefore(today)) {
