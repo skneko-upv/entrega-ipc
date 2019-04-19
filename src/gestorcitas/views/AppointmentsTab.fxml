@@ -74,13 +74,13 @@
             <top>
                 <GridPane prefHeight="90.0" BorderPane.alignment="CENTER">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="220.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="260.0" minWidth="10.0" prefWidth="247.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="10.0" prefWidth="89.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="326.0" minWidth="10.0" prefWidth="326.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="372.0" minWidth="10.0" prefWidth="316.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="0.0" prefWidth="78.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
                         <VBox prefHeight="200.0" prefWidth="100.0">
@@ -90,37 +90,56 @@
                                         <Font name="System Bold" size="12.0" />
                                     </font>
                                 </Label>
-                                <Label fx:id="dateTimeDiffLabel" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css">
+                                <Label fx:id="dateTimeDiffLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css">
                                     <font>
                                         <Font name="System Italic" size="12.0" />
                                     </font>
                                 </Label>
                             </children>
-                            <padding>
-                                <Insets right="5.0" />
-                            </padding>
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                             <children>
-                                <Label styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" text="%generic.patient">
-                                    <font>
-                                        <Font name="System Bold" size="12.0" />
-                                    </font>
-                                </Label>
-                                <Label fx:id="patientLabel" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" />
                                 <Label styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" text="%generic.doctor">
                                     <font>
                                         <Font name="System Bold" size="12.0" />
                                     </font>
                                     <VBox.margin>
-                                        <Insets top="8.0" />
+                                        <Insets />
                                     </VBox.margin>
                                 </Label>
-                                <Label fx:id="doctorLabel" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" />
+                                <Label fx:id="doctorLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" wrapText="true" />
+                            </children>
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                        </VBox>
+                        <VBox prefHeight="80.0" prefWidth="224.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                                <Label styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" text="%generic.patient">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="patientLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" wrapText="true" />
+                     </children>
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                        </VBox>
+                        <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="136.0" GridPane.columnIndex="2" GridPane.rowSpan="2147483647">
+                            <children>
+                                <ImageView fx:id="photoPreview" fitHeight="62.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../resources/img/default.png" />
+                                    </image>
+                                </ImageView>
                             </children>
                         </VBox>
-                        <VBox prefHeight="80.0" prefWidth="224.0" GridPane.columnIndex="2">
-                            <children>
+                  <VBox GridPane.rowIndex="1">
+                     <children>
                                 <HBox spacing="5.0">
                                     <children>
                                         <Label styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" text="%generic.room">
@@ -131,22 +150,12 @@
                                         <Label fx:id="roomIdLabel" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" />
                                     </children>
                                 </HBox>
-                                <Label fx:id="roomDescLabel" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css">
-                                    <VBox.margin>
-                                        <Insets top="2.0" />
-                                    </VBox.margin>
-                                </Label>
-                            </children>
-                        </VBox>
-                        <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="136.0" GridPane.columnIndex="3">
-                            <children>
-                                <ImageView fx:id="photoPreview" fitHeight="62.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../resources/img/default.png" />
-                                    </image>
-                                </ImageView>
-                            </children>
-                        </VBox>
+                                <Label fx:id="roomDescLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="text-id-sub" stylesheets="@../resources/css/sceneTheme.css" />
+                     </children>
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </VBox>
                     </children>
                     <padding>
                         <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />

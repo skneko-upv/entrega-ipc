@@ -11,6 +11,7 @@ import gestorcitas.controllers.base.TabController;
 import gestorcitas.controllers.factories.FormattedDateTimeCellFactory;
 import gestorcitas.controllers.factories.PersonCellFactory;
 import gestorcitas.controllers.helpers.PersonSearchPredicate;
+import gestorcitas.controllers.helpers.StringUtils;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -142,11 +143,15 @@ public class AppointmentsTabController extends TabController<Appointment> {
                             rb.getString("tab.appointments.summary.deadlineExceeded")
                     );
                 } else {
+                    long minutes = diff.toMinutes();
+                    long days = minutes / (60 * 24);
+                    long hours = (minutes / 60) % 24;
+                    minutes %= 60;
                     dateTimeDiffLabel.setText(
                             rb.getString("tab.appointments.summary.inTimeSpan") + " "
-                            + diff.toDays() + rb.getString("tab.appointments.summary.days") + " "
-                            + diff.toHours() + rb.getString("tab.appointments.summary.hours") + " "
-                            + diff.toMinutes() + rb.getString("tab.appointments.summary.mins")
+                            + days + rb.getString("tab.appointments.summary.days") + " "
+                            + hours + rb.getString("tab.appointments.summary.hours") + " "
+                            + minutes + rb.getString("tab.appointments.summary.mins")
                     );
                 }
 
@@ -165,7 +170,9 @@ public class AppointmentsTabController extends TabController<Appointment> {
                 roomIdLabel.setText(
                         String.valueOf(room.getIdentNumber())
                 );
-                roomDescLabel.setText(room.getEquipmentDescription());
+                roomDescLabel.setText(
+                        StringUtils.prettifyEnumeration(room.getEquipmentDescription())
+                );
 
                 photoPreview.setImage(newVal.getPatient().getPhoto());
             }
